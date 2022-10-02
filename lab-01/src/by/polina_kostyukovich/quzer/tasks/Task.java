@@ -9,5 +9,7 @@ public interface Task {
 
     String getText();
 
+    String getAnswer();
+
     Result validate(String answer);
 }
