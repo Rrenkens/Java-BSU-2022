@@ -1,6 +1,8 @@
 package by.Adamenko.quizer;
 
 import by.Adamenko.quizer.task_generators.*;
+import by.Adamenko.quizer.task_generators.math_task_generators.EquationMathTaskGenerator;
+import by.Adamenko.quizer.task_generators.math_task_generators.ExpressionMathTaskGenerator;
 import by.Adamenko.quizer.tasks.Task;
 import by.Adamenko.quizer.tasks.TextTask;
 
@@ -25,16 +27,16 @@ class Quiz {
 
     static Map<String, Quiz> getQuizMap() {
         Map<String, Quiz> tests = new HashMap<String, Quiz>();
-        tests.put("EqTaskOnlyPlus", new Quiz(new EquationTaskGenerator(0, 10, true, false, false, false), 5));
-        tests.put("EqTaskAll", new Quiz(new EquationTaskGenerator(-10, 10, true, true, true, true), 5));
-        tests.put("ExprTaskOnlyPlus", new Quiz(new ExpressionTaskGenerator(0, 10, true, false, false, false), 5));
-        tests.put("ExprTaskAll", new Quiz(new ExpressionTaskGenerator(-10, 10, true, true, true, true), 5));
-        tests.put("Group1", new Quiz(new GroupTaskGenerator(new ExpressionTaskGenerator(-10, 10, true, true, true, true),
-                new ExpressionTaskGenerator(0, 10, true, false, false, false)), 5));
+        tests.put("EqTaskOnlyPlus", new Quiz(new EquationMathTaskGenerator(0, 10, true, false, false, false), 5));
+        tests.put("EqTaskAll", new Quiz(new EquationMathTaskGenerator(-10, 10, true, true, true, true), 5));
+        tests.put("ExprTaskOnlyPlus", new Quiz(new ExpressionMathTaskGenerator(0, 10, true, false, false, false), 5));
+        tests.put("ExprTaskAll", new Quiz(new ExpressionMathTaskGenerator(-10, 10, true, true, true, true), 5));
+        tests.put("Group1", new Quiz(new GroupTaskGenerator(new ExpressionMathTaskGenerator(-10, 10, true, true, true, true),
+                new ExpressionMathTaskGenerator(0, 10, true, false, false, false)), 5));
 
         ArrayList<TaskGenerator> list = new ArrayList<>();
-        list.add(new EquationTaskGenerator(0, 10, true, false, false, false));
-        list.add(new EquationTaskGenerator(-10, 10, true, false, false, true));
+        list.add(new EquationMathTaskGenerator(0, 10, true, false, false, false));
+        list.add(new EquationMathTaskGenerator(-10, 10, true, false, false, true));
 
         tests.put("Group2", new Quiz(new GroupTaskGenerator(list), 10));
 

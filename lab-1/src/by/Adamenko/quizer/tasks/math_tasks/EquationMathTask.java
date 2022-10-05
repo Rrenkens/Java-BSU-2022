@@ -1,12 +1,11 @@
-package by.Adamenko.quizer.tasks;
+package by.Adamenko.quizer.tasks.math_tasks;
 
 import by.Adamenko.quizer.Result;
 import by.Adamenko.quizer.Operator;
-public class EquationTask implements Task {
-    private String Expression;
-    private String Answer;
+import by.Adamenko.quizer.tasks.Task;
 
-    public EquationTask(
+public class EquationMathTask extends AbstractMathTask {
+    public EquationMathTask(
             int value_1,
             int value_2,
             Operator operator
@@ -30,27 +29,6 @@ public class EquationTask implements Task {
                 Answer = String.valueOf((long) value_1 * value_2);
             }
         }
-        Expression += String.valueOf(value_2) + "=?";
-    }
-
-    @Override
-    public String getText() {
-        return Expression;
-    }
-
-    @Override
-    public Result validate(String answer) {
-        for (int i = 0; i < answer.length(); ++i) {
-            if (!Character.isDigit(answer.charAt(i))) {
-                if (i == 0 && answer.charAt(i) == '-') {
-                    continue;
-                }
-                return Result.INCORRECT_INPUT;
-            }
-        }
-        if (answer.equals(Answer)) {
-            return Result.OK;
-        }
-        return Result.WRONG;
+        Expression += value_2 + "=?";
     }
 }

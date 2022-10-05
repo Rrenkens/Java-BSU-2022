@@ -1,16 +1,13 @@
-package by.Adamenko.quizer.tasks;
+package by.Adamenko.quizer.tasks.math_tasks;
 
 import by.Adamenko.quizer.Operator;
 import by.Adamenko.quizer.Result;
+import by.Adamenko.quizer.tasks.Task;
 
-public class ExpressionTask implements Task {
-
-    private String Expression;
-    private String Answer;
-
-    public ExpressionTask(int value_1,
-                          int value_2,
-                          Operator operator) {
+public class ExpressionMathTask extends AbstractMathTask {
+    public ExpressionMathTask(int value_1,
+                              int value_2,
+                              Operator operator) {
         Expression = "x";
         switch (operator) {
             case Plus -> {
@@ -31,25 +28,5 @@ public class ExpressionTask implements Task {
             }
         }
         Expression += String.valueOf(value_1) + " = " + String.valueOf(value_2);
-    }
-    @Override
-    public String getText() {
-        return Expression;
-    }
-
-    @Override
-    public Result validate(String answer) {
-        for (int i = 0; i < answer.length(); ++i) {
-            if (!Character.isDigit(answer.charAt(i))) {
-                if (i == 0 && answer.charAt(i) == '-') {
-                    continue;
-                }
-                return Result.INCORRECT_INPUT;
-            }
-        }
-        if (answer.equals(Answer)) {
-            return Result.OK;
-        }
-        return Result.WRONG;
     }
 }

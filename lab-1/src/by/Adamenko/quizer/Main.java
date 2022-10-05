@@ -1,8 +1,5 @@
 package by.Adamenko.quizer;
 
-import by.Adamenko.quizer.Quiz;
-import by.Adamenko.quizer.task_generators.TaskGenerator;
-import by.Adamenko.quizer.task_generators.EquationTaskGenerator;
 import by.Adamenko.quizer.tasks.Task;
 
 import java.io.BufferedReader;
