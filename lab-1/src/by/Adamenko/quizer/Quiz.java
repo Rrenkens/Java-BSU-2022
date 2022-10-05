@@ -1,12 +1,13 @@
 package by.Adamenko.quizer;
 
 import by.Adamenko.quizer.task_generators.*;
-import by.Adamenko.quizer.task_generators.math_task_generators.EquationMathTaskGenerator;
-import by.Adamenko.quizer.task_generators.math_task_generators.ExpressionMathTaskGenerator;
+import by.Adamenko.quizer.task_generators.math_task_generators.*;
 import by.Adamenko.quizer.tasks.Task;
 import by.Adamenko.quizer.tasks.TextTask;
+import by.Adamenko.quizer.tasks.math_tasks.Operator;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,16 +28,19 @@ class Quiz {
 
     static Map<String, Quiz> getQuizMap() {
         Map<String, Quiz> tests = new HashMap<String, Quiz>();
-        tests.put("EqTaskOnlyPlus", new Quiz(new EquationMathTaskGenerator(0, 10, true, false, false, false), 5));
-        tests.put("EqTaskAll", new Quiz(new EquationMathTaskGenerator(-10, 10, true, true, true, true), 5));
-        tests.put("ExprTaskOnlyPlus", new Quiz(new ExpressionMathTaskGenerator(0, 10, true, false, false, false), 5));
-        tests.put("ExprTaskAll", new Quiz(new ExpressionMathTaskGenerator(-10, 10, true, true, true, true), 5));
-        tests.put("Group1", new Quiz(new GroupTaskGenerator(new ExpressionMathTaskGenerator(-10, 10, true, true, true, true),
-                new ExpressionMathTaskGenerator(0, 10, true, false, false, false)), 5));
+        EnumSet<Operator> operators_1 = EnumSet.of(Operator.Minus, Operator.Plus, Operator.Divide, Operator.Multiple);
+        EnumSet<Operator> operators_2 = EnumSet.of(Operator.Plus);
+
+        tests.put("EqTaskOnlyPlus", new Quiz(new EquationMathTaskGenerator(0, 10, operators_1), 5));
+        tests.put("EqTaskAll", new Quiz(new EquationMathTaskGenerator(-10, 10, operators_1), 5));
+        tests.put("ExprTaskOnlyPlus", new Quiz(new ExpressionMathTaskGenerator(0, 10, operators_2), 5));
+        tests.put("ExprTaskAll", new Quiz(new ExpressionMathTaskGenerator(-10, 10, operators_1), 5));
+        tests.put("Group1", new Quiz(new GroupTaskGenerator(new ExpressionMathTaskGenerator(-10, 10, operators_1),
+                new ExpressionMathTaskGenerator(0, 10, operators_2)), 5));
 
         ArrayList<TaskGenerator> list = new ArrayList<>();
-        list.add(new EquationMathTaskGenerator(0, 10, true, false, false, false));
-        list.add(new EquationMathTaskGenerator(-10, 10, true, false, false, true));
+        list.add(new EquationMathTaskGenerator(0, 10, operators_1));
+        list.add(new EquationMathTaskGenerator(-10, 10, operators_2));
 
         tests.put("Group2", new Quiz(new GroupTaskGenerator(list), 10));
 

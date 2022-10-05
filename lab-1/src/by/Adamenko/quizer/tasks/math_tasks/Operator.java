@@ -1,4 +1,4 @@
-package by.Adamenko.quizer;
+package by.Adamenko.quizer.tasks.math_tasks;
 
 public enum Operator {
     Plus,
