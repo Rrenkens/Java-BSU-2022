@@ -1,5 +1,6 @@
 package by.Adamenko.quizer;
 
+import by.Adamenko.quizer.exceptions.QuizNotFinishedException;
 import by.Adamenko.quizer.task_generators.*;
 import by.Adamenko.quizer.task_generators.math_task_generators.*;
 import by.Adamenko.quizer.tasks.Task;
@@ -27,7 +28,7 @@ class Quiz {
     }
 
     static Map<String, Quiz> getQuizMap() {
-        Map<String, Quiz> tests = new HashMap<String, Quiz>();
+        Map<String, Quiz> tests = new HashMap<>();
         EnumSet<Operator> operators_1 = EnumSet.of(Operator.Minus, Operator.Plus, Operator.Divide, Operator.Multiple);
         EnumSet<Operator> operators_2 = EnumSet.of(Operator.Plus);
 
@@ -89,6 +90,16 @@ class Quiz {
     }
 
     double getMark() {
+        try{
+            if (!isFinished()) {
+                throw new QuizNotFinishedException("Test isn't finished");
+            }
+        } catch (QuizNotFinishedException e) {
+            e.fillInStackTrace();
+        }
+        if (amountOfTasks == 0) {
+            return 10.0;
+        }
         return (double) correctAnswers / (double) amountOfTasks * 10.0;
     }
 }

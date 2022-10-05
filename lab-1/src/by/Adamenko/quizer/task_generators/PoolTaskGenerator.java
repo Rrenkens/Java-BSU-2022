@@ -1,5 +1,6 @@
 package by.Adamenko.quizer.task_generators;
 
+import by.Adamenko.quizer.exceptions.NoTasksLeft;
 import by.Adamenko.quizer.tasks.Task;
 
 import java.util.*;
@@ -7,8 +8,7 @@ import java.util.*;
 public class PoolTaskGenerator implements TaskGenerator {
 
     private final boolean duplicate;
-    private ArrayList<Task> allTasks = new ArrayList<>();
-    private HashSet<Task> set = new HashSet<>();
+    private final ArrayList<Task> allTasks = new ArrayList<>();
     private final Random rnd = new Random();
 
     public PoolTaskGenerator(
@@ -38,8 +38,13 @@ public class PoolTaskGenerator implements TaskGenerator {
             int pos = rnd.nextInt(0, allTasks.size());
             return allTasks.get(pos);
         }
-        if (allTasks.isEmpty()) {
-            // TODO throw
+        try{
+            if (allTasks.isEmpty()) {
+                throw new NoTasksLeft("PoolTaskGenerator");
+            }
+        } catch (NoTasksLeft e) {
+            e.fillInStackTrace();
+            throw new RuntimeException(e);
         }
         Task x = allTasks.get(allTasks.size() - 1);
         allTasks.remove(x);

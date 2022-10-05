@@ -23,6 +23,6 @@ public class ExpressionMathTask extends AbstractMathTask {
                 Answer = String.valueOf((long) value_2 / value_1);
             }
         }
-        Expression += String.valueOf(value_1) + " = " + String.valueOf(value_2);
+        Expression += value_1 + " = " + value_2;
     }
 }
