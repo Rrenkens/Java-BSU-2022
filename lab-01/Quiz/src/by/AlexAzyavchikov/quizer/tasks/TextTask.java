@@ -12,22 +12,22 @@ class TextTask implements Task {
      * @param text   текст задания
      * @param answer ответ на задание
      */
-    TextTask(
-            String text,
-            String answer
-    ) {
-        // ...
+    String text;
+    String answer;
+
+    TextTask(String text,
+             String answer) {
+        this.text = text;
+        this.answer = answer;
     }
 
     @Override
     public String getText() {
-        return null;
+        return text;
     }
 
     @Override
     public Result validate(String answer) {
-        return null;
+        return this.answer.equals(answer) ? Result.OK : Result.WRONG;
     }
-
-    // ...
 }
