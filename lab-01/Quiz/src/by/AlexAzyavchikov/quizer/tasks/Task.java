@@ -1,4 +1,6 @@
-package by.AlexAzyavchikov.quizer;
+package by.AlexAzyavchikov.quizer.tasks;
+
+import by.AlexAzyavchikov.quizer.Result;
 
 /**
  * Interface, который описывает одно задание

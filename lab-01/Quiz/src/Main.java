@@ -1,6 +1,6 @@
 import by.AlexAzyavchikov.quizer.*;
 import by.AlexAzyavchikov.quizer.task_generators.math_task_generators.EquationMathTaskGenerator;
-import by.AlexAzyavchikov.quizer.Task;
+import by.AlexAzyavchikov.quizer.tasks.Task;
 import by.AlexAzyavchikov.quizer.tasks.math_tasks.MathTask;
 
 import java.util.*;

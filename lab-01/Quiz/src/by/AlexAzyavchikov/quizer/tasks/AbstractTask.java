@@ -1,7 +1,5 @@
 package by.AlexAzyavchikov.quizer.tasks;
 
-import by.AlexAzyavchikov.quizer.Task;
-
 public abstract class AbstractTask implements Task {
     protected String text;
 

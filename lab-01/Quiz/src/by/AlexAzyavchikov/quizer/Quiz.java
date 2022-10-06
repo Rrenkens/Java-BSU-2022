@@ -1,5 +1,8 @@
 package by.AlexAzyavchikov.quizer;
 
+import by.AlexAzyavchikov.quizer.task_generators.TaskGenerator;
+import by.AlexAzyavchikov.quizer.tasks.Task;
+
 /**
  * Class, который описывает один тест
  */

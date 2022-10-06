@@ -1,7 +1,6 @@
 package by.AlexAzyavchikov.quizer.task_generators;
 
-import by.AlexAzyavchikov.quizer.Task;
-import by.AlexAzyavchikov.quizer.TaskGenerator;
+import by.AlexAzyavchikov.quizer.tasks.Task;
 
 import java.util.Collection;
 

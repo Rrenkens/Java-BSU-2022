@@ -1,42 +1,35 @@
 package by.AlexAzyavchikov.quizer.task_generators;
 
-import by.AlexAzyavchikov.quizer.Task;
-import by.AlexAzyavchikov.quizer.TaskGenerator;
+import by.AlexAzyavchikov.quizer.tasks.Task;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 class PoolTaskGenerator implements TaskGenerator {
-    /**
-     * Конструктор с переменным числом аргументов
-     *
-     * @param allowDuplicate разрешить повторения
-     * @param tasks          задания, которые в конструктор передаются через запятую
-     */
-    PoolTaskGenerator(
-            boolean allowDuplicate,
-            Task... tasks
-    ) {
-        // ...
+    boolean allowDuplicates;
+    ArrayList<Task> tasks = new ArrayList<>();
+
+    PoolTaskGenerator(boolean allowDuplicate,
+                      Task... tasks) {
+        this.allowDuplicates = allowDuplicate;
+        this.tasks.addAll(List.of(tasks));
     }
 
-    /**
-     * Конструктор, который принимает коллекцию заданий
-     *
-     * @param allowDuplicate разрешить повторения
-     * @param tasks          задания, которые передаются в конструктор в Collection (например, {@link LinkedList})
-     */
-    PoolTaskGenerator(
-            boolean allowDuplicate,
-            Collection<Task> tasks
-    ) {
-        // ...
+    PoolTaskGenerator(boolean allowDuplicate,
+                      Collection<Task> tasks) {
+        this.allowDuplicates = allowDuplicate;
+        this.tasks.addAll(tasks);
     }
 
-    /**
-     * @return случайная задача из списка
-     */
     public Task generate() {
-        // ...
-        return null;
+        assert !tasks.isEmpty();
+        if (allowDuplicates) {
+            return tasks.get((int) (Math.random() * tasks.size()));
+        }
+        int last = tasks.size() - 1;
+        Task task = tasks.get(last);
+        tasks.remove(last);
+        return task;
     }
 }

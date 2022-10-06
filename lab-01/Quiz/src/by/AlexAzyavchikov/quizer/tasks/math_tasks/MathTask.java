@@ -1,6 +1,6 @@
 package by.AlexAzyavchikov.quizer.tasks.math_tasks;
 
-import by.AlexAzyavchikov.quizer.Task;
+import by.AlexAzyavchikov.quizer.tasks.Task;
 
 public interface MathTask extends Task {
 

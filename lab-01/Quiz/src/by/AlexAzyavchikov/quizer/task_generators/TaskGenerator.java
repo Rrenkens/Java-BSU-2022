@@ -1,4 +1,6 @@
-package by.AlexAzyavchikov.quizer;
+package by.AlexAzyavchikov.quizer.task_generators;
+
+import by.AlexAzyavchikov.quizer.tasks.Task;
 
 /**
  * Interface, который описывает один генератор заданий

@@ -28,7 +28,7 @@ public abstract class AbstractMathGenerator implements MathTaskGenerator {
 
     protected double GenerateNumber() {
         double randomValue = (Math.random() * getDiffNumber()) + getMinNumber();
-        return MathTask.Round(randomValue, getPrecision());
+        return Round(randomValue);
     }
 
     protected MathTask.Operator GenerateOperator() {
@@ -46,8 +46,8 @@ public abstract class AbstractMathGenerator implements MathTaskGenerator {
                                     double maxNumber,
                                     EnumSet<MathTask.Operator> operators,
                                     int precision) {
-        this.minNumber = MathTask.Round(minNumber, precision);
-        this.maxNumber = MathTask.Round(maxNumber, precision);
+        this.minNumber = Round(minNumber);
+        this.maxNumber = Round(maxNumber);
         this.precision = precision;
         if (maxNumber < minNumber) {
             throw new IllegalArgumentException("In ExpressionMathTaskGenerator maxNumber(" + String.valueOf(maxNumber)
@@ -58,5 +58,10 @@ public abstract class AbstractMathGenerator implements MathTaskGenerator {
 //            TODO: throw exception
         }
         this.operators = operators;
+    }
+
+    protected double Round(double value) {
+        double scale = Math.pow(10, precision);
+        return Math.round(value * scale) / scale;
     }
 }
