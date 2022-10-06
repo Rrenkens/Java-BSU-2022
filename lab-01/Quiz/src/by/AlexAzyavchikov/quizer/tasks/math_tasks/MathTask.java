@@ -3,6 +3,7 @@ package by.AlexAzyavchikov.quizer.tasks.math_tasks;
 import by.AlexAzyavchikov.quizer.Task;
 
 public interface MathTask extends Task {
+
     enum Operator {
         SUM,
         DIFFERENCE,
@@ -10,8 +11,8 @@ public interface MathTask extends Task {
         DIVISION
     }
 
-    static int MakeOperation(int number1, Operator operator, int number2) {
-        int result = 0;
+    static double MakeOperation(double number1, Operator operator, double number2) {
+        double result = 0;
         switch (operator) {
             case SUM -> {
                 result = number1 + number2;
@@ -25,6 +26,26 @@ public interface MathTask extends Task {
             case DIVISION -> {
                 assert number2 != 0;
                 result = number1 / number2;
+            }
+        }
+        return result;
+    }
+
+    static double MakeReverseOperation(double number1, Operator operator, double number2) {
+        double result = 0;
+        switch (operator) {
+            case SUM -> {
+                result = number1 - number2;
+            }
+            case DIFFERENCE -> {
+                result = number1 + number2;
+            }
+            case MULTIPLICATION -> {
+                result = number1 / number2;
+            }
+            case DIVISION -> {
+                assert number2 != 0;
+                result = number1 * number2;
             }
         }
         return result;
@@ -47,5 +68,9 @@ public interface MathTask extends Task {
             }
         }
         return result;
+    }
+
+    static String ValueInBraces(double value) {
+        return "(" + value + ")";
     }
 }

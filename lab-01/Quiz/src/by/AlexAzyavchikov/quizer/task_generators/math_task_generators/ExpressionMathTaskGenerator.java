@@ -6,35 +6,17 @@ import by.AlexAzyavchikov.quizer.tasks.math_tasks.MathTask;
 import java.util.*;
 
 public class ExpressionMathTaskGenerator extends AbstractMathGenerator {
-    /**
-     * @param minNumber              минимальное число
-     * @param maxNumber              максимальное число
-     * @param generateSum            разрешить генерацию с оператором +
-     * @param generateDifference     разрешить генерацию с оператором -
-     * @param generateMultiplication разрешить генерацию с оператором *
-     * @param generateDivision       разрешить генерацию с оператором /
-     */
-    boolean generateSum;
-    boolean generateDifference;
-    boolean generateMultiplication;
-    boolean generateDivision;
+    public ExpressionMathTaskGenerator(double minNumber,
+                                       double maxNumber,
+                                       EnumSet<MathTask.Operator> operators) {
+        this(minNumber, maxNumber, operators, 0);
+    }
 
-    public ExpressionMathTaskGenerator(
-            int minNumber,
-            int maxNumber,
-            EnumSet<MathTask.Operator> operators
-    ) {
-        this.minNumber = minNumber;
-        this.maxNumber = maxNumber;
-        if (maxNumber < minNumber) {
-            throw new IllegalArgumentException("In ExpressionMathTaskGenerator maxNumber(" + String.valueOf(maxNumber)
-                    + ") < minNumber(" + String.valueOf(minNumber) + ") !");
-        }
-        if (operators.isEmpty()) {
-            assert false;
-//            TODO: throw exception
-        }
-        this.operators = operators;
+    public ExpressionMathTaskGenerator(double minNumber,
+                                       double maxNumber,
+                                       EnumSet<MathTask.Operator> operators,
+                                       int precision) {
+        InitializeFields(minNumber, maxNumber, operators, precision);
     }
 
     /**
@@ -42,6 +24,6 @@ public class ExpressionMathTaskGenerator extends AbstractMathGenerator {
      */
     public ExpressionMathTask generate() {
         assert !operators.isEmpty();
-        return new ExpressionMathTask(GenerateNumber(), GenerateOperator(), GenerateNumber());
+        return new ExpressionMathTask(GenerateNumber(), GenerateOperator(), GenerateNumber(), precision);
     }
 }
