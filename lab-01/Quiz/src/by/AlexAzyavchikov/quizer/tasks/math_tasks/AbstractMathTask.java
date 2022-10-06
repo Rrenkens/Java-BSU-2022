@@ -1,15 +1,11 @@
 package by.AlexAzyavchikov.quizer.tasks.math_tasks;
 
 import by.AlexAzyavchikov.quizer.Result;
+import by.AlexAzyavchikov.quizer.tasks.AbstractTask;
 
-public abstract class AbstractMathTask implements MathTask {
-    protected String text;
+public abstract class AbstractMathTask extends AbstractTask implements MathTask {
     protected double answer;
     protected int precision;
-
-    public String getText() {
-        return text;
-    }
 
     @Override
     public Result validate(String answer) {

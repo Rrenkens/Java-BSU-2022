@@ -1,6 +1,5 @@
 package by.AlexAzyavchikov.quizer.task_generators.math_task_generators;
 
-import by.AlexAzyavchikov.quizer.Task;
 import by.AlexAzyavchikov.quizer.tasks.math_tasks.EquationMathTask;
 import by.AlexAzyavchikov.quizer.tasks.math_tasks.MathTask;
 
