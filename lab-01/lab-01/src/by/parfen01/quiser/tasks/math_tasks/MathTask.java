@@ -30,7 +30,7 @@ public interface MathTask extends Task {
             throw new InvalidParameterException();
         }
 
-        static char getCharRepresentationOfOperation(Operation operation) {
+        static char toChar(Operation operation) {
             switch (operation) {
                 case ADDITION -> {
                     return '+';
@@ -43,6 +43,25 @@ public interface MathTask extends Task {
                 }
                 case DIVISION ->  {
                     return '/';
+                }
+            }
+
+            throw new InvalidParameterException();
+        }
+
+         static Operation getReverseOperation(Operation operation) {
+            switch (operation) {
+                case ADDITION -> {
+                    return Operation.SUBTRACTION;
+                }
+                case SUBTRACTION -> {
+                    return Operation.ADDITION;
+                }
+                case MULTIPLICATION -> {
+                    return Operation.DIVISION;
+                }
+                case DIVISION ->  {
+                    return Operation.MULTIPLICATION;
                 }
             }
 
@@ -63,25 +82,6 @@ public interface MathTask extends Task {
             }
             case DIVISION ->  {
                 return firstValue / secondValue;
-            }
-        }
-
-        throw new InvalidParameterException();
-    }
-
-    default Operation getReverseOperation(Operation operation) {
-        switch (operation) {
-            case ADDITION -> {
-                return Operation.SUBTRACTION;
-            }
-            case SUBTRACTION -> {
-                return Operation.ADDITION;
-            }
-            case MULTIPLICATION -> {
-                return Operation.DIVISION;
-            }
-            case DIVISION ->  {
-                return Operation.MULTIPLICATION;
             }
         }
 

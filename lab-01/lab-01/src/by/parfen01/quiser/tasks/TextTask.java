@@ -30,10 +30,12 @@ public class TextTask implements Task {
 
     @Override
     public Result validate(String answer) {
+        if (answer == null) {
+            throw new NullPointerException();
+        }
         if (Objects.equals(answer, this.answer)) {
             return Result.OK;
         }
-
         return Result.WRONG;
     }
 }

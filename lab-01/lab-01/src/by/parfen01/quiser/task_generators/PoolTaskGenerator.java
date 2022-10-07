@@ -6,7 +6,7 @@ import by.parfen01.quiser.TaskGenerator;
 import java.util.*;
 
 public class PoolTaskGenerator implements TaskGenerator {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks = new ArrayList<>();
     private LinkedHashSet<String> usedTextsOfTasks;
     private boolean isAllowedDuplicate;
     private int numberOfUsedTasks = 0;
@@ -18,14 +18,16 @@ public class PoolTaskGenerator implements TaskGenerator {
      * @param tasks          задания, которые в конструктор передаются через запятую
      */
     public PoolTaskGenerator(boolean allowDuplicate, Task... tasks) {
-        this.tasks = new ArrayList<>();
         if (tasks == null) {
-            return;
+            throw new NullPointerException();
         }
         for (Task task : tasks) {
             if (task != null) {
                 this.tasks.add(task);
             }
+        }
+        if (this.tasks.isEmpty()) {
+            throw new IllegalArgumentException();
         }
         isAllowedDuplicate = allowDuplicate;
     }
@@ -37,7 +39,6 @@ public class PoolTaskGenerator implements TaskGenerator {
      * @param tasks          задания, которые передаются в конструктор в Collection (например, {@link LinkedList})
      */
     public PoolTaskGenerator(boolean allowDuplicate, Collection<Task> tasks) {
-        this.tasks = new ArrayList<>();
         if (tasks == null) {
             return;
         }
@@ -47,6 +48,9 @@ public class PoolTaskGenerator implements TaskGenerator {
                 this.tasks.add(task);
                 uniqueTexts.add(task.getText());
             }
+        }
+        if (this.tasks.isEmpty()) {
+            throw new IllegalArgumentException();
         }
         isAllowedDuplicate = allowDuplicate;
     }
@@ -67,6 +71,7 @@ public class PoolTaskGenerator implements TaskGenerator {
         while(true) {
             int numberOfTest = (int) (Math.random() * tasks.size());
             if (!usedTextsOfTasks.contains(tasks.get(numberOfTest).getText())) {
+                ++numberOfUsedTasks;
                 usedTextsOfTasks.add(tasks.get(numberOfTest).getText());
                 return tasks.get(numberOfTest);
             }

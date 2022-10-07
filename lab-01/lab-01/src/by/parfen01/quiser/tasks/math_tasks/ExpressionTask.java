@@ -2,15 +2,17 @@ package by.parfen01.quiser.tasks.math_tasks;
 
 import by.parfen01.quiser.Result;
 
-import java.util.EnumSet;
-
 public class ExpressionTask extends AbstractMathTask {
     private final String text;
     private final String answer;
 
-    ExpressionTask(int firstNumber, int secondNumber, Operation operation) {
+    public ExpressionTask(int firstNumber, int secondNumber, Operation operation) {
         super(firstNumber, secondNumber, operation);
-        text = firstNumber + Operation.getCharRepresentationOfOperation(operation) + secondNumber + "=?";
+        text = firstNumber + Operation.toChar(operation) + secondNumber + "=?";
+        if (secondNumber == 0 && operation == Operation.DIVISION) {
+            answer = "invalid operation";
+            return;
+        }
         answer = String.valueOf(calculate(firstNumber, secondNumber, operation));
     }
 
@@ -21,7 +23,10 @@ public class ExpressionTask extends AbstractMathTask {
 
     @Override
     public Result validate(String answer) {
-        if (!answer.matches("^[-]?[0-9]+$")) {
+        if (answer == null) {
+            throw new NullPointerException();
+        }
+        if (!answer.matches("^-?[0-9]+$") && !answer.equalsIgnoreCase("invalid operation")) {
             return Result.INCORRECT_INPUT;
         }
         if (answer.equals("-0") && this.answer.equals("0")) {

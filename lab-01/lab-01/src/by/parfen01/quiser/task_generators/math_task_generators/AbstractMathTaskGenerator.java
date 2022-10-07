@@ -1,10 +1,8 @@
 package by.parfen01.quiser.task_generators.math_task_generators;
 
-import by.parfen01.quiser.tasks.math_tasks.AbstractMathTask;
 import by.parfen01.quiser.tasks.math_tasks.MathTask;
 
 import java.security.InvalidParameterException;
-import java.util.Collections;
 import java.util.EnumSet;
 
 public abstract class AbstractMathTaskGenerator implements  MathTaskGenerator {
@@ -20,7 +18,7 @@ public abstract class AbstractMathTaskGenerator implements  MathTaskGenerator {
             throw new InvalidParameterException();
         }
         if (maxNumber < minNumber) {
-            throw new InvalidParameterException();
+            throw new IllegalArgumentException();
         }
     }
 
