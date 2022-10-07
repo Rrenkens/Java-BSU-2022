@@ -1,5 +1,6 @@
 package by.AlexAzyavchikov.quizer.task_generators.math_task_generators;
 
+import by.AlexAzyavchikov.quizer.exceptions.IncorrectInputException;
 import by.AlexAzyavchikov.quizer.tasks.math_tasks.MathTask;
 
 import java.util.*;
@@ -48,14 +49,13 @@ public abstract class AbstractMathGenerator implements MathTaskGenerator {
                                     int precision) {
         this.minNumber = Round(minNumber);
         this.maxNumber = Round(maxNumber);
+        if (precision < 0) {
+            throw new IncorrectInputException("In EquationMathTask precision(" + precision + ") < 0");
+        }
         this.precision = precision;
         if (maxNumber < minNumber) {
             throw new IllegalArgumentException("In ExpressionMathTaskGenerator maxNumber(" + String.valueOf(maxNumber)
                     + ") < minNumber(" + String.valueOf(minNumber) + ") !");
-        }
-        if (operators.isEmpty()) {
-            assert false;
-//            TODO: throw exception
         }
         this.operators = operators;
     }

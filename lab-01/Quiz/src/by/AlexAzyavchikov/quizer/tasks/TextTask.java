@@ -6,11 +6,11 @@ import by.AlexAzyavchikov.quizer.Result;
  * Задание с заранее заготовленным текстом.
  * Можно использовать {@link PoolTaskGenerator}, чтобы задавать задания такого типа.
  */
-class TextTask extends AbstractTask {
-    String answer;
+public class TextTask extends AbstractTask {
+    protected String answer;
 
-    TextTask(String text,
-             String answer) {
+    public TextTask(String text,
+                    String answer) {
         this.text = text;
         this.answer = answer;
     }

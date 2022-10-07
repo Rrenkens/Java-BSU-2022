@@ -1,6 +1,6 @@
 package by.AlexAzyavchikov.quizer.tasks.math_tasks;
 
-import by.AlexAzyavchikov.quizer.Result;
+import by.AlexAzyavchikov.quizer.exceptions.IncorrectInputException;
 
 import java.util.List;
 import java.util.Random;
@@ -23,6 +23,9 @@ public class EquationMathTask extends AbstractMathTask {
     }
 
     public EquationMathTask(double num1, Operator operator, double num2, int precision) {
+        if (precision < 0) {
+            throw new IncorrectInputException("In EquationMathTask precision(" + precision + ") < 0");
+        }
         this.precision = precision;
         switch (EquationMathTask.EquationType.randomLetter()) {
             case Standard -> {

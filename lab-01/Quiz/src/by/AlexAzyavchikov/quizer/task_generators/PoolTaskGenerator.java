@@ -1,35 +1,40 @@
 package by.AlexAzyavchikov.quizer.task_generators;
 
+import by.AlexAzyavchikov.quizer.exceptions.NoTasksException;
 import by.AlexAzyavchikov.quizer.tasks.Task;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
-class PoolTaskGenerator implements TaskGenerator {
+public class PoolTaskGenerator implements TaskGenerator {
     boolean allowDuplicates;
-    ArrayList<Task> tasks = new ArrayList<>();
+    List<Task> tasks;
 
-    PoolTaskGenerator(boolean allowDuplicate,
-                      Task... tasks) {
-        this.allowDuplicates = allowDuplicate;
-        this.tasks.addAll(List.of(tasks));
+    public PoolTaskGenerator(boolean allowDuplicate,
+                             Task... tasks) {
+        this(allowDuplicate, List.of(tasks));
     }
 
-    PoolTaskGenerator(boolean allowDuplicate,
-                      Collection<Task> tasks) {
+    public PoolTaskGenerator(boolean allowDuplicate,
+                             Collection<Task> tasks) {
         this.allowDuplicates = allowDuplicate;
-        this.tasks.addAll(tasks);
+        if (!allowDuplicate) {
+            Set<Task> unique = new HashSet<>(tasks);
+            this.tasks = new LinkedList<>(unique);
+        } else {
+            this.tasks = new ArrayList<>(tasks);
+        }
     }
 
     public Task generate() {
-        assert !tasks.isEmpty();
-        if (allowDuplicates) {
-            return tasks.get((int) (Math.random() * tasks.size()));
+        if (tasks.isEmpty()) {
+            throw new NoTasksException("No tasks left in PoolTaskGenerator");
+        } else {
+            if (allowDuplicates) {
+                return tasks.get((int) (Math.random() * tasks.size()));
+            }
+            Task task = ((LinkedList<Task>) tasks).getLast();
+            ((LinkedList<Task>) tasks).removeLast();
+            return task;
         }
-        int last = tasks.size() - 1;
-        Task task = tasks.get(last);
-        tasks.remove(last);
-        return task;
     }
 }

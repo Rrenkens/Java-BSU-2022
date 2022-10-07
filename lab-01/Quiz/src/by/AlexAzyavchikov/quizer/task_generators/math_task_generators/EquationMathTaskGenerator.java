@@ -1,5 +1,6 @@
 package by.AlexAzyavchikov.quizer.task_generators.math_task_generators;
 
+import by.AlexAzyavchikov.quizer.exceptions.NoTasksException;
 import by.AlexAzyavchikov.quizer.tasks.math_tasks.EquationMathTask;
 import by.AlexAzyavchikov.quizer.tasks.math_tasks.MathTask;
 
@@ -19,11 +20,10 @@ public class EquationMathTaskGenerator extends AbstractMathGenerator {
         InitializeFields(minNumber, maxNumber, operators, precision);
     }
 
-    /**
-     * return задание типа {@link EquationMathTask}
-     */
     public EquationMathTask generate() {
-        assert !operators.isEmpty();
+        if (operators.isEmpty()) {
+            throw new NoTasksException("Cannot create task in EquationMathTaskGenerator: no operators were provided");
+        }
         return new EquationMathTask(GenerateNumber(), GenerateOperator(), GenerateNumber(), precision);
     }
 

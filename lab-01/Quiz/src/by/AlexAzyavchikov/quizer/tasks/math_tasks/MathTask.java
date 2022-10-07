@@ -24,7 +24,6 @@ public interface MathTask extends Task {
                 result = number1 * number2;
             }
             case DIVISION -> {
-                assert number2 != 0;
                 result = number1 / number2;
             }
         }
@@ -44,7 +43,6 @@ public interface MathTask extends Task {
                 result = number1 / number2;
             }
             case DIVISION -> {
-                assert number2 != 0;
                 result = number1 * number2;
             }
         }
