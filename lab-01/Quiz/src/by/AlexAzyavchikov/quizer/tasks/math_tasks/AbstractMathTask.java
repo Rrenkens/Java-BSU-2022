@@ -21,7 +21,9 @@ public abstract class AbstractMathTask implements MathTask {
     public Result validate(String answer) {
         Result result;
         try {
-            if (Double.compare(Round(Double.parseDouble(answer)), this.answer) == 0) {
+            double parsed_answer = Round(Double.parseDouble(answer));
+            if (Double.compare(parsed_answer, this.answer) == 0 ||
+                    (Double.isNaN(parsed_answer) && Double.isNaN(this.answer))) {
                 result = Result.OK;
             } else {
                 result = Result.WRONG;

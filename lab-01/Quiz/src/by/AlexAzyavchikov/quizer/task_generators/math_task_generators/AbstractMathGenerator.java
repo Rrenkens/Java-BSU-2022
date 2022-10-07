@@ -28,8 +28,8 @@ public abstract class AbstractMathGenerator implements MathTaskGenerator {
                                  double maxNumber,
                                  EnumSet<MathTask.Operator> operators,
                                  int precision) {
-        this.minNumber = Round(minNumber);
-        this.maxNumber = Round(maxNumber);
+        this.minNumber = MathTask.Round(minNumber, getPrecision());
+        this.maxNumber = MathTask.Round(maxNumber, getPrecision());
         if (precision < 0) {
             throw new IncorrectInputException("In EquationMathTask precision(" + precision + ") < 0");
         }
@@ -43,7 +43,7 @@ public abstract class AbstractMathGenerator implements MathTaskGenerator {
 
     protected double GenerateNumber() {
         double randomValue = (Math.random() * getDiffNumber()) + getMinNumber();
-        return Round(randomValue);
+        return MathTask.Round(randomValue, getPrecision());
     }
 
     protected MathTask.Operator GenerateOperator() {

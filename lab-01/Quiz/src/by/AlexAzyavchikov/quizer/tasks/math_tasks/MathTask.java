@@ -2,6 +2,9 @@ package by.AlexAzyavchikov.quizer.tasks.math_tasks;
 
 import by.AlexAzyavchikov.quizer.tasks.Task;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public interface MathTask extends Task {
 
     enum Operator {
@@ -47,6 +50,7 @@ public interface MathTask extends Task {
             }
             return result;
         }
+
         public char symbol() {
             char result = '?';
             switch (this) {
@@ -70,7 +74,14 @@ public interface MathTask extends Task {
     int getPrecision();
 
     default double Round(double value) {
-        double scale = Math.pow(10, getPrecision());
-        return Math.round(value * scale) / scale;
+        return Round(value, getPrecision());
+    }
+
+    static double Round(double value, int precision) {
+        try {
+            return (BigDecimal.valueOf(value).setScale(precision, RoundingMode.HALF_UP)).doubleValue();
+        } catch (NumberFormatException exception) {
+            return value;
+        }
     }
 }
