@@ -23,6 +23,9 @@ public class PoolTaskGenerator implements TaskGenerator {
             throw new IllegalArgumentException("Tasks size must be more 0");
         }
         this.tasks.addAll(List.of(tasks));
+        if (!allowDuplicate) {
+            DeleteDuplicates();
+        }
     }
 
     /**
@@ -41,6 +44,22 @@ public class PoolTaskGenerator implements TaskGenerator {
             throw new IllegalArgumentException("Tasks size must be more 0");
         }
         this.tasks.addAll(tasks);
+        if (!allowDuplicate) {
+            DeleteDuplicates();
+        }
+    }
+
+    private void DeleteDuplicates () {
+        HashSet<String> texts = new HashSet<>();
+        ArrayList<Task> new_tasks = new ArrayList<>();
+        for (var task : tasks) {
+            if (!texts.contains(task.getText())) {
+                new_tasks.add(task);
+                texts.add(task.getText());
+            }
+        }
+        tasks.clear();
+        tasks.addAll(new_tasks);
     }
 
     /**
@@ -48,7 +67,7 @@ public class PoolTaskGenerator implements TaskGenerator {
      */
     public Task generate() {
         Collections.shuffle(this.tasks);
-       if (!is_allowed_duplicate) {
+       if (is_allowed_duplicate) {
            return tasks.get(0);
        } else {
            if (tasks.size() == 0) {
@@ -60,6 +79,6 @@ public class PoolTaskGenerator implements TaskGenerator {
        }
     }
 
-    private ArrayList<Task> tasks;
-    private boolean is_allowed_duplicate;
+    private final ArrayList<Task> tasks;
+    private final boolean is_allowed_duplicate;
 }

@@ -30,6 +30,7 @@ public class Main {
         PoolTaskGenerator poolTaskGenerator = new PoolTaskGenerator(true, tasks);
         text_tasks.add(new TextTask("2^2", "4"));
         text_tasks.add(new TextTask("x + 4 + 3 = 10","3"));
+        text_tasks.add(new TextTask("x + 4 + 3 = 10","3"));
         PoolTaskGenerator text_tasks_generator = new PoolTaskGenerator(false, text_tasks);
 
         Quiz q1 = new Quiz(equation_generator, 5);
@@ -50,7 +51,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Scanner in = new Scanner(System.in);
         Map<String, Quiz> map = getQuizMap();
-        Quiz q = map.get("Equations");
+        Quiz q = map.get("Text");
         while (!q.isFinished()) {
             Task task = q.nextTask();
             System.out.println(task.getText());
