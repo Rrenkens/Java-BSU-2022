@@ -17,16 +17,13 @@ public class ExpressionMathTaskGenerator extends AbstractMathGenerator {
                                        double maxNumber,
                                        EnumSet<MathTask.Operator> operators,
                                        int precision) {
-        InitializeFields(minNumber, maxNumber, operators, precision);
+        super(minNumber, maxNumber, operators, precision);
     }
 
-    /**
-     * return задание типа {@link ExpressionMathTask}
-     */
     public ExpressionMathTask generate() {
         if (operators.isEmpty()) {
             throw new NoTasksException("Cannot create task in ExpressionMathTaskGenerator: no operators were provided");
         }
-        return new ExpressionMathTask(GenerateNumber(), GenerateOperator(), GenerateNumber(), precision);
+        return new ExpressionMathTask(GenerateNumber(), GenerateOperator(), GenerateNumber(), getPrecision());
     }
 }

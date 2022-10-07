@@ -17,14 +17,14 @@ public class EquationMathTaskGenerator extends AbstractMathGenerator {
                                      double maxNumber,
                                      EnumSet<MathTask.Operator> operators,
                                      int precision) {
-        InitializeFields(minNumber, maxNumber, operators, precision);
+        super(minNumber, maxNumber, operators, precision);
     }
 
     public EquationMathTask generate() {
         if (operators.isEmpty()) {
             throw new NoTasksException("Cannot create task in EquationMathTaskGenerator: no operators were provided");
         }
-        return new EquationMathTask(GenerateNumber(), GenerateOperator(), GenerateNumber(), precision);
+        return new EquationMathTask(GenerateNumber(), GenerateOperator(), GenerateNumber(), getPrecision());
     }
 
 }

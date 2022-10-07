@@ -8,67 +8,69 @@ public interface MathTask extends Task {
         SUM,
         DIFFERENCE,
         MULTIPLICATION,
-        DIVISION
-    }
+        DIVISION;
 
-    static double MakeOperation(double number1, Operator operator, double number2) {
-        double result = 0;
-        switch (operator) {
-            case SUM -> {
-                result = number1 + number2;
+        public double makeOperation(double number1, double number2) {
+            double result = 0;
+            switch (this) {
+                case SUM -> {
+                    result = number1 + number2;
+                }
+                case DIFFERENCE -> {
+                    result = number1 - number2;
+                }
+                case MULTIPLICATION -> {
+                    result = number1 * number2;
+                }
+                case DIVISION -> {
+                    result = number1 / number2;
+                }
             }
-            case DIFFERENCE -> {
-                result = number1 - number2;
-            }
-            case MULTIPLICATION -> {
-                result = number1 * number2;
-            }
-            case DIVISION -> {
-                result = number1 / number2;
-            }
+            return result;
         }
-        return result;
-    }
 
-    static double MakeReverseOperation(double number1, Operator operator, double number2) {
-        double result = 0;
-        switch (operator) {
-            case SUM -> {
-                result = number1 - number2;
+        public double makeReverseOperation(double number1, double number2) {
+            double result = 0;
+            switch (this) {
+                case SUM -> {
+                    result = number1 - number2;
+                }
+                case DIFFERENCE -> {
+                    result = number1 + number2;
+                }
+                case MULTIPLICATION -> {
+                    result = number1 / number2;
+                }
+                case DIVISION -> {
+                    result = number1 * number2;
+                }
             }
-            case DIFFERENCE -> {
-                result = number1 + number2;
-            }
-            case MULTIPLICATION -> {
-                result = number1 / number2;
-            }
-            case DIVISION -> {
-                result = number1 * number2;
-            }
+            return result;
         }
-        return result;
-    }
-
-    static char OperatorsSymbol(Operator operator) {
-        char result = '?';
-        switch (operator) {
-            case SUM -> {
-                result = '+';
+        public char symbol() {
+            char result = '?';
+            switch (this) {
+                case SUM -> {
+                    result = '+';
+                }
+                case DIFFERENCE -> {
+                    result = '-';
+                }
+                case MULTIPLICATION -> {
+                    result = '*';
+                }
+                case DIVISION -> {
+                    result = '/';
+                }
             }
-            case DIFFERENCE -> {
-                result = '-';
-            }
-            case MULTIPLICATION -> {
-                result = '*';
-            }
-            case DIVISION -> {
-                result = '/';
-            }
+            return result;
         }
-        return result;
     }
 
-    static String ValueInBraces(double value) {
-        return "(" + value + ")";
+    int getPrecision();
+
+    default double Round(double value) {
+        double scale = Math.pow(10, getPrecision());
+        return Math.round(value * scale) / scale;
     }
 }

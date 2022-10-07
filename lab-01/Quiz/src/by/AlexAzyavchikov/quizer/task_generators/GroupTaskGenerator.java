@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-class GroupTaskGenerator implements TaskGenerator {
+public class GroupTaskGenerator implements TaskGenerator {
     protected ArrayList<TaskGenerator> generators;
 
     public GroupTaskGenerator(TaskGenerator... generators) {

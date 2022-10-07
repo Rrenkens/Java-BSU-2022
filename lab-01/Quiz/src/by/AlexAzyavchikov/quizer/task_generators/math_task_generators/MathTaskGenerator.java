@@ -7,12 +7,14 @@ public interface MathTaskGenerator extends TaskGenerator {
 
     double getMaxNumber(); // получить максимальное число
 
-    int getPrecision(); // получить максимальное число
+    int getPrecision();
 
-    /**
-     * @return разница между максимальным и минимальным возможным числом
-     */
     default double getDiffNumber() {
         return getMaxNumber() - getMinNumber();
+    }
+
+    default double Round(double value) {
+        double scale = Math.pow(10, getPrecision());
+        return Math.round(value * scale) / scale;
     }
 }

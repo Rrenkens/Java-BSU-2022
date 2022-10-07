@@ -23,30 +23,30 @@ public class EquationMathTask extends AbstractMathTask {
     }
 
     public EquationMathTask(double num1, Operator operator, double num2, int precision) {
-        if (precision < 0) {
-            throw new IncorrectInputException("In EquationMathTask precision(" + precision + ") < 0");
-        }
-        this.precision = precision;
-        switch (EquationMathTask.EquationType.randomLetter()) {
-            case Standard -> {
-                //num1<operator>x=num2
-                text = MathTask.ValueInBraces(num1) + MathTask.OperatorsSymbol(operator) + "x=" + MathTask.ValueInBraces(num2);
-                switch (operator) {
-                    case DIFFERENCE -> {
-                        answer = num1 - num2;
+        super(precision);
+        switch (operator) {
+            case DIFFERENCE, DIVISION -> {
+                switch (EquationMathTask.EquationType.randomLetter()) {
+                    case Standard -> {
+                        //num1<operator>x=num2
+                        text = ValueInBraces(num1) + operator.symbol() + "x=" + ValueInBraces(num2);
+                        answer = operator.makeOperation(num1, num2);
                     }
-                    case DIVISION -> {
-                        answer = num1 / num2;
-                    }
-                    default -> {
-                        answer = MathTask.MakeReverseOperation(num2, operator, num1);
+                    case Reverse -> {
+                        //x<operator>num1=num2
+                        text = "x" + operator.symbol() + ValueInBraces(num1) + "=" + ValueInBraces(num2);
+                        answer = operator.makeReverseOperation(num2, num1);
                     }
                 }
             }
-            case Reverse -> {
-                //x<operator>num1=num2
-                text = "x" + MathTask.OperatorsSymbol(operator) + MathTask.ValueInBraces(num1) + "=" + MathTask.ValueInBraces(num2);
-                answer = MathTask.MakeReverseOperation(num2, operator, num1);
+            default -> {
+                if (num2 > num1) {
+                    double temp = num2;
+                    num2 = num1;
+                    num1 = temp;
+                }
+                text = text = ValueInBraces(num1) + operator.symbol() + "x=" + ValueInBraces(num2);
+                answer = operator.makeReverseOperation(num2, num1);
             }
         }
         answer = Round(answer);
