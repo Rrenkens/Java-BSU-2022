@@ -1,5 +1,6 @@
 package by.AlexAzyavchikov.quizer;
 
+import by.AlexAzyavchikov.quizer.exceptions.*;
 import by.AlexAzyavchikov.quizer.task_generators.TaskGenerator;
 import by.AlexAzyavchikov.quizer.tasks.Task;
 
@@ -11,66 +12,73 @@ public class Quiz {
      * @param generator генератор заданий
      * @param taskCount количество заданий в тесте
      */
+    private int taskCount;
+    private int correctlyFinishedTasks;
+    private int wrongFinishedTasks;
+    private int incorrectInputtedTasks;
+    private TaskGenerator taskGenerator;
+
+    private Task currentTask;
+
     public Quiz(TaskGenerator generator, int taskCount) {
-        // ...
+        this.taskCount = taskCount;
+        this.taskGenerator = generator;
+        correctlyFinishedTasks = 0;
+        wrongFinishedTasks = 0;
+        incorrectInputtedTasks = 0;
     }
 
-    /**
-     * @return задание, повторный вызов вернет слелующее
-     * @see Task
-     */
     public Task nextTask() {
-        // ...
-        return null;
+        if (isFinished()) {
+            throw new QuizFinishedException("Quiz has already finished. No tasks left");
+        }
+        if (currentTask == null) {
+            currentTask = taskGenerator.generate();
+        }
+        return currentTask;
     }
 
-    /**
-     * Предоставить ответ ученика. Если результат {@link Result#INCORRECT_INPUT}, то счетчик неправильных
-     * ответов не увеличивается, а {@link #nextTask()} в следующий раз вернет тот же самый объект {@link Task}.
-     */
     public Result provideAnswer(String answer) {
-        // ...
-        return null;
+        if (currentTask == null) {
+            throw new EarlyAnswerException("No task provided. There is nothing to check with answer.");
+        }
+        Result result = currentTask.validate(answer);
+        switch (result) {
+            case OK -> {
+                correctlyFinishedTasks++;
+                currentTask = null;
+            }
+            case WRONG -> {
+                wrongFinishedTasks++;
+                currentTask = null;
+            }
+            case INCORRECT_INPUT -> {
+                incorrectInputtedTasks++;
+            }
+        }
+        return result;
     }
 
-    /**
-     * @return завершен ли тест
-     */
     public boolean isFinished() {
-        // ...
-        return false;
+        return correctlyFinishedTasks + wrongFinishedTasks == taskCount;
     }
 
-    /**
-     * @return количество правильных ответов
-     */
     int getCorrectAnswerNumber() {
-        // ...
-        return 0;
+        return correctlyFinishedTasks;
     }
 
-    /**
-     * @return количество неправильных ответов
-     */
     int getWrongAnswerNumber() {
-        // ...
-        return 0;
+        return wrongFinishedTasks;
     }
 
-    /**
-     * @return количество раз, когда был предоставлен неправильный ввод
-     */
     int getIncorrectInputNumber() {
-        // ...
-        return 0;
+        return incorrectInputtedTasks;
     }
 
-    /**
-     * @return оценка, которая является отношением количества правильных ответов к количеству всех вопросов.
-     * Оценка выставляется только в конце!
-     */
     public double getMark() {
-        // ...
-        return 0;
+        if (!isFinished()) {
+            throw new QuizNotFinishedException("Quiz is not finished yet. Unable yo get mark.");
+        }
+        return (double) correctlyFinishedTasks / taskCount;
     }
 }
