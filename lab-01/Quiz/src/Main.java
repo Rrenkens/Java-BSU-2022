@@ -138,6 +138,12 @@ public class Main {
                             new TextTask("print lol", "kek")));
             quizMap.put("TrickyTextTest", new Quiz(groupGenerator, 5));
         }
+        //MyTextTest
+        {
+            GroupTaskGenerator groupGenerator = new GroupTaskGenerator(
+                    new MyTaskGenerator(10));
+            quizMap.put("CringeTextTest", new Quiz(groupGenerator, 5));
+        }
         return quizMap;
     }
 }
