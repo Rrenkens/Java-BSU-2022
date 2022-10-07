@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-class GroupTaskGenerator implements TaskGenerator {
+public class GroupTaskGenerator implements TaskGenerator {
     private final ArrayList<TaskGenerator> generators = new ArrayList<>();
     /**
      * Конструктор с переменным числом аргументов
      *
      * @param generators генераторы, которые в конструктор передаются через запятую
      */
-    GroupTaskGenerator(TaskGenerator... generators) {
+    public GroupTaskGenerator(TaskGenerator... generators) {
         if (generators == null) {
             throw new NullPointerException();
         }

@@ -5,16 +5,16 @@ import by.parfen01.quiser.tasks.math_tasks.MathTask;
 
 import java.util.EnumSet;
 
-class EquationTaskGenerator extends AbstractMathTaskGenerator {
+public class EquationTaskGenerator extends AbstractMathTaskGenerator {
     private final int[] possiblePositionsOfX;
     /**
      * @param minNumber              минимальное число
      * @param maxNumber              максимальное число
      */
-     EquationTaskGenerator(int minNumber,
-                           int maxNumber,
-                           EnumSet<MathTask.Operation> operations,
-                           int[] possiblePositionsOfX) {
+    public EquationTaskGenerator(int minNumber,
+                                 int maxNumber,
+                                 EnumSet<MathTask.Operation> operations,
+                                 int[] possiblePositionsOfX) {
          super(minNumber, maxNumber, operations);
          this.possiblePositionsOfX = possiblePositionsOfX.clone();
      }
