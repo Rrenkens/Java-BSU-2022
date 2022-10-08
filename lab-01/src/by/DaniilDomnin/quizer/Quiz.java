@@ -3,9 +3,6 @@ package by.DaniilDomnin.quizer;
 import exceptions.QuizFinishedException;
 import exceptions.QuizNotFinishedException;
 
-import javax.lang.model.type.NullType;
-import java.util.Scanner;
-
 class Quiz {
     /**
      * @param generator генератор заданий
@@ -13,7 +10,7 @@ class Quiz {
      */
     Quiz(TaskGenerator generator, int taskCount) {
         taskGenerator = generator;
-        is_next_task = true;
+        isNextTask = true;
         this.taskCount = taskCount;
     }
 
@@ -23,11 +20,11 @@ class Quiz {
      */
     Task nextTask() throws QuizFinishedException {
         if (!isFinished()) {
-            if (is_next_task) {
-                current_task = taskGenerator.generate();
+            if (isNextTask) {
+                currentTask = taskGenerator.generate();
                 taskCount++;
             }
-            return current_task;
+            return currentTask;
         }
         throw new QuizFinishedException("Quiz finished");
     }
@@ -37,35 +34,35 @@ class Quiz {
      * ответов не увеличивается, а {@link #nextTask()} в следующий раз вернет тот же самый объект {@link Task}.
      */
     Result provideAnswer(String answer) {
-        Result res = current_task.validate(answer);
-        is_next_task = true;
+        Result res = currentTask.validate(answer);
+        isNextTask = true;
         switch (res) {
-            case OK -> correct_count++;
-            case WRONG -> incorrect_count++;
-            case INCORRECT_INPUT -> is_next_task = false;
+            case OK -> correctCount++;
+            case WRONG -> incorrectCount++;
+            case INCORRECT_INPUT -> isNextTask = false;
         }
-        return current_task.validate(answer);
+        return currentTask.validate(answer);
     }
 
     /**
      * @return завершен ли тест
      */
     boolean isFinished() {
-        return incorrect_count + incorrect_count == taskCount;
+        return incorrectCount + incorrectCount == taskCount;
     }
 
     /**
      * @return количество правильных ответов
      */
     int getCorrectAnswerNumber() {
-        return correct_count;
+        return correctCount;
     }
 
     /**
      * @return количество неправильных ответов
      */
     int getWrongAnswerNumber() {
-        return incorrect_count;
+        return incorrectCount;
     }
 
     /**
@@ -74,16 +71,16 @@ class Quiz {
      */
     double getMark() throws QuizNotFinishedException {
         if (isFinished()) {
-            return (double) correct_count / taskCount;
+            return (double) correctCount / taskCount;
         }
         throw new QuizNotFinishedException("Quiz not finished");
     }
 
-     private TaskGenerator taskGenerator;
+     private final TaskGenerator taskGenerator;
     private int taskCount;
-    private int correct_count = 0;
-    private int incorrect_count = 0;
+    private int correctCount = 0;
+    private int incorrectCount = 0;
 
-    private Task current_task;
-    private boolean is_next_task;
+    private Task currentTask;
+    private boolean isNextTask;
 }

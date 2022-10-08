@@ -13,11 +13,11 @@ public class ExpressionTaskGenerator extends AbstractMathTaskGenerator {
 
     public ExpressionTask generate() {
         Random ran = new Random();
-        int first_num = ran.nextInt(min_number, max_number + 1);
-        int second_num = ran.nextInt(min_number, max_number + 1);
-        int index = ran.nextInt(0, accessible_signs.size());
-        int answer = GenerateAnswer(first_num, second_num, accessible_signs.get(index));
-        String string_answer = first_num + String.valueOf(GetCharSign(accessible_signs.get(index))) + second_num + "=?";
+        int first_num = ran.nextInt(minNumber, maxNumber + 1);
+        int second_num = ran.nextInt(minNumber, maxNumber + 1);
+        int index = ran.nextInt(0, accessibleSigns.size());
+        int answer = GenerateAnswer(first_num, second_num, accessibleSigns.get(index));
+        String string_answer = first_num + String.valueOf(GetCharSign(accessibleSigns.get(index))) + second_num + "=?";
         return new ExpressionTask(string_answer, answer);
     }
 

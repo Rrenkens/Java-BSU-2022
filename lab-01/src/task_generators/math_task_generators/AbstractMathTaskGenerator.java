@@ -10,16 +10,16 @@ abstract public class AbstractMathTaskGenerator implements MathTaskGenerator {
             int maxNumber,
             EnumSet<Operation> operations
     ) {
-        min_number = minNumber;
-        max_number = maxNumber;
-        accessible_signs = new ArrayList<>();
+        this.minNumber = minNumber;
+        this.maxNumber = maxNumber;
+        accessibleSigns = new ArrayList<>();
         if (minNumber > maxNumber) {
             throw new IllegalArgumentException("maxNumber must be more or equal to minNumber");
         }
         if (operations.size() == 0) {
             throw new IllegalArgumentException("Operations size cant be empty");
         }
-        accessible_signs.addAll(operations);
+        accessibleSigns.addAll(operations);
     }
 
     char GetCharSign (Operation sign) {
@@ -34,14 +34,14 @@ abstract public class AbstractMathTaskGenerator implements MathTaskGenerator {
     }
 
     public int getMinNumber() {
-        return min_number;
+        return minNumber;
     }// получить минимальное число
     public int getMaxNumber() {
-        return max_number;
+        return maxNumber;
     }// получить максимальное число
 
-    protected int min_number;
-    protected int max_number;
+    protected int minNumber;
+    protected int maxNumber;
 
-    protected ArrayList<Operation> accessible_signs;
+    protected ArrayList<Operation> accessibleSigns;
 }

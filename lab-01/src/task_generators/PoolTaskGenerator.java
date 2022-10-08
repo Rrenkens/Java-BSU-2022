@@ -18,7 +18,7 @@ public class PoolTaskGenerator implements TaskGenerator {
             Task... tasks
     ) {
         this.tasks = new ArrayList<>();
-        is_allowed_duplicate = allowDuplicate;
+        isAllowedDuplicate = allowDuplicate;
         if (tasks.length == 0) {
             throw new IllegalArgumentException("Tasks size must be more 0");
         }
@@ -39,7 +39,7 @@ public class PoolTaskGenerator implements TaskGenerator {
             Collection<Task> tasks
     ) {
         this.tasks = new ArrayList<>();
-        is_allowed_duplicate = allowDuplicate;
+        isAllowedDuplicate = allowDuplicate;
         if (tasks.size() == 0) {
             throw new IllegalArgumentException("Tasks size must be more 0");
         }
@@ -67,7 +67,7 @@ public class PoolTaskGenerator implements TaskGenerator {
      */
     public Task generate() {
         Collections.shuffle(this.tasks);
-       if (is_allowed_duplicate) {
+       if (isAllowedDuplicate) {
            return tasks.get(0);
        } else {
            if (tasks.size() == 0) {
@@ -80,5 +80,5 @@ public class PoolTaskGenerator implements TaskGenerator {
     }
 
     private final ArrayList<Task> tasks;
-    private final boolean is_allowed_duplicate;
+    private final boolean isAllowedDuplicate;
 }

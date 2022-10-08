@@ -42,5 +42,5 @@ public class GroupTaskGenerator implements TaskGenerator {
         return generators.get(0).generate();
     }
 
-    private ArrayList<TaskGenerator> generators;
+    private final ArrayList<TaskGenerator> generators;
 }

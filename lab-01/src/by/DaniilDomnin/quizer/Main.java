@@ -1,6 +1,5 @@
 package by.DaniilDomnin.quizer;
 
-import exceptions.QuizFinishedException;
 import task_generators.GroupTaskGenerator;
 import task_generators.PoolTaskGenerator;
 import task_generators.math_task_generators.EquationTaskGenerator;
@@ -11,14 +10,13 @@ import tasks.TextTask;
 import java.util.*;
 
 public class Main {
-    static Map<String, Quiz> getQuizMap() throws Exception {
+    static Map<String, Quiz> getQuizMap() {
         EnumSet<MathTaskGenerator.Operation> operations;
         operations = EnumSet.of(MathTaskGenerator.Operation.MULTIPLICATION);
         operations.add(MathTaskGenerator.Operation.SUM);
         operations.add(MathTaskGenerator.Operation.DIFFERENCE);
         operations.add(MathTaskGenerator.Operation.DIVISION);
 
-        Map<String, Quiz> quizMap = new HashMap<>();
         EquationTaskGenerator equation_generator = new EquationTaskGenerator(1, 10, operations);
         ExpressionTaskGenerator expressionTaskGenerator = new ExpressionTaskGenerator(3, 100, operations);
         GroupTaskGenerator groupTaskGenerator = new GroupTaskGenerator(equation_generator, expressionTaskGenerator);
