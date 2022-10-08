@@ -2,13 +2,15 @@ package by.parfen01.quiser.tasks.math_tasks;
 
 import by.parfen01.quiser.Result;
 
+import java.util.EnumSet;
+
 public class ExpressionTask extends AbstractMathTask {
     private final String text;
     private final String answer;
 
     public ExpressionTask(int firstNumber, int secondNumber, Operation operation) {
         super(firstNumber, secondNumber, operation);
-        text = String.valueOf(firstNumber) + Operation.toChar(operation) + String.valueOf(secondNumber) + "=?";
+        text = firstNumber + Operation.toChar(operation) + String.valueOf(secondNumber) + "=?";
         if (secondNumber == 0 && operation == Operation.DIVISION) {
             answer = "invalid operation";
             return;
@@ -33,5 +35,24 @@ public class ExpressionTask extends AbstractMathTask {
             return Result.OK;
         }
         return this.answer.equals(answer) ? Result.OK : Result.WRONG;
+    }
+
+    public static class Generator extends AbstractMathTask.Generator {
+        /**
+         * @param minNumber              минимальное число
+         * @param maxNumber              максимальное число
+         */
+        public Generator(int minNumber,
+                                       int maxNumber,
+                                       EnumSet<Operation> operations) {
+            super(minNumber, maxNumber, operations);
+        }
+
+        /**
+         * return задание типа {@link ExpressionTask}
+         */
+        public ExpressionTask generate() {
+            return new ExpressionTask(getRandomNumberForTask(), getRandomNumberForTask(), getRandomOperationFromSet());
+        }
     }
 }

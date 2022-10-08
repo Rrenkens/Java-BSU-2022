@@ -1,11 +1,14 @@
 package by.parfen01.quiser.task_generators;
 
 import by.parfen01.quiser.Task;
-import by.parfen01.quiser.TaskGenerator;
-
 import java.util.*;
 
-public class PoolTaskGenerator implements TaskGenerator {
+/**
+ * Генератор заданий инициализирующийся перечнем доступных заданий.
+ * Одноразовый. Если хотите использовать один и тот же генератор в разных
+ * квизах передавайте его копию
+ */
+public class PoolTaskGenerator implements Task.Generator {
     private final ArrayList<Task> tasks = new ArrayList<>();
     private final LinkedHashSet<String> usedTextsOfTasks = new LinkedHashSet<>();
     private boolean isAllowedDuplicate;
@@ -78,5 +81,10 @@ public class PoolTaskGenerator implements TaskGenerator {
                 return tasks.get(numberOfTest);
             }
         }
+    }
+
+    @Override
+    public PoolTaskGenerator clone() {
+        return new PoolTaskGenerator(isAllowedDuplicate, tasks);
     }
 }

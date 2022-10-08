@@ -4,21 +4,22 @@ package by.parfen01.quiser;
  * Class, который описывает один тест
  */
 public class Quiz {
-    TaskGenerator generator;
+    Task.Generator generator;
     int taskCount;
     int correctAnswerNumber = 0;
     int wrongAnswerNumber = 0;
     int incorrectInputCount = 0;
     Task currentTask;
+    Task nextTask;
     boolean isLastInputIncorrect = false;
     /**
      * @param generator генератор заданий
      * @param taskCount количество заданий в тесте
      */
-    public Quiz(TaskGenerator generator, int taskCount) {
+    public Quiz(Task.Generator generator, int taskCount) {
         this.generator = generator;
         this.taskCount = taskCount;
-        currentTask = generator.generate();
+        nextTask = generator.generate();
     }
 
     /**
@@ -26,10 +27,15 @@ public class Quiz {
      * @see Task
      */
     public Task nextTask() {
-        if (!isLastInputIncorrect) {
-            currentTask = generator.generate();
+        if (isLastInputIncorrect) {
+            return currentTask;
         }
-        return currentTask;
+        Task result = nextTask;
+        currentTask = nextTask;
+        if (taskCount > 1) {
+            nextTask = generator.generate();
+        }
+        return result;
     }
 
     /**
@@ -41,19 +47,17 @@ public class Quiz {
         switch (result) {
             case INCORRECT_INPUT -> {
                 isLastInputIncorrect = true;
-                break;
+                ++incorrectInputCount;
             }
             case OK -> {
                 ++correctAnswerNumber;
                 --taskCount;
                 isLastInputIncorrect = false;
-                break;
             }
             case WRONG -> {
                 ++wrongAnswerNumber;
                 --taskCount;
                 isLastInputIncorrect = false;
-                break;
             }
         }
 
@@ -93,6 +97,6 @@ public class Quiz {
      *         Оценка выставляется только в конце!
      */
     public double getMark() {
-        return (double)correctAnswerNumber / (correctAnswerNumber + wrongAnswerNumber);
+        return (double)correctAnswerNumber / (correctAnswerNumber + wrongAnswerNumber) * 10;
     }
 }

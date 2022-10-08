@@ -3,6 +3,7 @@ package by.parfen01.quiser.tasks.math_tasks;
 import by.parfen01.quiser.Task;
 
 import java.security.InvalidParameterException;
+import java.util.EnumSet;
 
 public interface MathTask extends Task {
     enum Operation {
@@ -86,5 +87,30 @@ public interface MathTask extends Task {
         }
 
         throw new InvalidParameterException();
+    }
+
+    interface Generator extends Task.Generator {
+        int getMinNumber(); // получить минимальное число
+        int getMaxNumber(); // получить максимальное число
+        EnumSet<Operation> getOperations();
+        /**
+         * @return разница между максимальным и минимальным возможным числом
+         */
+        default int getDiffNumber() {
+            return getMaxNumber() - getMinNumber();
+        }
+
+        default int getRandomNumberForTask() {
+            return (int)(Math.random() * getDiffNumber() + getMinNumber());
+        }
+
+        default MathTask.Operation getRandomOperationFromSet() {
+            while (true) {
+                MathTask.Operation operationToUse = MathTask.Operation.fromInt((int)(Math.random() * 4));
+                if (getOperations().contains(operationToUse)) {
+                    return operationToUse;
+                }
+            }
+        }
     }
 }

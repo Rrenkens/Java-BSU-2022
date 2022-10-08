@@ -4,8 +4,6 @@ import by.parfen01.quiser.Result;
 import by.parfen01.quiser.Task;
 import by.parfen01.quiser.task_generators.PoolTaskGenerator;
 
-import java.util.Objects;
-
 
 /**
  * Задание с заранее заготовленным текстом.
@@ -33,7 +31,7 @@ public class TextTask implements Task {
         if (answer == null) {
             throw new NullPointerException();
         }
-        if (answer.equals(this.answer)) {
+        if (answer.equalsIgnoreCase(this.answer)) {
             return Result.OK;
         }
         return Result.WRONG;

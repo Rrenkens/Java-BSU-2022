@@ -2,6 +2,8 @@ package by.parfen01.quiser.tasks.math_tasks;
 
 import by.parfen01.quiser.Result;
 
+import java.util.EnumSet;
+
 public class EquationTask extends AbstractMathTask {
     int positionOfX;
     String text;
@@ -13,15 +15,20 @@ public class EquationTask extends AbstractMathTask {
             throw new IllegalArgumentException();
         }
         if (positionOfX == 0) {
-            text = "X" + Operation.toChar(operation) + String.valueOf(firstNumber) + "=" + String.valueOf(secondNumber);
-            if (firstNumber == 0 && operation == Operation.ADDITION) {
+            text = "X" + Operation.toChar(operation) + firstNumber + "=" + secondNumber;
+            if (firstNumber == 0 && operation == Operation.DIVISION) {
                 answer = "invalid operation";
+                return;
+            }
+            if (firstNumber == 0 && secondNumber != 0 && operation == Operation.MULTIPLICATION) {
+                answer = "no right answer";
                 return;
             }
             answer = String.valueOf(calculate(secondNumber, firstNumber, Operation.getReverseOperation(operation)));
         } else {
-            text = String.valueOf(firstNumber) + Operation.toChar(operation) + "X" + "=" + String.valueOf(secondNumber);
-            if (firstNumber == 0 && secondNumber != 0 && operation == Operation.ADDITION) {
+            text = String.valueOf(firstNumber) + Operation.toChar(operation) + "X" + "=" + secondNumber;
+            if (firstNumber == 0 && secondNumber != 0 &&
+                    (operation == Operation.MULTIPLICATION || operation == Operation.DIVISION)) {
                 answer = "no right answer";
                 return;
             }
@@ -32,7 +39,6 @@ public class EquationTask extends AbstractMathTask {
             }
         }
     }
-
 
     @Override
     public String getText() {
@@ -53,5 +59,28 @@ public class EquationTask extends AbstractMathTask {
             return Result.OK;
         }
         return this.answer.equals(answer) ? Result.OK : Result.WRONG;
+    }
+
+    public static class Generator extends AbstractMathTask.Generator {
+        private final int[] possiblePositionsOfX;
+        /**
+         * @param minNumber              минимальное число
+         * @param maxNumber              максимальное число
+         */
+        public Generator(int minNumber,
+                                     int maxNumber,
+                                     EnumSet<Operation> operations,
+                                     int[] possiblePositionsOfX) {
+            super(minNumber, maxNumber, operations);
+            this.possiblePositionsOfX = possiblePositionsOfX.clone();
+        }
+
+        /**
+         * return задание типа {@link EquationTask}
+         */
+        public EquationTask generate() {
+            int xPos = possiblePositionsOfX[(int)(Math.random() * possiblePositionsOfX.length)];
+            return new EquationTask(getRandomNumberForTask(), getRandomNumberForTask(), xPos, getRandomOperationFromSet());
+        }
     }
 }
