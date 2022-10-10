@@ -16,6 +16,12 @@ public class TextTask implements Task {
      * @param answer ответ на задание
      */
     public TextTask(String text, String answer) {
+        if (text == null) {
+            throw new IllegalArgumentException("Text of the task is null");
+        }
+        if (answer == null) {
+            throw new IllegalArgumentException("Answer to the task is null");
+        }
         this.text = text;
         this.answer = answer;
     }
@@ -37,6 +43,7 @@ public class TextTask implements Task {
 
     public static class Generator implements Task.Generator {
         public Task generate() {
+            // todo
             return null;
         }
     }

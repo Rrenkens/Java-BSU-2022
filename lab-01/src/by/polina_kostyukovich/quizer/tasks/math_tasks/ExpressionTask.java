@@ -11,6 +11,9 @@ public class ExpressionTask extends AbstractMathTask {
 
     public ExpressionTask(int number1, int number2, Operation operation) {
         super(number1, number2);
+        if (operation == null) {
+            throw new IllegalArgumentException("Operation is null");
+        }
         operator = getOperator(operation);
         answer = getAnswer(number1, number2, operation);
     }
@@ -36,6 +39,9 @@ public class ExpressionTask extends AbstractMathTask {
     }
 
     private static int getAnswer(int number1, int number2, Operation operation) {
+        if (operation == null) {
+            throw new IllegalArgumentException("Operation is null");
+        }
         switch (operation) {
             case SUM -> {
                 return number1 + number2;

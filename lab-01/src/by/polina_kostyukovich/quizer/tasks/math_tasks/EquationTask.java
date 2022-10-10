@@ -4,7 +4,6 @@ import by.polina_kostyukovich.quizer.Result;
 import by.polina_kostyukovich.quizer.tasks.Task;
 
 import java.util.EnumSet;
-import java.util.Iterator;
 
 public class EquationTask extends AbstractMathTask {
     private final char operator;
@@ -13,6 +12,9 @@ public class EquationTask extends AbstractMathTask {
 
     public EquationTask(int number1, int number2, Operation operation, boolean isXOnFirstPosition) {
         super(number1, number2);
+        if (operation == null) {
+            throw new IllegalArgumentException("Operation is null");
+        }
         operator = getOperator(operation);
         answer = getAnswer(number1, number2, operation, isXOnFirstPosition);
         this.isXOnFirstPosition = isXOnFirstPosition;
@@ -43,6 +45,9 @@ public class EquationTask extends AbstractMathTask {
     }
 
     private static int getAnswer(int number1, int number2, Operation operation, boolean isXOnFirstPosition) {
+        if (operation == null) {
+            throw new IllegalArgumentException("Operation is null");
+        }
         switch (operation) {
             case SUM -> {
                 return number2 - number1;

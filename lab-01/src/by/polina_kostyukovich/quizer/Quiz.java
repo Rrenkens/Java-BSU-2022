@@ -1,5 +1,6 @@
 package by.polina_kostyukovich.quizer;
 
+import by.polina_kostyukovich.quizer.exceptions.QuizNotFinishedException;
 import by.polina_kostyukovich.quizer.tasks.Task;
 
 /**
@@ -91,7 +92,7 @@ public class Quiz {
      */
     public double getMark() {
         if (!isFinished()) {
-            // throw exception
+            throw new QuizNotFinishedException();
         }
         return ((double) correctAnswerNumber) / taskCount;
     }

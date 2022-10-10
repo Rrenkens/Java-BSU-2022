@@ -12,6 +12,9 @@ public abstract class AbstractMathTask implements MathTask {
     }
 
     protected static char getOperator(Operation operation) {
+        if (operation == null) {
+            throw new IllegalArgumentException("Operation is null");
+        }
         switch (operation) {
             case SUM -> {
                 return '+';
@@ -37,6 +40,15 @@ public abstract class AbstractMathTask implements MathTask {
         protected final EnumSet<Operation> operations;
 
         public Generator(int minNumber, int maxNumber, EnumSet<Operation> operations) {
+            if (operations == null) {
+                throw new IllegalArgumentException("EnumSet of possible operations is null");
+            }
+            if (operations.isEmpty()) {
+                throw new IllegalArgumentException("EnumSet of possible operations is empty");
+            }
+            if (maxNumber < minNumber) {
+                throw new IllegalArgumentException("maxNumber is less than minNumber");
+            }
             this.minNumber = minNumber;
             this.maxNumber = maxNumber;
             this.operations = operations;
