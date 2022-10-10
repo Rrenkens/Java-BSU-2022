@@ -3,6 +3,8 @@ package by.polina_kostyukovich.quizer.tasks.math_tasks;
 import by.polina_kostyukovich.quizer.Result;
 import by.polina_kostyukovich.quizer.tasks.Task;
 
+import java.util.EnumSet;
+
 public class ExpressionTask extends AbstractMathTask {
     private final char operator;
     private final int answer;
@@ -59,8 +61,8 @@ public class ExpressionTask extends AbstractMathTask {
          * @param maxNumber              максимальное число
          * @param operations             EnumSet с разрешенными операциями
          */
-        public Generator(int minNumber, int maxNumber, Operation operation) {
-            super(minNumber, maxNumber, operation);
+        public Generator(int minNumber, int maxNumber, EnumSet<Operation> operations) {
+            super(minNumber, maxNumber, operations);
         }
 
         /**
@@ -70,7 +72,8 @@ public class ExpressionTask extends AbstractMathTask {
         public Task generate() {
             int number1 = (int) (Math.random() * (getDiffNumber() + 1) + minNumber);
             int number2 = (int) (Math.random() * (getDiffNumber() + 1) + minNumber);
-            return new ExpressionTask(number1, number2, operation);
+            int numberOfOperation = (int) (Math.random() * operations.size());
+            return new ExpressionTask(number1, number2, (Operation) operations.toArray()[numberOfOperation]);
         }
     }
 }

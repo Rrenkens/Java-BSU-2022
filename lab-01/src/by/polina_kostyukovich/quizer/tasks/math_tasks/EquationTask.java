@@ -3,6 +3,9 @@ package by.polina_kostyukovich.quizer.tasks.math_tasks;
 import by.polina_kostyukovich.quizer.Result;
 import by.polina_kostyukovich.quizer.tasks.Task;
 
+import java.util.EnumSet;
+import java.util.Iterator;
+
 public class EquationTask extends AbstractMathTask {
     private final char operator;
     private final int answer;
@@ -68,8 +71,8 @@ public class EquationTask extends AbstractMathTask {
          * @param operations             EnumSet с разрешенными операциями
          * @param isXOnFirstPosition     стоит ли х по левую сторону оператора в уравнении
          */
-        public Generator(int minNumber, int maxNumber, Operation operation, boolean isXOnFirstPosition) {
-            super(minNumber, maxNumber, operation);
+        public Generator(int minNumber, int maxNumber, EnumSet<Operation> operations, boolean isXOnFirstPosition) {
+            super(minNumber, maxNumber, operations);
             this.isXOnFirstPosition = isXOnFirstPosition;
         }
 
@@ -80,7 +83,8 @@ public class EquationTask extends AbstractMathTask {
         public Task generate() {
             int number1 = (int) (Math.random() * (getDiffNumber() + 1) + minNumber);
             int number2 = (int) (Math.random() * (getDiffNumber() + 1) + minNumber);
-            return new EquationTask(number1, number2, operation, isXOnFirstPosition);
+            int numberOfOperation = (int) (Math.random() * operations.size());
+            return new EquationTask(number1, number2, (Operation) operations.toArray()[numberOfOperation], isXOnFirstPosition);
         }
     }
 }

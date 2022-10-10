@@ -1,5 +1,7 @@
 package by.polina_kostyukovich.quizer.tasks.math_tasks;
 
+import java.util.EnumSet;
+
 public abstract class AbstractMathTask implements MathTask {
     protected final int number1;
     protected final int number2;
@@ -32,12 +34,12 @@ public abstract class AbstractMathTask implements MathTask {
     public static abstract class Generator implements MathTask.Generator {
         protected final int minNumber;
         protected final int maxNumber;
-        protected final Operation operation;
+        protected final EnumSet<Operation> operations;
 
-        public Generator(int minNumber, int maxNumber, Operation operation) {
+        public Generator(int minNumber, int maxNumber, EnumSet<Operation> operations) {
             this.minNumber = minNumber;
             this.maxNumber = maxNumber;
-            this.operation = operation;
+            this.operations = operations;
         }
 
         @Override
