@@ -51,6 +51,7 @@ public class Quiz {
             case WRONG -> {
                 wrongFinishedTasks++;
                 currentTask = null;
+//                TODO: if need repeats delete previous line
             }
             case INCORRECT_INPUT -> {
                 incorrectInputtedTasks++;
@@ -60,7 +61,7 @@ public class Quiz {
     }
 
     public boolean isFinished() {
-        return correctlyFinishedTasks + wrongFinishedTasks == taskCount;
+        return correctlyFinishedTasks == taskCount;
     }
 
     int getCorrectAnswerNumber() {
@@ -79,6 +80,6 @@ public class Quiz {
         if (!isFinished()) {
             throw new QuizNotFinishedException("Quiz is not finished yet. Unable yo get mark.");
         }
-        return (double) correctlyFinishedTasks / taskCount;
+        return (double) (Math.max(taskCount - wrongFinishedTasks, 0)) / taskCount;
     }
 }

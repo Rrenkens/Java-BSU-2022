@@ -20,6 +20,8 @@ public class PoolTaskGenerator implements TaskGenerator {
         if (!allowDuplicate) {
             Set<Task> unique = new HashSet<>(tasks);
             this.tasks = new LinkedList<>(unique);
+//            TODO uncomment next line if you need random generation tasks in PoolTaskGenerator
+//            Collections.shuffle(this.tasks);
         } else {
             this.tasks = new ArrayList<>(tasks);
         }
