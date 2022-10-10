@@ -1,7 +1,7 @@
-package by.polina_kostyukovich.quzer.tasks.math_tasks;
+package by.polina_kostyukovich.quizer.tasks.math_tasks;
 
-import by.polina_kostyukovich.quzer.Result;
-import by.polina_kostyukovich.quzer.tasks.Task;
+import by.polina_kostyukovich.quizer.Result;
+import by.polina_kostyukovich.quizer.tasks.Task;
 
 public class EquationTask extends AbstractMathTask {
     private final char operator;
@@ -62,11 +62,20 @@ public class EquationTask extends AbstractMathTask {
     public static class Generator extends AbstractMathTask.Generator {
         private final boolean isXOnFirstPosition;
 
+        /**
+         * @param minNumber              минимальное число
+         * @param maxNumber              максимальное число
+         * @param operations             EnumSet с разрешенными операциями
+         * @param isXOnFirstPosition     стоит ли х по левую сторону оператора в уравнении
+         */
         public Generator(int minNumber, int maxNumber, Operation operation, boolean isXOnFirstPosition) {
             super(minNumber, maxNumber, operation);
             this.isXOnFirstPosition = isXOnFirstPosition;
         }
 
+        /**
+         * return задание типа {@link EquationTask}
+         */
         @Override
         public Task generate() {
             int number1 = (int) (Math.random() * (getDiffNumber() + 1) + minNumber);

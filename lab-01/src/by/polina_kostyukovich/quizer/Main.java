@@ -1,6 +1,6 @@
-package by.polina_kostyukovich.quzer;
+package by.polina_kostyukovich.quizer;
 
-import by.polina_kostyukovich.quzer.tasks.Task;
+import by.polina_kostyukovich.quizer.tasks.Task;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,6 +39,11 @@ public class Main {
         System.out.println("Отличная работа! Ваша оценка: " + activeQuiz.getMark());
     }
 
+    /**
+     * @return тесты в {@link Map}, где
+     * ключ     - название теста {@link String},
+     * значение - сам тест       {@link Quiz}
+     */
     static Map<String, Quiz> getQuizMap() {
         return null;
     }

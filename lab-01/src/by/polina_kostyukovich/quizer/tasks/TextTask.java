@@ -1,11 +1,20 @@
-package by.polina_kostyukovich.quzer.tasks;
+package by.polina_kostyukovich.quizer.tasks;
 
-import by.polina_kostyukovich.quzer.Result;
+import by.polina_kostyukovich.quizer.Result;
+import by.polina_kostyukovich.quizer.task_generators.PoolTaskGenerator;
 
+/**
+ * Задание с заранее заготовленным текстом.
+ * Можно использовать {@link PoolTaskGenerator}, чтобы задавать задания такого типа.
+ */
 public class TextTask implements Task {
     private final String text;
     private final String answer;
 
+    /**
+     * @param text   текст задания
+     * @param answer ответ на задание
+     */
     public TextTask(String text, String answer) {
         this.text = text;
         this.answer = answer;

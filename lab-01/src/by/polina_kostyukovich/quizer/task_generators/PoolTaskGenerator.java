@@ -1,6 +1,6 @@
-package by.polina_kostyukovich.quzer.task_generators;
+package by.polina_kostyukovich.quizer.task_generators;
 
-import by.polina_kostyukovich.quzer.tasks.Task;
+import by.polina_kostyukovich.quizer.tasks.Task;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,6 +13,12 @@ public class PoolTaskGenerator implements Task.Generator {
     private final int[] randomIndexes;
     private int currentIndex = 0;
 
+    /**
+     * Конструктор с переменным числом аргументов
+     *
+     * @param allowDuplicate разрешить повторения
+     * @param tasks          задания, которые в конструктор передаются через запятую
+     */
     public PoolTaskGenerator(boolean allowDuplicate, Task... tasks) {
         this.allowDuplicate = allowDuplicate;
         if (allowDuplicate) {
@@ -24,6 +30,12 @@ public class PoolTaskGenerator implements Task.Generator {
         }
     }
 
+    /**
+     * Конструктор, который принимает коллекцию заданий
+     *
+     * @param allowDuplicate разрешить повторения
+     * @param tasks          задания, которые передаются в конструктор в Collection (например, {@link LinkedList})
+     */
     public PoolTaskGenerator(boolean allowDuplicate, Collection<Task> tasks) {
         this.allowDuplicate = allowDuplicate;
         Task[] tasksArray = tasks.toArray(new Task[0]);
@@ -80,6 +92,9 @@ public class PoolTaskGenerator implements Task.Generator {
         return uniqueTasks;
     }
 
+    /**
+     * @return случайная задача из списка
+     */
     @Override
     public Task generate() {
         if (allowDuplicate) {

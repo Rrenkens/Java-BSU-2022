@@ -1,7 +1,7 @@
-package by.polina_kostyukovich.quzer.tasks.math_tasks;
+package by.polina_kostyukovich.quizer.tasks.math_tasks;
 
-import by.polina_kostyukovich.quzer.Result;
-import by.polina_kostyukovich.quzer.tasks.Task;
+import by.polina_kostyukovich.quizer.Result;
+import by.polina_kostyukovich.quizer.tasks.Task;
 
 public class ExpressionTask extends AbstractMathTask {
     private final char operator;
@@ -54,10 +54,18 @@ public class ExpressionTask extends AbstractMathTask {
     }
 
     public static class Generator extends AbstractMathTask.Generator {
+        /**
+         * @param minNumber              минимальное число
+         * @param maxNumber              максимальное число
+         * @param operations             EnumSet с разрешенными операциями
+         */
         public Generator(int minNumber, int maxNumber, Operation operation) {
             super(minNumber, maxNumber, operation);
         }
 
+        /**
+         * return задание типа {@link ExpressionTask}
+         */
         @Override
         public Task generate() {
             int number1 = (int) (Math.random() * (getDiffNumber() + 1) + minNumber);

@@ -1,6 +1,4 @@
-package by.polina_kostyukovich.quzer.tasks.math_tasks;
-
-import by.polina_kostyukovich.quzer.tasks.Task;
+package by.polina_kostyukovich.quizer.tasks.math_tasks;
 
 public abstract class AbstractMathTask implements MathTask {
     protected final int number1;
