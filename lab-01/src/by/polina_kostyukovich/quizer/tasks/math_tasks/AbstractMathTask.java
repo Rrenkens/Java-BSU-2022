@@ -63,5 +63,24 @@ public abstract class AbstractMathTask implements MathTask {
         public int getMaxNumber() {
             return maxNumber;
         }
+
+        protected static int getDivisor(int divisible, int divisor, int minNumber) {
+            if (divisor == 0) {
+                divisor = (minNumber != 0) ? minNumber : minNumber + 1;
+            }
+            if (divisible == 0) {
+                return divisor;
+            }
+            if (divisor > Math.abs(divisible)) {
+                divisor = (minNumber != 0) ? minNumber : minNumber + 1;
+            }
+            while (divisible % divisor != 0) {
+                ++divisor;
+                if (divisor == 0) {
+                    ++divisor;
+                }
+            }
+            return divisor;
+        }
     }
 }

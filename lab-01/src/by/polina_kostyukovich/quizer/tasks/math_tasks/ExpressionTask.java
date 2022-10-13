@@ -1,6 +1,7 @@
 package by.polina_kostyukovich.quizer.tasks.math_tasks;
 
 import by.polina_kostyukovich.quizer.Result;
+import by.polina_kostyukovich.quizer.exceptions.BadGeneratorsException;
 import by.polina_kostyukovich.quizer.tasks.Task;
 
 import java.util.EnumSet;
@@ -13,6 +14,9 @@ public class ExpressionTask extends AbstractMathTask {
         super(number1, number2);
         if (operation == null) {
             throw new IllegalArgumentException("Operation is null");
+        }
+        if (number2 == 0 && operation == Operation.DIVISION) {
+            throw new IllegalArgumentException("The expression is \"a / 0 = b\"");
         }
         operator = getOperator(operation);
         answer = getAnswer(number1, number2, operation);
@@ -63,9 +67,9 @@ public class ExpressionTask extends AbstractMathTask {
 
     public static class Generator extends AbstractMathTask.Generator {
         /**
-         * @param minNumber              минимальное число
-         * @param maxNumber              максимальное число
-         * @param operations             EnumSet с разрешенными операциями
+         * @param minNumber  минимальное число
+         * @param maxNumber  максимальное число
+         * @param operations EnumSet с разрешенными операциями
          */
         public Generator(int minNumber, int maxNumber, EnumSet<Operation> operations) {
             super(minNumber, maxNumber, operations);
@@ -76,10 +80,21 @@ public class ExpressionTask extends AbstractMathTask {
          */
         @Override
         public Task generate() {
+            if (maxNumber == 0 && minNumber == 0 && operations.size() == 1 &&
+                    operations.toArray()[0] == Operation.DIVISION) {
+                throw new BadGeneratorsException("Generator allows only \"0 / 0 = ?\" expression");
+            }
             int number1 = (int) (Math.random() * (getDiffNumber() + 1) + minNumber);
             int number2 = (int) (Math.random() * (getDiffNumber() + 1) + minNumber);
             int numberOfOperation = (int) (Math.random() * operations.size());
-            return new ExpressionTask(number1, number2, (Operation) operations.toArray()[numberOfOperation]);
+            Operation operation = (Operation) operations.toArray()[numberOfOperation];
+            if (operation == Operation.DIVISION && maxNumber == 0 && minNumber == 0) {
+                operation = (Operation) operations.toArray()[(numberOfOperation + 1) % operations.size()];
+            }
+            if (operation == Operation.DIVISION) {
+                number2 = getDivisor(number1, number2, minNumber);
+            }
+            return new ExpressionTask(number1, number2, operation);
         }
     }
 }
