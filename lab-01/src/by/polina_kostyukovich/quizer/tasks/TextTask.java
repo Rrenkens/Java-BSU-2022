@@ -10,6 +10,7 @@ import by.polina_kostyukovich.quizer.task_generators.PoolTaskGenerator;
 public class TextTask implements Task {
     private final String text;
     private final String answer;
+    private final boolean isAnswerInteger;
 
     /**
      * @param text   текст задания
@@ -22,8 +23,18 @@ public class TextTask implements Task {
         if (answer == null) {
             throw new IllegalArgumentException("Answer to the task is null");
         }
-        this.text = text;
+        this.text = text + "\n";
         this.answer = answer;
+        isAnswerInteger = false;
+    }
+
+    public TextTask(String text, int answer) {
+        if (text == null) {
+            throw new IllegalArgumentException("Text of the task is null");
+        }
+        this.text = text + "\n";
+        this.answer = String.valueOf(answer);
+        isAnswerInteger = true;
     }
 
     @Override
@@ -38,13 +49,32 @@ public class TextTask implements Task {
 
     @Override
     public Result validate(String answer) {
-        return answer.equals(this.answer) ? Result.OK : Result.WRONG;
+        if (isAnswerInteger) {
+            try {
+                Integer.parseInt(answer);
+                return answer.equals(this.answer) ? Result.OK : Result.WRONG;
+            } catch (NumberFormatException exception) {
+                return Result.INCORRECT_INPUT;
+            }
+        } else {
+            try {
+                Integer.parseInt(answer);
+                return Result.INCORRECT_INPUT;
+            } catch (NumberFormatException exception) {
+                return answer.equals(this.answer) ? Result.OK : Result.WRONG;
+            }
+        }
     }
 
     public static class Generator implements Task.Generator {
+        private final PoolTaskGenerator generator;
+
+        public Generator(TextTask[] tasks) {
+            generator = new PoolTaskGenerator(false, tasks);
+        }
+
         public Task generate() {
-            // todo
-            return null;
+            return generator.generate();
         }
     }
 }

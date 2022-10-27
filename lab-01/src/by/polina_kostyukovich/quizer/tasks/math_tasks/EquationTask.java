@@ -1,7 +1,7 @@
 package by.polina_kostyukovich.quizer.tasks.math_tasks;
 
 import by.polina_kostyukovich.quizer.Result;
-import by.polina_kostyukovich.quizer.exceptions.BadGeneratorsException;
+import by.polina_kostyukovich.quizer.exceptions.BadTaskException;
 import by.polina_kostyukovich.quizer.tasks.Task;
 
 import java.util.EnumSet;
@@ -21,6 +21,17 @@ public class EquationTask extends AbstractMathTask {
         if (number1 == 0 && operation == Operation.DIVISION && isXOnFirstPosition) {
             throw new IllegalArgumentException("The equation is \"x / 0 = a\"");
         }
+        if (number1 == 0 && number2 != 0 && !isXOnFirstPosition && operation == Operation.DIVISION) {
+            throw new IllegalArgumentException("The equation is \"0 / x = a\", where a != 0");
+        }
+        if (number1 == 0 && number2 != 0 && operation == Operation.MULTIPLICATION) {
+            throw new IllegalArgumentException("The equation is \"0 * x = a\" or \"x * 0 = a\", where a != 0");
+        }
+        if (operation == Operation.DIVISION && !isXOnFirstPosition && number2 != 0 && number1 % number2 != 0
+            || operation == Operation.MULTIPLICATION && number1 != 0 && number2 % number1 != 0) {
+            throw new BadTaskException("Not integer division");
+        }
+
         operator = getOperator(operation);
         answer = getAnswer(number1, number2, operation, isXOnFirstPosition);
         this.isXOnFirstPosition = isXOnFirstPosition;
@@ -31,7 +42,11 @@ public class EquationTask extends AbstractMathTask {
     @Override
     public String getText() {
         if (isXOnFirstPosition) {
-            return "x " + operator + " " + number1 + " = " + number2 + "\nx = ";
+            if (number1 < 0) {
+                return "x " + operator + " (" + number1 + ") = " + number2 + "\nx = ";
+            } else {
+                return "x " + operator + " " + number1 + " = " + number2 + "\nx = ";
+            }
         } else {
             return number1 + " " + operator + " x = " + number2 + "\nx = ";
         }
@@ -64,7 +79,7 @@ public class EquationTask extends AbstractMathTask {
         }
         if (number1 == 0 && number2 == 0 && (operation == Operation.DIVISION
                 || operation == Operation.MULTIPLICATION)) {
-            return 0;
+            return 1;
         }
         switch (operation) {
             case SUM -> {
@@ -79,9 +94,7 @@ public class EquationTask extends AbstractMathTask {
             case DIVISION -> {
                 return isXOnFirstPosition ? number1 * number2 : number1 / number2;
             }
-            default -> {
-                return 0;
-            }
+            default -> throw new BadTaskException("Invalid operation");
         }
     }
 

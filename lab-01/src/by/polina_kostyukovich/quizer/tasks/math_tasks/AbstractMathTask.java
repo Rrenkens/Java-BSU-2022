@@ -1,5 +1,7 @@
 package by.polina_kostyukovich.quizer.tasks.math_tasks;
 
+import by.polina_kostyukovich.quizer.exceptions.BadTaskException;
+
 import java.util.EnumSet;
 
 public abstract class AbstractMathTask implements MathTask {
@@ -28,9 +30,7 @@ public abstract class AbstractMathTask implements MathTask {
             case DIVISION -> {
                 return '/';
             }
-            default -> {
-                return '?';
-            }
+            default -> throw new BadTaskException("Invalid operation");
         }
     }
 

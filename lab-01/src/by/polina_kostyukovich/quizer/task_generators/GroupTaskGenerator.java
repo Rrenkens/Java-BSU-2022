@@ -1,12 +1,11 @@
 package by.polina_kostyukovich.quizer.task_generators;
 
-import by.polina_kostyukovich.quizer.exceptions.BadGeneratorsException;
+import by.polina_kostyukovich.quizer.exceptions.BadGeneratorException;
 import by.polina_kostyukovich.quizer.exceptions.TooFewGeneratorsException;
 import by.polina_kostyukovich.quizer.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Random;
 
 public class GroupTaskGenerator implements Task.Generator {
     private final Task.Generator[] generators;
@@ -20,6 +19,9 @@ public class GroupTaskGenerator implements Task.Generator {
         if (generators == null) {
             throw new IllegalArgumentException("Array of generators is null");
         }
+        if (generators.length == 0) {
+            throw new IllegalArgumentException("Array of generators is empty");
+        }
         this.generators = generators;
     }
 
@@ -32,6 +34,9 @@ public class GroupTaskGenerator implements Task.Generator {
         if (generators == null) {
             throw new IllegalArgumentException("Collection of generators is null");
         }
+        if (generators.isEmpty()) {
+            throw new IllegalArgumentException("Collection of generators is empty");
+        }
         this.generators = generators.toArray(new Task.Generator[0]);
     }
 
@@ -42,15 +47,12 @@ public class GroupTaskGenerator implements Task.Generator {
      */
     @Override
     public Task generate() {
-        if (generators.length == 0) {
-            throw new TooFewGeneratorsException("The list of generators is empty");
-        }
         int[] randomIndexes = RandomIndexesGenerator.getRandomIndexes(generators.length);
         for (int randomIndex : randomIndexes) {
             try {
                 return generators[randomIndex].generate();
             } catch (RuntimeException ignored) {}
         }
-        throw new BadGeneratorsException("All generators threw exceptions");
+        throw new BadGeneratorException("All generators threw exceptions");
     }
 }

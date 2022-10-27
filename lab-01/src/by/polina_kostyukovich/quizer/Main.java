@@ -1,6 +1,7 @@
 package by.polina_kostyukovich.quizer;
 
 import by.polina_kostyukovich.quizer.tasks.Task;
+import org.json.simple.parser.ParseException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,8 +9,8 @@ import java.io.InputStreamReader;
 import java.util.Map;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        Map<String, Quiz> quizMap = getQuizMap();
+    public static void main(String[] args) throws IOException, ParseException {
+        Map<String, Quiz> quizMap = Quiz.getQuizMap();
         System.out.print("Введите название теста: ");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -22,7 +23,7 @@ public class Main {
 
         while (!activeQuiz.isFinished()) {
             Task task = activeQuiz.nextTask();
-            System.out.println(task.getText());
+            System.out.print(task.getText());
             Result result = activeQuiz.provideAnswer(reader.readLine());
             switch (result) {
                 case OK -> {
@@ -37,14 +38,5 @@ public class Main {
             }
         }
         System.out.println("Отличная работа! Ваша оценка: " + activeQuiz.getMark());
-    }
-
-    /**
-     * @return тесты в {@link Map}, где
-     * ключ     - название теста {@link String},
-     * значение - сам тест       {@link Quiz}
-     */
-    static Map<String, Quiz> getQuizMap() {
-        return null;
     }
 }

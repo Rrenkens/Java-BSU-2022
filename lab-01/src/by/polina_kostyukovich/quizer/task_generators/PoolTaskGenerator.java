@@ -5,8 +5,6 @@ import by.polina_kostyukovich.quizer.tasks.Task;
 
 import java.util.*;
 
-import static by.polina_kostyukovich.quizer.task_generators.RandomIndexesGenerator.getRandomIndexes;
-
 public class PoolTaskGenerator implements Task.Generator {
     private final Task[] tasks;
     private final boolean allowDuplicate;
@@ -22,6 +20,9 @@ public class PoolTaskGenerator implements Task.Generator {
     public PoolTaskGenerator(boolean allowDuplicate, Task... tasks) {
         if (tasks == null) {
             throw new IllegalArgumentException("Array of tasks is null");
+        }
+        if (tasks.length == 0) {
+            throw new IllegalArgumentException("Array of tasks is empty");
         }
         this.allowDuplicate = allowDuplicate;
         if (allowDuplicate) {
@@ -42,6 +43,9 @@ public class PoolTaskGenerator implements Task.Generator {
     public PoolTaskGenerator(boolean allowDuplicate, Collection<Task> tasks) {
         if (tasks == null) {
             throw new IllegalArgumentException("Collection of tasks is null");
+        }
+        if (tasks.isEmpty()) {
+            throw new IllegalArgumentException("Collection of tasks is empty");
         }
         this.allowDuplicate = allowDuplicate;
         Task[] tasksArray = tasks.toArray(new Task[0]);
@@ -72,6 +76,7 @@ public class PoolTaskGenerator implements Task.Generator {
         Task[] differentTasks = new Task[numberOfDifferentTasks];
         int current_index = 0;
         current_task = tasks[0];
+        differentTasks[0] = tasks[0];
         for (Task task : tasks) {
             if (!current_task.getText().equals(task.getText())) {
                 ++current_index;
@@ -87,9 +92,6 @@ public class PoolTaskGenerator implements Task.Generator {
      */
     @Override
     public Task generate() {
-        if (tasks.length == 0) {
-            throw new TooFewTasksException("The list of tasks is empty");
-        }
         if (allowDuplicate) {
             int randomIndex = (int) (Math.random() * tasks.length);
             return tasks[randomIndex];

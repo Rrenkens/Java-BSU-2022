@@ -1,0 +1,524 @@
+[
+  {
+    "QuizName": "Математические задачи",
+    "TaskCount": 5,
+    "GeneratorType": "TextTaskGenerator",
+    "Tasks": [
+      {
+        "Text": "На столе лежало 5 яблок, 3 яблока съели. Сколько яблок осталось?",
+        "Answer": 2
+      },
+      {
+        "Text": "В пяти одинаковых квартирах 20 комнат. Сколько комнат в трех таких квартирах?",
+        "Answer": 12
+      },
+      {
+        "Text": "За 2 часа упряжка ездовых собак пробежала 24 км. С какой скоростью (км/ч) бежали собаки?",
+        "Answer": 12
+      },
+      {
+        "Text": "Ширина прямоугольника ABCD равна 3. Известно, что ширина этого прямоугольника в 2 раза короче его длины. Найдите периметр прямоугольника ABCD.",
+        "Answer": 18
+      },
+      {
+        "Text": "Купили 3 коробки черного чая и 2 коробки зеленого чая. В каждой коробке было по 50 пакетиков чая. Сколько всего пакетиков чая в этих коробках?",
+        "Answer": 250
+      },
+      {
+        "Text": "3 самосвала привезли на стройку 21 т песка, поровну каждый. Сколько тонн песка привез каждый самосвал?",
+        "Answer": 7
+      },
+      {
+        "Text": "Катер шел 2 часа со скоростью 35 км/ч. Потом он шел столько же часов со скоростью 38 км/ч. Какое расстояние (км) преодолел катер за все время движения?",
+        "Answer": 146
+      },
+      {
+        "Text": "На соревнованиях 160 детей разделились на 8 одинаковых команд. Сколько детей оказалось в четырех командах?",
+        "Answer": 80
+      }
+    ]
+  },
+  {
+    "QuizName": "English tenses",
+    "TaskCount": 10,
+    "GeneratorType": "TextTaskGenerator",
+    "Tasks": [
+      {
+        "Text": "I'll call you the moment I ... (get) home.",
+        "Answer": "get"
+      },
+      {
+        "Text": "You can visit me whenever you ... (want) to.",
+        "Answer": "want"
+      },
+      {
+        "Text": "We went for a walk after we ... (eat) breakfast.",
+        "Answer": "had eaten"
+      },
+      {
+        "Text": "Once he ... (read) the manual, he knew how to operate the machine.",
+        "Answer": "had read"
+      },
+      {
+        "Text": "I was doing the ironing while he ... (wash) the car.",
+        "Answer": "was washing"
+      },
+      {
+        "Text": "They didn't get married until they ... (save) enough money for their honeymoon.",
+        "Answer": "had saved"
+      },
+      {
+        "Text": "The students don't know when the results ... (announce).",
+        "Answer": "will be announced"
+      },
+      {
+        "Text": "She was wandering up and down the street. She looked as though she ... (be) lost.",
+        "Answer": "was"
+      },
+      {
+        "Text": "Although he had a degree in French, it sounded as though he ... (not/speak) it well.",
+        "Answer": "didn't speak"
+      },
+      {
+        "Text": "The sky is dark. It looks as if it ... (rain).",
+        "Answer": "is going to rain"
+      },
+      {
+        "Text": "There is a strange smell in the kitchen. It smells as though something ... (burn).",
+        "Answer": "is burning"
+      },
+      {
+        "Text": "Colin was out of breath. He sounded as though he ... (run).",
+        "Answer": "had been running"
+      },
+      {
+        "Text": "We had never mat before, but she greeted me as if we ... (know) each other all our lives.",
+        "Answer": "had known"
+      }
+    ]
+  },
+  {
+    "QuizName": "Уравнения",
+    "TaskCount": 9,
+    "GeneratorType": "EquationTaskGenerator",
+    "MinNumber": 0,
+    "MaxNumber": 10,
+    "Operations": [
+      "Sum",
+      "Difference",
+      "Multiplication",
+      "Division"
+    ]
+  },
+  {
+    "QuizName": "Выражения",
+    "TaskCount": 6,
+    "GeneratorType": "ExpressionTaskGenerator",
+    "MinNumber": 0,
+    "MaxNumber": 10,
+    "Operations": [
+      "Sum",
+      "Difference",
+      "Multiplication",
+      "Division"
+    ]
+  },
+  {
+    "QuizName": "Выражения и уравнения (group)",
+    "TaskCount": 11,
+    "GeneratorType": "GroupTaskGenerator",
+    "Generators": [
+      {
+        "GeneratorType": "ExpressionTaskGenerator",
+        "MinNumber": -5,
+        "MaxNumber": 10,
+        "Operations": [
+          "Sum",
+          "Difference"
+        ]
+      },
+      {
+        "GeneratorType": "EquationTaskGenerator",
+        "MinNumber": -15,
+        "MaxNumber": -2,
+        "Operations": [
+          "Multiplication",
+          "Division"
+        ]
+      },
+      {
+        "GeneratorType": "ExpressionTaskGenerator",
+        "MinNumber": -80,
+        "MaxNumber": 80,
+        "Operations": [
+          "Difference",
+          "Multiplication"
+        ]
+      },
+      {
+        "GeneratorType": "EquationTaskGenerator",
+        "MinNumber": 29,
+        "MaxNumber": 100,
+        "Operations": [
+          "Difference"
+        ]
+      }
+    ]
+  },
+  {
+    "QuizName": "Математика разное (group)",
+    "TaskCount": 15,
+    "GeneratorType": "GroupTaskGenerator",
+    "Generators": [
+      {
+        "GeneratorType": "EquationTaskGenerator",
+        "MinNumber": 0,
+        "MaxNumber": 10,
+        "Operations": [
+          "Sum"
+        ]
+      },
+      {
+        "GeneratorType": "ExpressionTaskGenerator",
+        "MinNumber": 0,
+        "MaxNumber": 10,
+        "Operations": [
+          "Sum",
+          "Difference"
+        ]
+      },
+      {
+        "GeneratorType": "EquationTaskGenerator",
+        "MinNumber": 0,
+        "MaxNumber": 10,
+        "Operations": [
+          "Sum",
+          "Difference",
+          "Division"
+        ]
+      },
+      {
+        "GeneratorType": "ExpressionTaskGenerator",
+        "MinNumber": 0,
+        "MaxNumber": 10,
+        "Operations": [
+          "Difference",
+          "Multiplication",
+          "Division"
+        ]
+      },
+      {
+        "GeneratorType": "TextTaskGenerator",
+        "Tasks": [
+          {
+            "Text": "Василь скачал несколько музыкальных клипов на 24 мин просмотра. Каждый клип длится 2 мин. Ян скачал столько же клипов, по 3 мин каждый. Сколько минут может смотреть свои клипы Ян?",
+            "Answer": 36
+          },
+          {
+            "Text": "Масса слона составляет 5000 кг. Это одна восьмая часть массы кашалота. Какова масса трех таких кашалотов?",
+            "Answer": 120000
+          },
+          {
+            "Text": "Из каждых 6 бросков Вацлав попадает в баскетбольную корзину 2 раза. Сколько раз Вацлав попадет в корзину, если он сделает 30 бросков?",
+            "Answer": 10
+          },
+          {
+            "Text": "У Зоси есть дедушка и бабушка. Дедушке 60 лет, а бабушке - 58. Дедушка в 2 раза старше папы Зоси. Во сколько раз Зося моложе папы, если ей 10 лет?",
+            "Answer": 3
+          }
+        ]
+      },
+      {
+        "GeneratorType": "PoolTaskGenerator",
+        "AllowDuplicate": true,
+        "Tasks": [
+          {
+            "TaskType": "ExpressionTask",
+            "Number1": -9,
+            "Number2": 0,
+            "Operation": "Sum"
+          },
+          {
+            "TaskType": "TextTask",
+            "Text": "Тося спала третью часть суток. Сколько часов спала Тося?",
+            "Answer": 8
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "QuizName": "Различные задания (pool)",
+    "TaskCount": 6,
+    "GeneratorType": "PoolTaskGenerator",
+    "AllowDuplicate": false,
+    "Tasks": [
+      {
+        "TaskType": "ExpressionTask",
+        "Number1": 15,
+        "Number2": 29,
+        "Operation": "Sum"
+      },
+      {
+        "TaskType": "ExpressionTask",
+        "Number1": 15,
+        "Number2": 29,
+        "Operation": "Sum"
+      },
+      {
+        "TaskType": "ExpressionTask",
+        "Number1": -34,
+        "Number2": -2,
+        "Operation": "Division"
+      },
+      {
+        "TaskType": "EquationTask",
+        "Number1": 46,
+        "Number2": 14,
+        "Operation": "Difference",
+        "IsXOnFirstPosition": true
+      },
+      {
+        "TaskType": "EquationTask",
+        "Number1": 2,
+        "Number2": 14,
+        "Operation": "Multiplication",
+        "IsXOnFirstPosition": false
+      },
+      {
+        "TaskType": "TextTask",
+        "Text": "Отец и сын окапывали кусты малины. Отец за час окапывал 8 кустов, а сын - 4 куста. Сколько времени они должны работать вместе, чтобы окопать 24 куста малины?",
+        "Answer": 2
+      },
+      {
+        "TaskType": "TextTask",
+        "Text": "Одна вторая часть пути, пройденного автобусом, равна 200 км. Сколько часов был в пути автобус, если он двигался со скоростью 80 км/ч?",
+        "Answer": 5
+      }
+    ]
+  },
+  {
+    "QuizName": "0 заданий",
+    "TaskCount": 0,
+    "GeneratorType": "EquationTaskGenerator",
+    "MinNumber": 0,
+    "MaxNumber": 10,
+    "Operations": [
+      "Sum",
+      "Difference"
+    ]
+  },
+  {
+    "QuizName": "Уравнение x * 0 = 0",
+    "TaskCount": 4,
+    "GeneratorType": "PoolTaskGenerator",
+    "AllowDuplicate": true,
+    "Tasks": [
+      {
+        "TaskType": "EquationTask",
+        "Number1": 0,
+        "Number2": 0,
+        "Operation": "Multiplication",
+        "IsXOnFirstPosition": true
+      }
+    ]
+  },
+  {
+    "QuizName": "Уравнение 0 / x = 0",
+    "TaskCount": 4,
+    "GeneratorType": "PoolTaskGenerator",
+    "AllowDuplicate": true,
+    "Tasks": [
+      {
+        "TaskType": "EquationTask",
+        "Number1": 0,
+        "Number2": 0,
+        "Operation": "Division",
+        "IsXOnFirstPosition": false
+      }
+    ]
+  },
+  {
+    "QuizName": "Уравнения только 0 * x = 0",
+    "TaskCount": 3,
+    "GeneratorType": "EquationTaskGenerator",
+    "MinNumber": 0,
+    "MaxNumber": 0,
+    "Operations": [
+      "Multiplication"
+    ]
+  },
+  {
+    "QuizName": "Уравнения только 0 / x = 0",
+    "TaskCount": 3,
+    "GeneratorType": "EquationTaskGenerator",
+    "MinNumber": 0,
+    "MaxNumber": 0,
+    "Operations": [
+      "Division"
+    ]
+  },
+  {
+    "QuizName": "Задачи с повторениями",
+    "TaskCount": 7,
+    "GeneratorType": "PoolTaskGenerator",
+    "AllowDuplicate": true,
+    "Tasks": [
+      {
+        "TaskType": "TextTask",
+        "Text": "За 2 часа упряжка ездовых собак пробежала 24 км. С какой скоростью (км/ч) бежали собаки?",
+        "Answer": 12
+      },
+      {
+        "TaskType": "TextTask",
+        "Text": "На столе лежало 5 яблок, 3 яблока съели. Сколько яблок осталось?",
+        "Answer": 2
+      },
+      {
+        "TaskType": "TextTask",
+        "Text": "В пяти одинаковых квартирах 20 комнат. Сколько комнат в трех таких квартирах?",
+        "Answer": 12
+      }
+    ]
+  },
+  {
+    "QuizName": "Задачи без повторений",
+    "TaskCount": 2,
+    "GeneratorType": "PoolTaskGenerator",
+    "AllowDuplicate": false,
+    "Tasks": [
+      {
+        "TaskType": "TextTask",
+        "Text": "За 2 часа упряжка ездовых собак пробежала 24 км. С какой скоростью (км/ч) бежали собаки?",
+        "Answer": 12
+      },
+      {
+        "TaskType": "TextTask",
+        "Text": "На столе лежало 5 яблок, 3 яблока съели. Сколько яблок осталось?",
+        "Answer": 2
+      },
+      {
+        "TaskType": "TextTask",
+        "Text": "На столе лежало 5 яблок, 3 яблока съели. Сколько яблок осталось?",
+        "Answer": 2
+      },
+      {
+        "TaskType": "TextTask",
+        "Text": "За 2 часа упряжка ездовых собак пробежала 24 км. С какой скоростью (км/ч) бежали собаки?",
+        "Answer": 12
+      },
+      {
+        "TaskType": "TextTask",
+        "Text": "В пяти одинаковых квартирах 20 комнат. Сколько комнат в трех таких квартирах?",
+        "Answer": 12
+      },
+      {
+        "TaskType": "TextTask",
+        "Text": "В пяти одинаковых квартирах 20 комнат. Сколько комнат в трех таких квартирах?",
+        "Answer": 12
+      },
+      {
+        "TaskType": "TextTask",
+        "Text": "За 2 часа упряжка ездовых собак пробежала 24 км. С какой скоростью (км/ч) бежали собаки?",
+        "Answer": 12
+      }
+    ]
+  },
+  {
+    "QuizName": "Мало задач без повторений",
+    "TaskCount": 5,
+    "GeneratorType": "PoolTaskGenerator",
+    "AllowDuplicate": false,
+    "Tasks": [
+      {
+        "TaskType": "TextTask",
+        "Text": "За 2 часа упряжка ездовых собак пробежала 24 км. С какой скоростью (км/ч) бежали собаки?",
+        "Answer": 12
+      },
+      {
+        "TaskType": "TextTask",
+        "Text": "На столе лежало 5 яблок, 3 яблока съели. Сколько яблок осталось?",
+        "Answer": 2
+      },
+      {
+        "TaskType": "TextTask",
+        "Text": "На столе лежало 5 яблок, 3 яблока съели. Сколько яблок осталось?",
+        "Answer": 2
+      },
+      {
+        "TaskType": "TextTask",
+        "Text": "За 2 часа упряжка ездовых собак пробежала 24 км. С какой скоростью (км/ч) бежали собаки?",
+        "Answer": 12
+      },
+      {
+        "TaskType": "TextTask",
+        "Text": "В пяти одинаковых квартирах 20 комнат. Сколько комнат в трех таких квартирах?",
+        "Answer": 12
+      },
+      {
+        "TaskType": "TextTask",
+        "Text": "В пяти одинаковых квартирах 20 комнат. Сколько комнат в трех таких квартирах?",
+        "Answer": 12
+      },
+      {
+        "TaskType": "TextTask",
+        "Text": "За 2 часа упряжка ездовых собак пробежала 24 км. С какой скоростью (км/ч) бежали собаки?",
+        "Answer": 12
+      }
+    ]
+  },
+  {
+    "QuizName": "Group все генераторы бросают исключения",
+    "TaskCount": 15,
+    "GeneratorType": "GroupTaskGenerator",
+    "Generators": [
+      {
+        "GeneratorType": "ExpressionTaskGenerator",
+        "MinNumber": 0,
+        "MaxNumber": 0,
+        "Operations": [
+          "Division"
+        ]
+      },
+      {
+        "GeneratorType": "ExpressionTaskGenerator",
+        "MinNumber": 0,
+        "MaxNumber": 0,
+        "Operations": [
+          "Division"
+        ]
+      }
+    ]
+  },
+  {
+    "QuizName": "Group один генератор всегда бросает исключение",
+    "TaskCount": 5,
+    "GeneratorType": "GroupTaskGenerator",
+    "Generators": [
+      {
+        "GeneratorType": "ExpressionTaskGenerator",
+        "MinNumber": 0,
+        "MaxNumber": 0,
+        "Operations": [
+          "Division"
+        ]
+      },
+      {
+        "GeneratorType": "PoolTaskGenerator",
+        "AllowDuplicate": true,
+        "Tasks": [
+          {
+            "TaskType": "TextTask",
+            "Text": "Василь скачал несколько музыкальных клипов на 24 мин просмотра. Каждый клип длится 2 мин. Ян скачал столько же клипов, по 3 мин каждый. Сколько минут может смотреть свои клипы Ян?",
+            "Answer": 36
+          },
+          {
+            "TaskType": "TextTask",
+            "Text": "Масса слона составляет 5000 кг. Это одна восьмая часть массы кашалота. Какова масса трех таких кашалотов?",
+            "Answer": 120000
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,7 +1,8 @@
 package by.polina_kostyukovich.quizer.tasks.math_tasks;
 
 import by.polina_kostyukovich.quizer.Result;
-import by.polina_kostyukovich.quizer.exceptions.BadGeneratorsException;
+import by.polina_kostyukovich.quizer.exceptions.BadGeneratorException;
+import by.polina_kostyukovich.quizer.exceptions.BadTaskException;
 import by.polina_kostyukovich.quizer.tasks.Task;
 
 import java.util.EnumSet;
@@ -18,13 +19,21 @@ public class ExpressionTask extends AbstractMathTask {
         if (number2 == 0 && operation == Operation.DIVISION) {
             throw new IllegalArgumentException("The expression is \"a / 0 = b\"");
         }
+        if (operation == Operation.DIVISION && number1 % number2 != 0) {
+            throw new BadTaskException("Not integer division");
+        }
+
         operator = getOperator(operation);
         answer = getAnswer(number1, number2, operation);
     }
 
     @Override
     public String getText() {
-        return number1 + " " + operator + " " + number2 + " = ";
+        if (number2 < 0) {
+            return number1 + " " + operator + " (" + number2 + ") = ";
+        } else {
+            return number1 + " " + operator + " " + number2 + " = ";
+        }
     }
 
     @Override
@@ -59,9 +68,7 @@ public class ExpressionTask extends AbstractMathTask {
             case DIVISION -> {
                 return number1 / number2;
             }
-            default -> {
-                return 0;
-            }
+            default -> throw new BadTaskException("Invalid operation");
         }
     }
 
@@ -82,7 +89,7 @@ public class ExpressionTask extends AbstractMathTask {
         public Task generate() {
             if (maxNumber == 0 && minNumber == 0 && operations.size() == 1 &&
                     operations.toArray()[0] == Operation.DIVISION) {
-                throw new BadGeneratorsException("Generator allows only \"0 / 0 = ?\" expression");
+                throw new BadGeneratorException("Generator allows only \"0 / 0 = ?\" expression");
             }
             int number1 = (int) (Math.random() * (getDiffNumber() + 1) + minNumber);
             int number2 = (int) (Math.random() * (getDiffNumber() + 1) + minNumber);

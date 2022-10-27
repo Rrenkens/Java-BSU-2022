@@ -1,0 +1,179 @@
+[
+  {
+    "QuizName": "Выражения с пустым массивом операций",
+    "TaskCount": 5,
+    "GeneratorType": "ExpressionTaskGenerator",
+    "MinNumber": -23,
+    "MaxNumber": 10,
+    "Operations": []
+  },
+  {
+    "QuizName": "Уравнения с пустым массивом операций",
+    "TaskCount": 5,
+    "GeneratorType": "EquationTaskGenerator",
+    "MinNumber": -23,
+    "MaxNumber": 10,
+    "Operations": []
+  },
+  {
+    "QuizName": "Выражения с неправильными границами",
+    "TaskCount": 5,
+    "GeneratorType": "ExpressionTaskGenerator",
+    "MinNumber": 80,
+    "MaxNumber": -10,
+    "Operations": [
+      "Sum"
+    ]
+  },
+  {
+    "QuizName": "Уравнения с неправильными границами",
+    "TaskCount": 5,
+    "GeneratorType": "EquationTaskGenerator",
+    "MinNumber": 12,
+    "MaxNumber": 10,
+    "Operations": [
+      "Difference"
+    ]
+  },
+  {
+    "QuizName": "Выражение с делением на 0",
+    "TaskCount": 1,
+    "GeneratorType": "PoolTaskGenerator",
+    "AllowDuplicate": true,
+    "Tasks": [
+      {
+        "TaskType": "ExpressionTask",
+        "Number1": 12,
+        "Number2": 0,
+        "Operation": "Division"
+      }
+    ]
+  },
+  {
+    "QuizName": "Выражение с нецелочисленным делением",
+    "TaskCount": 1,
+    "GeneratorType": "PoolTaskGenerator",
+    "AllowDuplicate": true,
+    "Tasks": [
+      {
+        "TaskType": "ExpressionTask",
+        "Number1": 12,
+        "Number2": 7,
+        "Operation": "Division"
+      }
+    ]
+  },
+  {
+    "QuizName": "Только выражение 0 / 0",
+    "TaskCount": 1,
+    "GeneratorType": "ExpressionTaskGenerator",
+    "MinNumber": 0,
+    "MaxNumber": 0,
+    "Operations": [
+      "Division"
+    ]
+  },
+  {
+    "QuizName": "Уравнение x / 0 = a",
+    "TaskCount": 1,
+    "GeneratorType": "PoolTaskGenerator",
+    "AllowDuplicate": true,
+    "Tasks": [
+      {
+        "TaskType": "EquationTask",
+        "Number1": 0,
+        "Number2": 14,
+        "Operation": "Division",
+        "IsXOnFirstPosition": true
+      }
+    ]
+  },
+  {
+    "QuizName": "Уравнение 0 / x != 0",
+    "TaskCount": 1,
+    "GeneratorType": "PoolTaskGenerator",
+    "AllowDuplicate": true,
+    "Tasks": [
+      {
+        "TaskType": "EquationTask",
+        "Number1": 0,
+        "Number2": 14,
+        "Operation": "Division",
+        "IsXOnFirstPosition": false
+      }
+    ]
+  },
+  {
+    "QuizName": "Уравнение x * 0 != 0",
+    "TaskCount": 1,
+    "GeneratorType": "PoolTaskGenerator",
+    "AllowDuplicate": true,
+    "Tasks": [
+      {
+        "TaskType": "EquationTask",
+        "Number1": 0,
+        "Number2": 14,
+        "Operation": "Multiplication",
+        "IsXOnFirstPosition": true
+      }
+    ]
+  },
+  {
+    "QuizName": "Уравнение 0 * x != 0",
+    "TaskCount": 1,
+    "GeneratorType": "PoolTaskGenerator",
+    "AllowDuplicate": true,
+    "Tasks": [
+      {
+        "TaskType": "EquationTask",
+        "Number1": 0,
+        "Number2": 14,
+        "Operation": "Multiplication",
+        "IsXOnFirstPosition": false
+      }
+    ]
+  },
+  {
+    "QuizName": "Уравнение \"x * a = b\" с нецелочисленным делением",
+    "TaskCount": 1,
+    "GeneratorType": "PoolTaskGenerator",
+    "AllowDuplicate": true,
+    "Tasks": [
+      {
+        "TaskType": "EquationTask",
+        "Number1": 5,
+        "Number2": 18,
+        "Operation": "Multiplication",
+        "IsXOnFirstPosition": true
+      }
+    ]
+  },
+  {
+    "QuizName": "Уравнение \"a / x = b\" с нецелочисленным делением",
+    "TaskCount": 1,
+    "GeneratorType": "PoolTaskGenerator",
+    "AllowDuplicate": true,
+    "Tasks": [
+      {
+        "TaskType": "EquationTask",
+        "Number1": 20,
+        "Number2": 23,
+        "Operation": "Division",
+        "IsXOnFirstPosition": false
+      }
+    ]
+  },
+  {
+    "QuizName": "Pool с пустым массивом заданий",
+    "TaskCount": 4,
+    "GeneratorType": "PoolTaskGenerator",
+    "AllowDuplicate": true,
+    "Tasks": []
+  },
+  {
+    "QuizName": "Group пустой вектор генераторов",
+    "TaskCount": 5,
+    "GeneratorType": "GroupTaskGenerator",
+    "Generators": []
+  }
+]
