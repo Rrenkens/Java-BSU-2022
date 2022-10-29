@@ -15,8 +15,12 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         String testName = reader.readLine();
-        while (testName.equals("") || !quizMap.containsKey(testName)) {
-            System.out.print("Теста с таким названием нет(. Повторите попытку: ");
+        while (testName.equals("") || !quizMap.containsKey(testName) || quizMap.get(testName).generatorThrewException()) {
+            if (quizMap.get(testName).generatorThrewException()) {
+                System.out.print("Этот тест некорректен, поэтому не может быть запущен. Выберите другой тест: ");
+            } else {
+                System.out.print("Теста с таким названием нет(. Повторите попытку: ");
+            }
             testName = reader.readLine();
         }
         Quiz activeQuiz = quizMap.get(testName);

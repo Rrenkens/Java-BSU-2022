@@ -28,6 +28,7 @@ public class Quiz {
     private int incorrectInputNumber = 0;
     private Task currentTask;
     private boolean wasLastInputIncorrect = false;
+    private boolean generatorThrewException;
 
     /**
      * @param generator генератор заданий
@@ -114,6 +115,10 @@ public class Quiz {
         return ((double) correctAnswerNumber) / taskCount;
     }
 
+    public boolean generatorThrewException() {
+        return generatorThrewException;
+    }
+
     /**
      * @return тесты в {@link Map}, где
      * ключ     - название теста {@link String},
@@ -128,18 +133,19 @@ public class Quiz {
             String quizName = (String) quiz.get("QuizName");
             String generatorType = (String) quiz.get("GeneratorType");
             int taskCount = (int) (long) quiz.get("TaskCount");
-            switch (generatorType) {
-                case "TextTaskGenerator" ->
-                        quizMap.put(quizName, new Quiz(getTextTaskGenerator(quiz), taskCount));
-                case "ExpressionTaskGenerator" ->
-                        quizMap.put(quizName, new Quiz(getExpressionTaskGenerator(quiz), taskCount));
-                case "EquationTaskGenerator" ->
-                        quizMap.put(quizName, new Quiz(getEquationTaskGenerator(quiz), taskCount));
-                case "GroupTaskGenerator" ->
-                        quizMap.put(quizName, new Quiz(getGroupTaskGenerator(quiz), taskCount));
-                case "PoolTaskGenerator" ->
-                        quizMap.put(quizName, new Quiz(getPoolTaskGenerator(quiz), taskCount));
-                default -> throw new BadGeneratorException("Unknown type of generator");
+            try {
+                switch (generatorType) {
+                    case "TextTaskGenerator" -> quizMap.put(quizName, new Quiz(getTextTaskGenerator(quiz), taskCount));
+                    case "ExpressionTaskGenerator" -> quizMap.put(quizName, new Quiz(getExpressionTaskGenerator(quiz), taskCount));
+                    case "EquationTaskGenerator" -> quizMap.put(quizName, new Quiz(getEquationTaskGenerator(quiz), taskCount));
+                    case "GroupTaskGenerator" -> quizMap.put(quizName, new Quiz(getGroupTaskGenerator(quiz), taskCount));
+                    case "PoolTaskGenerator" -> quizMap.put(quizName, new Quiz(getPoolTaskGenerator(quiz), taskCount));
+                    default -> throw new BadGeneratorException("Unknown type of generator");
+                }
+            } catch (IllegalArgumentException | BadGeneratorException | BadTaskException e) {
+                Quiz bad_quiz = new Quiz(null, taskCount);
+                bad_quiz.generatorThrewException = true;
+                quizMap.put(quizName, bad_quiz);
             }
         }
         return quizMap;
@@ -219,9 +225,6 @@ public class Quiz {
 
     private static EnumSet<MathTask.Operation> getOperations(JSONObject quiz) {
         Object[] operationsObjectArray = ((JSONArray) quiz.get("Operations")).toArray();
-//        if (operationsObjectArray.length == 0) {
-//            throw new BadGeneratorException("No operations provided");
-//        }
         EnumSet<MathTask.Operation> operations = EnumSet.noneOf(MathTask.Operation.class);
         for (Object operation : operationsObjectArray) {
             operations.add(getOperationFromString((String) operation));
