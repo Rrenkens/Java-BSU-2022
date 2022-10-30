@@ -80,6 +80,10 @@ public class ExpressionTask extends AbstractMathTask {
          */
         public Generator(int minNumber, int maxNumber, EnumSet<Operation> operations) {
             super(minNumber, maxNumber, operations);
+            if (maxNumber == 0 && minNumber == 0 && operations.size() == 1 &&
+                    operations.toArray()[0] == Operation.DIVISION) {
+                throw new BadGeneratorException("Generator allows only \"0 / 0 = ?\" expression");
+            }
         }
 
         /**
@@ -87,10 +91,6 @@ public class ExpressionTask extends AbstractMathTask {
          */
         @Override
         public Task generate() {
-            if (maxNumber == 0 && minNumber == 0 && operations.size() == 1 &&
-                    operations.toArray()[0] == Operation.DIVISION) {
-                throw new BadGeneratorException("Generator allows only \"0 / 0 = ?\" expression");
-            }
             int number1 = (int) (Math.random() * (getDiffNumber() + 1) + minNumber);
             int number2 = (int) (Math.random() * (getDiffNumber() + 1) + minNumber);
             int numberOfOperation = (int) (Math.random() * operations.size());
