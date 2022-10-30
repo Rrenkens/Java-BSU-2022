@@ -1,7 +1,6 @@
 package by.polina_kostyukovich.quizer.task_generators;
 
 import by.polina_kostyukovich.quizer.exceptions.BadGeneratorException;
-import by.polina_kostyukovich.quizer.exceptions.TooFewGeneratorsException;
 import by.polina_kostyukovich.quizer.tasks.Task;
 
 import java.util.ArrayList;
