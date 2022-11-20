@@ -409,7 +409,7 @@ class EquationTask extends AbstractMathTask {
 ```
 
 ## ★ Real ExpressionTask и EquationTask
-Сделайте, чтобы `ExpressionTaskGenerator` и `EquationTaskGenerator` работал с double вместо int. Так же нужно изменить сигнатуру в методах `getMinNumber()`, `getMaxNumnber()`, `getDiffNumber` интерфейса `MathTask`, чтобы они возвращали double.
+Сделайте, чтобы `ExpressionTaskGenerator` и `EquationTaskGenerator` работал с double вместо int. Также нужно изменить сигнатуру в методах `getMinNumber()`, `getMaxNumnber()`, `getDiffNumber` интерфейса `MathTask`, чтобы они возвращали double.
 
 Добавьте в `ExpressionTaskGenerator` и `EquationTaskGenerator` конструктор, который после `maxNumber` принимает еще `int precision` - количество знаков после запятой в генерируемых числах. В других конструкторах считается, что `precision = 0`, т.e. генерируются только целые числа.
 
