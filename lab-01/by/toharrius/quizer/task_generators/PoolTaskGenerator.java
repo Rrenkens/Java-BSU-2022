@@ -3,10 +3,7 @@ package by.toharrius.quizer.task_generators;
 import by.toharrius.quizer.Task;
 import by.toharrius.quizer.TaskGenerator;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 

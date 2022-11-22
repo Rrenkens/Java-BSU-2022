@@ -374,7 +374,7 @@ default int getDiffNumber();
 
 ## Generator как nested class в Task★
 
-Сейчас вся иерархия `Task` дублируется и для `Generator` в отдельном пакете, это не очень хорошая практика, т. к. за таким кодом сложно следить. Давайте сделаем все `Generator`'ы внутреннеми классами в соответствующих `Task`. Например, вместо `ExpressionTaskGenerator` будет `ExpressionTask.Generator`. При этом `GroupTaskGenerator` и `PoolTaskGenerator` остануться в отдельном пакете, т.к. они не привязаны к конкретному типу задачи.
+Сейчас вся иерархия `Task` дублируется и для `Generator` в отдельном пакете, это не очень хорошая практика, т. к. за таким кодом сложно следить. Давайте сделаем все `Generator`'ы внутреннеми классами в соответствующих `Task`. Например, вместо `ExpressionTaskGenerator` будет `ExpressionTask.Generator`. При этом `GroupTaskGenerator` и `PoolTaskGenerator` останутся в отдельном пакете, т.к. они не привязаны к конкретному типу задачи.
 
 ```java
 interface Task {
