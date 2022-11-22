@@ -3,7 +3,7 @@ package by.toharrius.quizer;
 /**
  * Interface, который описывает одно задание
  */
-interface Task {
+public interface Task {
     /**
      @return текст задания
      */
