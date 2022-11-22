@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="239.3263625451641" y="1809.312734419138">by.marmotikon.quizer.tasks.math_tasks.AnimalsTask</node>
+    <node x="1121.3593195967733" y="1578.1493226161201">by.marmotikon.quizer.tasks.math_tasks.ApplesTask.ApplesTaskGenerator</node>
+    <node x="238.82636254516422" y="534.4956754040488">by.marmotikon.quizer.tasks.math_tasks.MathTask</node>
+    <node x="238.82636254516422" y="1115.8224990100844">by.marmotikon.quizer.tasks.math_tasks.ExpressionTask</node>
+    <node x="1285.6241956377066" y="40.12623850766681">by.marmotikon.quizer.exceptions.EmptyTaskPoolException</node>
+    <node x="1121.3593195967733" y="1346.9859108131022">by.marmotikon.quizer.tasks.math_tasks.EquationTask.EquationTaskGenerator</node>
+    <node x="-142.97755191948028" y="534.4956754040487">by.marmotikon.quizer.tasks.math_tasks.Number</node>
+    <node x="1797.1676558782542" y="1346.9859108131022">by.marmotikon.quizer.task_generators.PoolTaskGenerator</node>
+    <node x="-124.97755191948022" y="-273.8737614923332">by.marmotikon.quizer.Main</node>
+    <node x="1121.6715062945564" y="255.33226360103106">by.marmotikon.quizer.tasks.Task.TaskGenerator</node>
+    <node x="1121.3593195967733" y="738.6590872070666">by.marmotikon.quizer.tasks.math_tasks.AbstractMathTask.AbstractMathTaskGenerator</node>
+    <node x="238.82636254516422" y="-273.8737614923332">by.marmotikon.quizer.Quiz</node>
+    <node x="-143.97755191948028" y="1115.8224990100844">by.marmotikon.quizer.tasks.TextTask</node>
+    <node x="1121.3593195967733" y="1115.8224990100844">by.marmotikon.quizer.tasks.math_tasks.ExpressionTask.ExpressionTaskGenerator</node>
+    <node x="1797.1676558782542" y="1115.8224990100844">by.marmotikon.quizer.task_generators.GroupTaskGenerator</node>
+    <node x="-124.97755191948028" y="255.33226360103106">by.marmotikon.quizer.Result</node>
+    <node x="238.82636254516422" y="255.33226360103106">by.marmotikon.quizer.tasks.Task</node>
+    <node x="238.8263625451641" y="1578.1493226161201">by.marmotikon.quizer.tasks.math_tasks.ApplesTask</node>
+    <node x="238.82636254516422" y="738.6590872070666">by.marmotikon.quizer.tasks.math_tasks.AbstractMathTask</node>
+    <node x="1285.624195637707" y="-116.87376149233319">by.marmotikon.quizer.exceptions.GroupTaskGeneratorException</node>
+    <node x="1121.3593195967733" y="534.4956754040488">by.marmotikon.quizer.tasks.math_tasks.MathTask.MathTaskGenerator</node>
+    <node x="1285.624195637707" y="-273.8737614923332">by.marmotikon.quizer.exceptions.QuizNotFinishedException</node>
+    <node x="811.2313769944026" y="-177.3737614923332">java.lang.Exception</node>
+    <node x="238.82636254516422" y="1346.9859108131022">by.marmotikon.quizer.tasks.math_tasks.EquationTask</node>
+    <node x="725.0928410709687" y="534.4956754040488">by.marmotikon.quizer.tasks.math_tasks.MathTask.Operation</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="by.marmotikon.quizer.tasks.math_tasks.AbstractMathTask" target="by.marmotikon.quizer.tasks.math_tasks.MathTask" relationship="REALIZATION">
+      <point x="-104.5003625451642" y="-102.0" />
+      <point x="-15.000362545164194" y="15.5" />
+    </edge>
+    <edge source="by.marmotikon.quizer.tasks.math_tasks.MathTask" target="by.marmotikon.quizer.tasks.Task" relationship="INTERFACE_GENERALIZATION">
+      <point x="33.0" y="-15.5" />
+      <point x="0.0" y="53.0" />
+    </edge>
+    <edge source="by.marmotikon.quizer.tasks.math_tasks.ExpressionTask.ExpressionTaskGenerator" target="by.marmotikon.quizer.tasks.math_tasks.ExpressionTask" relationship="INNER_CLASS">
+      <point x="-249.5" y="-3.0" />
+      <point x="136.5" y="21.5" />
+    </edge>
+    <edge source="by.marmotikon.quizer.tasks.math_tasks.AbstractMathTask.AbstractMathTaskGenerator" target="by.marmotikon.quizer.tasks.math_tasks.AbstractMathTask" relationship="INNER_CLASS">
+      <point x="-248.5" y="-24.0" />
+      <point x="156.5" y="0.0" />
+    </edge>
+    <edge source="by.marmotikon.quizer.tasks.math_tasks.EquationTask.EquationTaskGenerator" target="by.marmotikon.quizer.tasks.math_tasks.EquationTask" relationship="INNER_CLASS">
+      <point x="-248.0" y="-3.0" />
+      <point x="129.5" y="21.5" />
+    </edge>
+    <edge source="by.marmotikon.quizer.tasks.math_tasks.ExpressionTask" target="by.marmotikon.quizer.tasks.math_tasks.AbstractMathTask" relationship="GENERALIZATION">
+      <point x="136.4996374548358" y="-4.990100844679546E-4" />
+      <point x="547.0" y="1144.822" />
+      <point x="547.0" y="1098.322" />
+      <point x="395.326" y="1098.322" />
+      <point x="-3.625451641937616E-4" y="101.9999127929334" />
+    </edge>
+    <edge source="by.marmotikon.quizer.task_generators.GroupTaskGenerator" target="by.marmotikon.quizer.tasks.Task.TaskGenerator" relationship="REALIZATION">
+      <point x="3.4412174568387854E-4" y="65.99950098991553" />
+      <point x="1993.168" y="1298.0" />
+      <point x="1655.5" y="1298.0" />
+      <point x="1655.5" y="284.332" />
+      <point x="89.00049370544366" y="-2.6360103106526367E-4" />
+    </edge>
+    <edge source="by.marmotikon.quizer.tasks.math_tasks.AnimalsTask" target="by.marmotikon.quizer.tasks.math_tasks.AbstractMathTask" relationship="GENERALIZATION">
+      <point x="122.49963745483592" y="2.6558086210570764E-4" />
+      <point x="507.0" y="1838.313" />
+      <point x="507.0" y="1428.0" />
+      <point x="547.0" y="1428.0" />
+      <point x="547.0" y="1098.322" />
+      <point x="395.326" y="1098.322" />
+      <point x="-3.625451641937616E-4" y="101.9999127929334" />
+    </edge>
+    <edge source="by.marmotikon.quizer.exceptions.GroupTaskGeneratorException" target="java.lang.Exception" relationship="GENERALIZATION">
+      <point x="-1.956377070655435E-4" y="-29.000238507666808" />
+      <point x="1444.124" y="-196.0" />
+      <point x="1001.231" y="-196.0" />
+      <point x="-3.76994402586206E-4" y="-89.50023850766681" />
+    </edge>
+    <edge source="by.marmotikon.quizer.exceptions.EmptyTaskPoolException" target="java.lang.Exception" relationship="GENERALIZATION">
+      <point x="-138.0001956377066" y="-2.3850766680766355E-4" />
+      <point x="1208.731" y="69.126" />
+      <point x="1208.731" y="-196.0" />
+      <point x="1001.231" y="-196.0" />
+      <point x="-3.76994402586206E-4" y="-89.50023850766681" />
+    </edge>
+    <edge source="by.marmotikon.quizer.tasks.math_tasks.ExpressionTask.ExpressionTaskGenerator" target="by.marmotikon.quizer.tasks.math_tasks.AbstractMathTask.AbstractMathTaskGenerator" relationship="GENERALIZATION">
+      <point x="-3.195967733518046E-4" y="-53.50049901008447" />
+      <point x="1370.859" y="1054.0" />
+      <point x="1369.859" y="1054.0" />
+      <point x="-3.195967733518046E-4" y="125.9999127929334" />
+    </edge>
+    <edge source="by.marmotikon.quizer.tasks.Task.TaskGenerator" target="by.marmotikon.quizer.tasks.Task" relationship="INNER_CLASS">
+      <point x="-89.0" y="0.0" />
+      <point x="100.0" y="-24.0" />
+    </edge>
+    <edge source="by.marmotikon.quizer.tasks.math_tasks.ApplesTask" target="by.marmotikon.quizer.tasks.math_tasks.AbstractMathTask" relationship="GENERALIZATION">
+      <point x="122.99963745483592" y="-3.2261612022921327E-4" />
+      <point x="507.0" y="1607.149" />
+      <point x="507.0" y="1428.0" />
+      <point x="547.0" y="1428.0" />
+      <point x="547.0" y="1098.322" />
+      <point x="395.326" y="1098.322" />
+      <point x="-3.625451641937616E-4" y="101.9999127929334" />
+    </edge>
+    <edge source="by.marmotikon.quizer.tasks.math_tasks.ApplesTask.ApplesTaskGenerator" target="by.marmotikon.quizer.tasks.math_tasks.AbstractMathTask.AbstractMathTaskGenerator" relationship="GENERALIZATION">
+      <point x="156.49968040322665" y="-3.2261612022921327E-4" />
+      <point x="1637.859" y="1619.649" />
+      <point x="1637.859" y="1054.0" />
+      <point x="1369.859" y="1054.0" />
+      <point x="-3.195967733518046E-4" y="125.9999127929334" />
+    </edge>
+    <edge source="by.marmotikon.quizer.tasks.TextTask" target="by.marmotikon.quizer.tasks.Task" relationship="REALIZATION">
+      <point x="107.5" y="-2.5" />
+      <point x="196.52244808051978" y="1215.3224990100844" />
+      <point x="196.52244808051978" y="308.33226360103106" />
+      <point x="-100.0" y="0.0" />
+    </edge>
+    <edge source="by.marmotikon.quizer.tasks.math_tasks.MathTask.MathTaskGenerator" target="by.marmotikon.quizer.tasks.Task.TaskGenerator" relationship="INTERFACE_GENERALIZATION">
+      <point x="-22.18781330221691" y="-53.0" />
+      <point x="0.0" y="29.0" />
+    </edge>
+    <edge source="by.marmotikon.quizer.tasks.math_tasks.AbstractMathTask.AbstractMathTaskGenerator" target="by.marmotikon.quizer.tasks.math_tasks.MathTask.MathTaskGenerator" relationship="REALIZATION">
+      <point x="-137.0" y="-126.0" />
+      <point x="0.0" y="53.0" />
+    </edge>
+    <edge source="by.marmotikon.quizer.tasks.math_tasks.EquationTask.EquationTaskGenerator" target="by.marmotikon.quizer.tasks.math_tasks.AbstractMathTask.AbstractMathTaskGenerator" relationship="GENERALIZATION">
+      <point x="247.99968040322665" y="8.918689786696632E-5" />
+      <point x="1637.859" y="1400.486" />
+      <point x="1637.859" y="1054.0" />
+      <point x="1369.859" y="1054.0" />
+      <point x="-3.195967733518046E-4" y="125.9999127929334" />
+    </edge>
+    <edge source="by.marmotikon.quizer.tasks.math_tasks.ApplesTask.ApplesTaskGenerator" target="by.marmotikon.quizer.tasks.math_tasks.ApplesTask" relationship="INNER_CLASS">
+      <point x="-156.5" y="2.499677383879771" />
+      <point x="123.0" y="14.99967738387977" />
+    </edge>
+    <edge source="by.marmotikon.quizer.tasks.math_tasks.MathTask.MathTaskGenerator" target="by.marmotikon.quizer.tasks.math_tasks.MathTask" relationship="INNER_CLASS">
+      <point x="-3.195967733518046E-4" y="-52.999675404048844" />
+      <point x="1232.859" y="516.996" />
+      <point x="459.0" y="516.996" />
+      <point x="459.0" y="653.0" />
+      <point x="305.826" y="653.0" />
+      <point x="-3.625451641937616E-4" y="15.500324595951156" />
+    </edge>
+    <edge source="by.marmotikon.quizer.tasks.math_tasks.EquationTask" target="by.marmotikon.quizer.tasks.math_tasks.AbstractMathTask" relationship="GENERALIZATION">
+      <point x="129.4996374548358" y="8.918689786696632E-5" />
+      <point x="547.0" y="1375.986" />
+      <point x="547.0" y="1098.322" />
+      <point x="395.326" y="1098.322" />
+      <point x="-3.625451641937616E-4" y="101.9999127929334" />
+    </edge>
+    <edge source="by.marmotikon.quizer.tasks.math_tasks.MathTask.Operation" target="by.marmotikon.quizer.tasks.math_tasks.MathTask" relationship="INNER_CLASS">
+      <point x="-111.49984107096873" y="-2.995675404048825" />
+      <point x="459.0" y="633.5" />
+      <point x="459.0" y="653.0" />
+      <point x="305.826" y="653.0" />
+      <point x="-3.625451641937616E-4" y="15.500324595951156" />
+    </edge>
+    <edge source="by.marmotikon.quizer.exceptions.QuizNotFinishedException" target="java.lang.Exception" relationship="GENERALIZATION">
+      <point x="-1.956377070655435E-4" y="28.999761492333192" />
+      <point x="1427.124" y="-196.0" />
+      <point x="1001.231" y="-196.0" />
+      <point x="-3.76994402586206E-4" y="-89.50023850766681" />
+    </edge>
+    <edge source="by.marmotikon.quizer.task_generators.PoolTaskGenerator" target="by.marmotikon.quizer.tasks.Task.TaskGenerator" relationship="REALIZATION">
+      <point x="3.4412174568387854E-4" y="-101.99991081310213" />
+      <point x="1984.668" y="1298.0" />
+      <point x="1655.5" y="1298.0" />
+      <point x="1655.5" y="284.332" />
+      <point x="89.00049370544366" y="-2.6360103106526367E-4" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.3963922294172063" showDependencies="false" x="1033.0" y="807.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
