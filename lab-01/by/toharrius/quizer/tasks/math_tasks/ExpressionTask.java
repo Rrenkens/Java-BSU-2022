@@ -1,6 +1,5 @@
-package by.toharrius.quizer.tasks;
+package by.toharrius.quizer.tasks.math_tasks;
 
-import by.toharrius.quizer.MathOperation;
 import by.toharrius.quizer.Result;
 
 import java.util.EnumSet;

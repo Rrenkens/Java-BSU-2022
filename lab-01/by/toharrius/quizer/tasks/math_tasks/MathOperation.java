@@ -1,4 +1,4 @@
-package by.toharrius.quizer;
+package by.toharrius.quizer.tasks.math_tasks;
 
 public enum MathOperation {
     ADD,
