@@ -28,8 +28,13 @@ public class ExpressionTask extends AbstractMathTask {
     }
 
     public static class Generator extends AbstractMathTask.Generator {
+        public Generator(double minNumber, double maxNumber,
+                         EnumSet<MathOperation> allowed,
+                         int precision) {
+            super(minNumber, maxNumber, allowed, precision);
+        }
         public Generator(double minNumber, double maxNumber, EnumSet<MathOperation> allowed) {
-            super(minNumber, maxNumber, allowed);
+            this(minNumber, maxNumber, allowed, 0);
         }
 
         @Override

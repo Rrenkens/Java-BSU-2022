@@ -18,11 +18,14 @@ public abstract class AbstractMathTask implements MathTask {
         private final double minNumber;
         private final double maxNumber;
         private final EnumSet<MathOperation> allowed;
+        private final double roundingCoefficient;
         public Generator(double minNumber, double maxNumber,
-                         EnumSet<MathOperation> allowed) {
+                         EnumSet<MathOperation> allowed,
+                         int precision) {
             this.minNumber = minNumber;
             this.maxNumber = maxNumber;
             this.allowed = allowed;
+            this.roundingCoefficient = Math.pow(10, precision);
         }
 
         @Override
@@ -33,6 +36,11 @@ public abstract class AbstractMathTask implements MathTask {
         @Override
         public double getMaxNumber() {
             return maxNumber;
+        }
+
+        @Override
+        public double getRoundingCoefficient() {
+            return roundingCoefficient;
         }
 
         @Override

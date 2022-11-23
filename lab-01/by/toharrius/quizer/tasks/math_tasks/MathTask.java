@@ -10,6 +10,7 @@ public interface MathTask extends Task {
     interface Generator extends TaskGenerator {
         double getMinNumber();
         double getMaxNumber();
+        double getRoundingCoefficient();
         EnumSet<MathOperation> getAllowed();
         /**
          * @return разница между максимальным и минимальным возможным числом
@@ -18,7 +19,10 @@ public interface MathTask extends Task {
             return getMaxNumber() - getMinNumber();
         }
         default double generateOperand() {
-            return getMinNumber() + Math.random() * getDiffNumber();
+            var generated = getMinNumber() + Math.random() * getDiffNumber();
+            return Math.round(generated
+                    * getRoundingCoefficient())
+                    / getRoundingCoefficient();
         }
         default MathOperation generateMathOperation() {
             var r = ThreadLocalRandom.current();
