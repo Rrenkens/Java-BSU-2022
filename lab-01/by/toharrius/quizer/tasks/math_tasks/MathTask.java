@@ -8,18 +8,17 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public interface MathTask extends Task {
     interface Generator extends TaskGenerator {
-        int getMinNumber();
-        int getMaxNumber();
+        double getMinNumber();
+        double getMaxNumber();
         EnumSet<MathOperation> getAllowed();
         /**
          * @return разница между максимальным и минимальным возможным числом
          */
-        default int getDiffNumber() {
-            return getMaxNumber() - getMinNumber() + 1;
+        default double getDiffNumber() {
+            return getMaxNumber() - getMinNumber();
         }
-        default int generateOperand() {
-            var r = ThreadLocalRandom.current();
-            return getMinNumber() + r.nextInt(getDiffNumber());
+        default double generateOperand() {
+            return getMinNumber() + Math.random() * getDiffNumber();
         }
         default MathOperation generateMathOperation() {
             var r = ThreadLocalRandom.current();

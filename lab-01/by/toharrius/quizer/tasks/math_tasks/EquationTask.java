@@ -8,13 +8,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class EquationTask extends AbstractMathTask {
     private final boolean variableLeftSide;
-    public EquationTask(int a, MathOperation op, int b, boolean variableLeftSide) {
+    public EquationTask(double a, MathOperation op, double b, boolean variableLeftSide) {
         super(a, op, b);
         this.variableLeftSide = variableLeftSide;
     }
     @Override
     public String getText() {
-        return (variableLeftSide
+        return "Решай уравнение: " +
+                (variableLeftSide
                         ? "x " + op + " " + b
                         : a + " " + op + " x"
                 ) + " = " + c;
@@ -22,7 +23,7 @@ public class EquationTask extends AbstractMathTask {
 
     @Override
     public Result validate(String answer) {
-        int value;
+        double value;
         try {
             value = Integer.parseInt(answer);
         } catch (NumberFormatException e) {
@@ -33,7 +34,7 @@ public class EquationTask extends AbstractMathTask {
     }
 
     public static class Generator extends AbstractMathTask.Generator {
-        public Generator(int minNumber, int maxNumber, EnumSet<MathOperation> allowed) {
+        public Generator(double minNumber, double maxNumber, EnumSet<MathOperation> allowed) {
             super(minNumber, maxNumber, allowed);
         }
         @Override

@@ -1,7 +1,5 @@
 package by.toharrius.quizer;
 
-import by.toharrius.quizer.Task;
-
 /**
  * Class, который описывает один тест
  */

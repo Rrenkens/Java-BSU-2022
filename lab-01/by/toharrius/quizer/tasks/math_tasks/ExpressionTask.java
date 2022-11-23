@@ -5,7 +5,7 @@ import by.toharrius.quizer.Result;
 import java.util.EnumSet;
 
 public class ExpressionTask extends AbstractMathTask {
-    public ExpressionTask(int a, MathOperation op, int b) {
+    public ExpressionTask(double a, MathOperation op, double b) {
         super(a, op, b);
     }
 
@@ -28,7 +28,7 @@ public class ExpressionTask extends AbstractMathTask {
     }
 
     public static class Generator extends AbstractMathTask.Generator {
-        public Generator(int minNumber, int maxNumber, EnumSet<MathOperation> allowed) {
+        public Generator(double minNumber, double maxNumber, EnumSet<MathOperation> allowed) {
             super(minNumber, maxNumber, allowed);
         }
 

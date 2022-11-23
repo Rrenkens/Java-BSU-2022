@@ -1,7 +1,5 @@
 package by.toharrius.quizer;
 
-import by.toharrius.quizer.Task;
-
 /**
  * Interface, который описывает один генератор заданий
  */
