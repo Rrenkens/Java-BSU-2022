@@ -3,21 +3,23 @@ package by.dudkoandrei.quizer.tasks;
 import by.dudkoandrei.quizer.Result;
 
 /**
- * Interface, который описывает одно задание
+ * Interface, который описывает одно задание.
  */
 public interface Task {
 
   /**
-   @return текст задания
+   * Возвращает текст задания.
+   *
+   * @return текст задания
    */
   String getText();
 
   /**
-   * Проверяет ответ на задание и возвращает результат
+   * Проверяет ответ на задание и возвращает результат.
    *
-   * @param  answer ответ на задание
-   * @return        результат ответа
-   * @see           Result
+   * @param answer ответ на задание
+   * @return результат ответа
+   * @see Result
    */
   Result validate(String answer);
 }

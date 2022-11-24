@@ -4,7 +4,7 @@ import by.dudkoandrei.quizer.task_generators.TaskGenerator;
 import by.dudkoandrei.quizer.tasks.Task;
 
 /**
- * Class, который описывает один тест
+ * Class, который описывает один тест.
  */
 class Quiz {
 
