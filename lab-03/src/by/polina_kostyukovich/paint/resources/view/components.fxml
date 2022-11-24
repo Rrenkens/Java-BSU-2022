@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.geometry.Insets?>
+<?import by.polina_kostyukovich.paint.util.ColorButton?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="by.polina_kostyukovich.paint.Controller"
+          vgap="10">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <GridPane hgap="20" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <padding>
+            <Insets right="10" left="10"/>
+        </padding>
+        <MenuButton fx:id="menuMenuButton" text="Menu"
+                    minWidth="90" minHeight="50" maxWidth="90" maxHeight="50"
+                    GridPane.columnIndex="0" GridPane.rowIndex="0"
+                    GridPane.columnSpan="2" GridPane.rowSpan="1"
+                    alignment="CENTER"/>
+
+        <GridPane hgap="10" GridPane.rowIndex="0" GridPane.columnIndex="2"
+                  GridPane.rowSpan="1" GridPane.columnSpan="3" alignment="CENTER">
+            <ToggleButton fx:id="pencilButton" text="Pencil" onAction="#handlePencilButtonPressed"
+                          minWidth="90" minHeight="50" maxWidth="90" maxHeight="50"
+                          GridPane.columnIndex="0" GridPane.rowIndex="0"
+                          GridPane.columnSpan="1" GridPane.rowSpan="1"/>
+            <ToggleButton fx:id="ellipseButton" text="Circle" onAction="#handleEllipseButtonPressed"
+                          minWidth="90" minHeight="50" maxWidth="90" maxHeight="50"
+                          GridPane.columnIndex="1" GridPane.rowIndex="0"
+                          GridPane.columnSpan="1" GridPane.rowSpan="1"/>
+            <ToggleButton fx:id="rectangleButton" text="Rectangle" onAction="#handleRectangleButtonPressed"
+                          minWidth="90" minHeight="50" maxWidth="90" maxHeight="50"
+                          GridPane.columnIndex="2" GridPane.rowIndex="0"
+                          GridPane.columnSpan="1" GridPane.rowSpan="1"/>
+        </GridPane>
+
+        <GridPane hgap="10" GridPane.rowIndex="0" GridPane.columnIndex="5"
+                  GridPane.rowSpan="1" GridPane.columnSpan="2" alignment="CENTER">
+            <MenuButton fx:id="pencilWidthMenuButton" text="Width"
+                        minWidth="90" minHeight="50" maxWidth="90" maxHeight="50"
+                        GridPane.columnIndex="0" GridPane.rowIndex="0"
+                        GridPane.columnSpan="1" GridPane.rowSpan="1"/>
+            <MenuButton fx:id="fillMenuButton" text="Fill" disable="true"
+                        minWidth="90" minHeight="50" maxWidth="90" maxHeight="50"
+                        GridPane.columnIndex="1" GridPane.rowIndex="0"
+                        GridPane.columnSpan="1" GridPane.rowSpan="1"/>
+        </GridPane>
+
+        <GridPane hgap="10" GridPane.rowIndex="0" GridPane.columnIndex="7"
+                  GridPane.rowSpan="1" GridPane.columnSpan="2" alignment="CENTER">
+            <ColorButton fx:id="color1Button" text="Color 1" color="black" size="50"
+                         minWidth="120" minHeight="50" maxWidth="120" maxHeight="50"
+                         GridPane.columnIndex="0" GridPane.rowIndex="0"
+                         GridPane.columnSpan="1" GridPane.rowSpan="1"/>
+            <ColorButton fx:id="color2Button" text="Color 2" color="white" size="50"
+                         minWidth="120" minHeight="50" maxWidth="120" maxHeight="50"
+                         GridPane.columnIndex="1" GridPane.rowIndex="0"
+                         GridPane.columnSpan="1" GridPane.rowSpan="1"/>
+        </GridPane>
+        <GridPane hgap="5" vgap="5" fx:id="colors" GridPane.rowIndex="0" GridPane.columnIndex="9"
+                  GridPane.rowSpan="1" GridPane.columnSpan="4" alignment="CENTER">
+        </GridPane>
+    </GridPane>
+
+    <Pane GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <Canvas fx:id="canvas" height="600" width="1365"
+                onMouseDragged="#handleMouseDraggedEvent" onMouseClicked="#handleMouseClickedEvent"
+                onMousePressed="#handleMousePressedEvent" onMouseReleased="#handleMouseReleasedEvent"/>
+        <Canvas fx:id="secondLayer" height="600" width="1365"
+                onMouseDragged="#handleMouseDraggedEvent"/>
+    </Pane>
+</GridPane>
