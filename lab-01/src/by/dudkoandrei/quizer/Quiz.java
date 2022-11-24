@@ -1,6 +1,5 @@
 package by.dudkoandrei.quizer;
 
-import by.dudkoandrei.quizer.task_generators.TaskGenerator;
 import by.dudkoandrei.quizer.tasks.Task;
 
 /**
@@ -12,7 +11,7 @@ class Quiz {
    * @param generator генератор заданий
    * @param taskCount количество заданий в тесте
    */
-  Quiz(TaskGenerator generator, int taskCount) {
+  Quiz(Task.Generator generator, int taskCount) {
     // ...
   }
 
