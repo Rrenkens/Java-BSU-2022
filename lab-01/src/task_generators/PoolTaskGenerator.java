@@ -18,7 +18,7 @@ public class PoolTaskGenerator implements TaskGenerator {
             Task... tasks
     ) {
         this.tasks = new ArrayList<>();
-        isAllowedDuplicate = allowDuplicate;
+        this.allowDuplicate = allowDuplicate;
         if (tasks.length == 0) {
             throw new IllegalArgumentException("Tasks size must be more 0");
         }
@@ -26,6 +26,7 @@ public class PoolTaskGenerator implements TaskGenerator {
         if (!allowDuplicate) {
             DeleteDuplicates();
         }
+        Collections.shuffle(this.tasks);
     }
 
     /**
@@ -39,7 +40,7 @@ public class PoolTaskGenerator implements TaskGenerator {
             Collection<Task> tasks
     ) {
         this.tasks = new ArrayList<>();
-        isAllowedDuplicate = allowDuplicate;
+        this.allowDuplicate = allowDuplicate;
         if (tasks.size() == 0) {
             throw new IllegalArgumentException("Tasks size must be more 0");
         }
@@ -47,6 +48,7 @@ public class PoolTaskGenerator implements TaskGenerator {
         if (!allowDuplicate) {
             DeleteDuplicates();
         }
+        Collections.shuffle(this.tasks);
     }
 
     private void DeleteDuplicates () {
@@ -66,19 +68,16 @@ public class PoolTaskGenerator implements TaskGenerator {
      * @return случайная задача из списка
      */
     public Task generate() {
-        Collections.shuffle(this.tasks);
-       if (isAllowedDuplicate) {
-           return tasks.get(0);
-       } else {
-           if (tasks.size() == 0) {
-               throw new NotEnoughTasksException("Pool tasks is ended");
-           }
-           Task return_task = tasks.get(tasks.size() - 1);
-           tasks.remove(tasks.size() - 1);
-           return return_task;
-       }
+        if (currentTaskIndex >= tasks.size()) {
+            throw new NotEnoughTasksException("Pool tasks is ended");
+        }
+        Task ret = tasks.get(currentTaskIndex);
+        currentTaskIndex++;
+        return ret;
     }
 
     private final ArrayList<Task> tasks;
-    private final boolean isAllowedDuplicate;
+
+    private int currentTaskIndex = 0;
+    private final boolean allowDuplicate;
 }

@@ -2,6 +2,8 @@ package task_generators;
 
 import by.DaniilDomnin.quizer.Task;
 import by.DaniilDomnin.quizer.TaskGenerator;
+import exceptions.QuizNotFinishedException;
+import exceptions.TaskGeneratorException;
 
 import java.util.*;
 
@@ -26,7 +28,7 @@ public class GroupTaskGenerator implements TaskGenerator {
      */
     public GroupTaskGenerator(Collection<TaskGenerator> generators) {
         this.generators = new ArrayList<>();
-        if (generators.size() == 0) {
+        if (generators.isEmpty()) {
             throw new IllegalArgumentException("generators size must be more 0");
         }
         this.generators.addAll(generators);
@@ -37,9 +39,17 @@ public class GroupTaskGenerator implements TaskGenerator {
      *         Если этот генератор выбросил исключение в методе generate(), выбирается другой.
      *         Если все генераторы выбрасывают исключение, то и тут выбрасывается исключение.
      */
-    public Task generate() {
+    public Task generate() throws TaskGeneratorException {
         Collections.shuffle(generators);
-        return generators.get(0).generate();
+        int index = 0;
+        while (index < generators.size()) {
+            try {
+                return generators.get(index).generate();
+            } catch (Exception e) {
+                index++;
+            }
+        }
+        throw new TaskGeneratorException("Generator Exception");
     }
 
     private final ArrayList<TaskGenerator> generators;

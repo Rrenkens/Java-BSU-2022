@@ -2,6 +2,7 @@ package by.DaniilDomnin.quizer;
 
 import exceptions.QuizFinishedException;
 import exceptions.QuizNotFinishedException;
+import exceptions.TaskGeneratorException;
 
 class Quiz {
     /**
@@ -18,11 +19,10 @@ class Quiz {
      * @return задание, повторный вызов вернет слелующее
      * @see Task
      */
-    Task nextTask() throws QuizFinishedException {
+    Task nextTask() throws QuizFinishedException, TaskGeneratorException {
         if (!isFinished()) {
             if (isNextTask) {
                 currentTask = taskGenerator.generate();
-                taskCount++;
             }
             return currentTask;
         }
@@ -41,14 +41,14 @@ class Quiz {
             case WRONG -> incorrectCount++;
             case INCORRECT_INPUT -> isNextTask = false;
         }
-        return currentTask.validate(answer);
+        return res;
     }
 
     /**
      * @return завершен ли тест
      */
     boolean isFinished() {
-        return incorrectCount + incorrectCount == taskCount;
+        return correctCount + incorrectCount == taskCount;
     }
 
     /**

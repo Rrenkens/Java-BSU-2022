@@ -3,6 +3,7 @@ package task_generators.math_task_generators;
 import tasks.math_tasks.EquationTask;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Random;
 
@@ -33,17 +34,23 @@ public class EquationTaskGenerator extends AbstractMathTaskGenerator {
            }
 
            if (first_num == 0) {
-               first_num = maxNumber;
+               first_num = minNumber;
            }
 
            if (second_num % first_num != 0) {
                ArrayList<Integer> dividers = new ArrayList<>();
-               for (int i = minNumber; i <= Math.min(maxNumber, second_num); ++i) {
+               for (int i = minNumber; i <= second_num; ++i) {
                    if (second_num % i == 0) {
                        dividers.add(i);
                    }
                }
                first_num = dividers.get(ran.nextInt(0, dividers.size()));
+           }
+
+           if (accessibleSigns.get(index) == Operation.DIVISION) {
+               int tmp = first_num;
+               first_num = second_num;
+               second_num = tmp;
            }
         }
         int answer = GenerateAnswer(first_num, second_num, accessibleSigns.get(index), pos);

@@ -1,5 +1,6 @@
 package by.DaniilDomnin.quizer;
 
+import exceptions.TaskGeneratorException;
 import task_generators.GroupTaskGenerator;
 import task_generators.PoolTaskGenerator;
 import task_generators.math_task_generators.EquationTaskGenerator;
@@ -10,7 +11,7 @@ import tasks.TextTask;
 import java.util.*;
 
 public class Main {
-    static Map<String, Quiz> getQuizMap() {
+    static Map<String, Quiz> getQuizMap() throws TaskGeneratorException {
         EnumSet<MathTaskGenerator.Operation> operations;
         operations = EnumSet.of(MathTaskGenerator.Operation.MULTIPLICATION);
         operations.add(MathTaskGenerator.Operation.SUM);
@@ -49,17 +50,25 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Scanner in = new Scanner(System.in);
         Map<String, Quiz> map = getQuizMap();
-        Quiz q = map.get("Text");
+        System.out.println("Quiz name");
+        Quiz q = map.get(in.next());
         while (!q.isFinished()) {
             Task task = q.nextTask();
             System.out.println(task.getText());
             String answer = in.next();
             while (true) {
-                if (q.provideAnswer(answer) != Result.INCORRECT_INPUT) {
+                Result res = q.provideAnswer(answer);
+                if (res == Result.WRONG) {
+                    System.out.println("wrong");
+                    break;
+                } else if (res == Result.OK) {
+                    System.out.println("Correct");
                     break;
                 }
+                System.out.println("Incorrect, try again");
                 answer = in.next();
             }
         }
+        System.out.println("Mark: "+q.getMark() * 10);
     }
 }
