@@ -4,11 +4,11 @@ package by.parfen01.quiser;
  * Class, который описывает один тест
  */
 public class Quiz {
-    Task.Generator generator;
-    int taskCount;
-    int correctAnswerNumber = 0;
-    int wrongAnswerNumber = 0;
-    int incorrectInputCount = 0;
+    private final Task.Generator generator;
+    private int taskCount;
+    private int correctAnswerNumber = 0;
+    private int wrongAnswerNumber = 0;
+    private int incorrectInputCount = 0;
     Task currentTask;
     Task nextTask;
     boolean isLastInputIncorrect = false;
@@ -19,7 +19,7 @@ public class Quiz {
     public Quiz(Task.Generator generator, int taskCount) {
         this.generator = generator;
         this.taskCount = taskCount;
-        nextTask = generator.generate();
+        this.nextTask = null;
     }
 
     /**
@@ -29,6 +29,9 @@ public class Quiz {
     public Task nextTask() {
         if (isLastInputIncorrect) {
             return currentTask;
+        }
+        if (nextTask == null) {
+            nextTask = generator.generate();
         }
         Task result = nextTask;
         currentTask = nextTask;

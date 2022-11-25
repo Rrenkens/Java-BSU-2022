@@ -4,22 +4,22 @@ import java.security.InvalidParameterException;
 import java.util.EnumSet;
 
 public abstract class AbstractMathTask implements MathTask {
-    private final int firstNumber;
-    private final int secondNumber;
-    private final Operation operation;
+    protected final double firstNumber;
+    protected final double secondNumber;
+    protected final Operation operation;
 
-    AbstractMathTask(int firstNumber, int secondNumber, Operation operation) {
+    public AbstractMathTask(double firstNumber, double secondNumber, Operation operation) {
         this.firstNumber = firstNumber;
         this.secondNumber = secondNumber;
         this.operation = operation;
     }
 
     public abstract static class Generator implements  MathTask.Generator {
-        private final int minNumber;
-        private final int maxNumber;
-        private final EnumSet<Operation> operations;
+        protected final double minNumber;
+        protected final double maxNumber;
+        protected final EnumSet<Operation> operations;
 
-        protected Generator(int minNumber, int maxNumber, EnumSet<MathTask.Operation> operations) {
+        public Generator(double minNumber, double maxNumber, EnumSet<MathTask.Operation> operations) {
             this.minNumber = minNumber;
             this.maxNumber = maxNumber;
             this.operations = operations.clone();
@@ -32,12 +32,12 @@ public abstract class AbstractMathTask implements MathTask {
         }
 
         @Override
-        public int getMaxNumber() {
+        public double getMaxNumber() {
             return maxNumber;
         }
 
         @Override
-        public int getMinNumber() {
+        public double getMinNumber() {
             return minNumber;
         }
 

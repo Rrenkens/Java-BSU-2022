@@ -52,14 +52,11 @@ public class GroupTaskGenerator implements Task.Generator {
      */
     public Task generate() {
         Collections.shuffle(generators);
-        for (int i = 0; i < generators.size(); ++i) {
+        for (Task.Generator generator : generators) {
             try {
-                return generators.get(i).generate();
-            }
-            catch (Exception e) {
-                if (i == generators.size()) {
-                    throw e;
-                }
+                return generator.generate();
+            } catch (Exception ignored) {
+
             }
         }
 

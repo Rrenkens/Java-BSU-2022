@@ -72,28 +72,28 @@ public class Main {
         TextTask thirdTextTask = new TextTask("Лектор расписался в журнале." +
                 " Там было 3 н-ки." +
                 " Сколько студентов было на паре?", "Один");
-        TextTask foursTextTask = new TextTask("what the fastest mammal in the world?", "Cheetah");
+        TextTask fourthTextTask = new TextTask("what the fastest mammal in the world?", "Cheetah");
         PoolTaskGenerator thirdTaskGenerator = new PoolTaskGenerator(
                 false,
                 secondTextTask,
                 thirdTextTask,
-                foursTextTask,
+                fourthTextTask,
                 firstTextTask);
-        PoolTaskGenerator foursTaskGenerator = new PoolTaskGenerator(
+        PoolTaskGenerator fourthTaskGenerator = new PoolTaskGenerator(
                 true,
                 secondTextTask,
                 thirdTextTask,
-                foursTextTask,
+                fourthTextTask,
                 firstTextTask);
         Quiz thirdQuiz = new Quiz(thirdTaskGenerator, 3);
         result.put("Text Test", thirdQuiz);
-        Quiz foursQuiz = new Quiz(new GroupTaskGenerator(
+        Quiz fourthQuiz = new Quiz(new GroupTaskGenerator(
                 firstTaskGenerator,
                 secondTaskGenerator,
                 thirdTaskGenerator.clone()),
                 10);
-        result.put("Mixed Test", foursQuiz);
-        Quiz fifthQuiz = new Quiz(foursTaskGenerator, 3);
+        result.put("Mixed Test", fourthQuiz);
+        Quiz fifthQuiz = new Quiz(fourthTaskGenerator, 3);
         result.put("Text Test With Repeat", fifthQuiz);
         return result;
     }

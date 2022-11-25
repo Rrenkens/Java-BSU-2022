@@ -1,5 +1,6 @@
 package by.parfen01.quiser.tasks.math_tasks;
 
+import by.parfen01.quiser.Result;
 import by.parfen01.quiser.Task;
 
 import java.security.InvalidParameterException;
@@ -12,24 +13,6 @@ public interface MathTask extends Task {
         MULTIPLICATION, // Операция умножения(*)
         DIVISION; // Операция деления(/)
 
-        public static Operation fromInt(int number) {
-            switch (number) {
-                case 0 -> {
-                    return ADDITION;
-                }
-                case 1 -> {
-                    return SUBTRACTION;
-                }
-                case 2 -> {
-                    return MULTIPLICATION;
-                }
-                case 3 -> {
-                    return DIVISION;
-                }
-            }
-
-            throw new InvalidParameterException();
-        }
 
         static char toChar(Operation operation) {
             switch (operation) {
@@ -70,7 +53,12 @@ public interface MathTask extends Task {
         }
     }
 
-    default int calculate(int firstValue, int secondValue, Operation operation) {
+    static boolean doubleEqual(double first, double second) {
+        final double K_EPS = 0.001;
+        return Math.abs(first - second) <= K_EPS;
+    }
+
+    default double calculate(double firstValue, double secondValue, Operation operation) {
         switch (operation) {
             case ADDITION -> {
                 return firstValue + secondValue;
@@ -89,28 +77,44 @@ public interface MathTask extends Task {
         throw new InvalidParameterException();
     }
 
+    static Result checkAnswer(String answer, String providedAnswer) {
+        if (answer.equals(providedAnswer)) {
+            return Result.OK;
+        } else {
+            double doubleAnswer = Double.parseDouble(answer);
+            double doubleProvidedAnswer = Double.parseDouble(providedAnswer);
+            if (MathTask.doubleEqual(doubleAnswer, doubleProvidedAnswer)) {
+                return Result.OK;
+            } else {
+                return Result.WRONG;
+            }
+        }
+    }
+
     interface Generator extends Task.Generator {
-        int getMinNumber(); // получить минимальное число
-        int getMaxNumber(); // получить максимальное число
+        double getMinNumber(); // получить минимальное число
+        double getMaxNumber(); // получить максимальное число
         EnumSet<Operation> getOperations();
         /**
          * @return разница между максимальным и минимальным возможным числом
          */
-        default int getDiffNumber() {
+        default double getDiffNumber() {
             return getMaxNumber() - getMinNumber();
         }
 
-        default int getRandomNumberForTask() {
-            return (int)(Math.random() * getDiffNumber() + getMinNumber());
+        default double getRandomNumberForTask() {
+            double result = Math.random() * getDiffNumber() + getMinNumber();
+            return (long) (result * 1000) / 1000.0;
         }
 
         default MathTask.Operation getRandomOperationFromSet() {
-            while (true) {
-                MathTask.Operation operationToUse = MathTask.Operation.fromInt((int)(Math.random() * 4));
-                if (getOperations().contains(operationToUse)) {
-                    return operationToUse;
-                }
-            }
+                int pos = (int)(Math.random() * getOperations().size());
+                return getOperations()
+                        .stream()
+                        .skip(pos)
+                        .limit(1)
+                        .findFirst()
+                        .orElse(Operation.ADDITION);
         }
     }
 }

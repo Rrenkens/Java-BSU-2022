@@ -9,10 +9,8 @@ import java.util.*;
  * квизах передавайте его копию
  */
 public class PoolTaskGenerator implements Task.Generator {
-    private final ArrayList<Task> tasks = new ArrayList<>();
-    private final LinkedHashSet<String> usedTextsOfTasks = new LinkedHashSet<>();
+    private final LinkedHashSet<Task> tasks = new LinkedHashSet<>();
     private boolean isAllowedDuplicate;
-    private int numberOfUsedTasks = 0;
 
     /**
      * Конструктор с переменным числом аргументов
@@ -67,20 +65,16 @@ public class PoolTaskGenerator implements Task.Generator {
     public Task generate() {
         if (isAllowedDuplicate) {
             int numberOfTest = (int) (Math.random() * tasks.size());
-            return tasks.get(numberOfTest);
-        }
-        if (numberOfUsedTasks == tasks.size()) {
-            throw new EmptyStackException();
+            return tasks.stream().skip(numberOfTest).limit(1).findFirst().get();
         }
 
-        while(true) {
-            int numberOfTest = (int) (Math.random() * tasks.size());
-            if (!usedTextsOfTasks.contains(tasks.get(numberOfTest).getText())) {
-                ++numberOfUsedTasks;
-                usedTextsOfTasks.add(tasks.get(numberOfTest).getText());
-                return tasks.get(numberOfTest);
-            }
+        if (tasks.isEmpty()) {
+            throw new EmptyStackException();
         }
+        int numberOfTest = (int) (Math.random() * tasks.size());
+        Task result = tasks.stream().skip(numberOfTest).limit(1).findFirst().get();
+        tasks.remove(result);
+        return result;
     }
 
     @Override
