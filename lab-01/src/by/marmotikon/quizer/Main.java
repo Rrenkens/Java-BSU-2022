@@ -12,7 +12,6 @@ import by.marmotikon.quizer.task_generators.GroupTaskGenerator;
 import by.marmotikon.quizer.task_generators.PoolTaskGenerator;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -52,7 +51,7 @@ public class Main {
 
     /**
      * @return тесты в {@link Map}, где
-     * ключ     - название теста {@link String}
+     * ключ - название теста {@link String}
      * значение - сам тест       {@link Quiz}
      */
     static Map<String, Quiz> getQuizMap() {
@@ -77,7 +76,6 @@ public class Main {
                 new AnimalsTask("На сколько сотен метров в глубину максимально может нырнуть императорский пингвин?", 5),
                 new AnimalsTask("Сколько метров размах крыльев у альбатроса?", 3),
                 new AnimalsTask("Сколько глаз у пчелы?", 5));
-
 
         PoolTaskGenerator poolTaskGenerator = new PoolTaskGenerator(false, AnimalTasksPool);
 

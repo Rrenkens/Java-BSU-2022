@@ -23,21 +23,23 @@ enum Result {
 ### Task
 
 ```java
+import by.marmotikon.quizer.Result;
+
 /**
  * Interface, который описывает одно задание
  */
 interface Task {
-    /*
-     @return текст задания
+    /**
+     * @return текст задания
      */
     String getText();
-    
-    /*
+
+    /**
      * Проверяет ответ на задание и возвращает результат
      *
      * @param  answer ответ на задание
-     * @return        результат ответа
-     * @see           Result
+     * @return результат ответа
+     * @see    Result
      */
     Result validate(String answer);
 }
@@ -46,11 +48,13 @@ interface Task {
 ### TaskGenerator
 
 ```java
+import by.marmotikon.quizer.tasks.Task;
+
 /**
  * Interface, который описывает один генератор заданий
  */
 interface TaskGenerator {
-    /*
+    /**
      * Возвращает задание. При этом новый объект может не создаваться, если класс задания иммутабельный
      *
      * @return задание
@@ -61,7 +65,11 @@ interface TaskGenerator {
 ```
 
 ### Quiz
+
 ```java
+import by.marmotikon.quizer.Result;
+import by.marmotikon.quizer.tasks.Task;
+
 /**
  * Class, который описывает один тест
  */
@@ -70,10 +78,10 @@ class Quiz {
      * @param generator генератор заданий
      * @param taskCount количество заданий в тесте
      */
-    Quiz(TaskGenerator generator, int taskCount) { 
+    Quiz(TaskGenerator generator, int taskCount) {
         // ...
     }
-    
+
     /**
      * @return задание, повторный вызов вернет слелующее
      * @see Task
@@ -81,7 +89,7 @@ class Quiz {
     Task nextTask() {
         // ...
     }
-    
+
     /**
      * Предоставить ответ ученика. Если результат {@link Result#INCORRECT_INPUT}, то счетчик неправильных 
      * ответов не увеличивается, а {@link #nextTask()} в следующий раз вернет тот же самый объект {@link Task}.
@@ -89,35 +97,35 @@ class Quiz {
     Result provideAnswer(String answer) {
         // ...
     }
-    
+
     /**
      * @return завершен ли тест
      */
     boolean isFinished() {
         // ...
     }
-    
+
     /**
      * @return количество правильных ответов
      */
     int getCorrectAnswerNumber() {
         // ...
     }
-    
+
     /**
      * @return количество неправильных ответов
      */
     int getWrongAnswerNumber() {
         // ...
     }
-    
+
     /**
      * @return количество раз, когда был предоставлен неправильный ввод
      */
     int getIncorrectInputNumber() {
         // ...
     }
-    
+
     /**
      * @return оценка, которая является отношением количества правильных ответов к количеству всех вопросов. 
      *         Оценка выставляется только в конце!
