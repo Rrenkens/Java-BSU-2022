@@ -14,6 +14,8 @@ public class PaintApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Paint");
         stage.setScene(scene);
+        stage.setMinHeight(450);
+        stage.setMinWidth(450);
         stage.show();
     }
 
