@@ -2,6 +2,8 @@ package by.ManFormTheMoon.quizer.tasks.math_task;
 
 import by.ManFormTheMoon.quizer.tasks.Task;
 
+import java.security.InvalidParameterException;
+
 public interface MathTask extends Task {
     interface Generator extends Task.Generator {
         int getMinNumber();
@@ -29,7 +31,7 @@ public interface MathTask extends Task {
                 case '*' :
                     return MULTIPLY;
             }
-            return null;
+            throw new InvalidParameterException();
         }
         public static Operation fromInt(int x) {
             switch(x) {
@@ -39,10 +41,10 @@ public interface MathTask extends Task {
                     return MINUS;
                 case 2:
                     return DIVIDE;
-                case 3   :
+                case 3:
                     return MULTIPLY;
             }
-            return null;
+            throw new InvalidParameterException();
         }
         public static char toChar(Operation operation) {
             switch(operation) {
@@ -55,8 +57,7 @@ public interface MathTask extends Task {
                 case MULTIPLY:
                     return '*';
             }
-            // TODO : add exception
-            return '+';
+            throw new InvalidParameterException();
         }
     }
 }

@@ -16,15 +16,18 @@ public class Quiz {
     private int countIncorrect = 0;
     private int countIncorrectInput = 0;
 
-    private Task currentTask;
+    private Result previousResult;
+    private Task currentTask = null;
 
     public Quiz(Task.Generator generator_, int taskCount_) {
         generator = generator_;
         taskCount = taskCount_;
-        currentTask = generator.generate();
     }
 
     public Task nextTask() {
+        if (previousResult != Result.INCORRECT_INPUT) {
+            currentTask = generator.generate();
+        }
         return currentTask;
     }
 
@@ -38,12 +41,10 @@ public class Quiz {
         switch (result) {
             case OK: {
                 countCorrect++;
-                currentTask = generator.generate();
                 break;
             }
             case WRONG: {
                 countIncorrect++;
-                currentTask = generator.generate();
                 break;
             }
             case INCORRECT_INPUT: {
@@ -51,6 +52,7 @@ public class Quiz {
                 break;
             }
         }
+        previousResult = result;
         return result;
     }
 
@@ -90,8 +92,7 @@ public class Quiz {
         if (isFinished() || taskCount == 0) {
             return ((double)(countCorrect) / taskCount) * 10.0;
         } else {
-            // TODO : add exception
-            return 0;
+            throw new IllegalArgumentException();
         }
     }
 }

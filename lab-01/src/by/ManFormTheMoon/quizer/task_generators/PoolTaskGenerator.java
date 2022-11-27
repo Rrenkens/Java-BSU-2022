@@ -13,6 +13,9 @@ public class PoolTaskGenerator implements Task.Generator {
             boolean allowDuplicate_,
             Task... tasks_
     ) {
+        if (tasks_.length == 0) {
+            throw new IllegalArgumentException();
+        }
         allowDuplicate = allowDuplicate_;
         if (allowDuplicate_) {
             tasks = Arrays.asList(tasks_);
@@ -22,17 +25,13 @@ public class PoolTaskGenerator implements Task.Generator {
             Collections.shuffle(tasks);
         }
     }
-
-    /**
-     * Конструктор, который принимает коллекцию заданий
-     *
-     * @param allowDuplicate_ разрешить повторения
-     * @param tasks_          задания, которые передаются в конструктор в Collection (например, {@link LinkedList})
-     */
     public PoolTaskGenerator(
             boolean allowDuplicate_,
             Collection<Task> tasks_
     ) {
+        if (tasks_.size() == 0) {
+            throw new IllegalArgumentException();
+        }
         allowDuplicate = allowDuplicate_;
         if (allowDuplicate_) {
             tasks = new ArrayList<>(tasks_);
@@ -49,12 +48,11 @@ public class PoolTaskGenerator implements Task.Generator {
             int index = (int) (Math.random() * tasks.size());
             return tasks.get(index);
         } else {
-            // TODO : add exception
             currentTask++;
             if (currentTask < tasks.size()) {
                 return tasks.get(currentTask);
             }
-            return null;
+            throw new OutOfMemoryError();
         }
     }
 }

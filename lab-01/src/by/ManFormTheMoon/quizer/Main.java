@@ -33,7 +33,7 @@ public class Main {
                 );
         PoolTaskGenerator poolTaskGeneratorWithoutDuplicate = new PoolTaskGenerator(
                 false,
-                TextConstants.FIFTH_TASK,
+                TextConstants.FIRST_TASK,
                 TextConstants.SECOND_TASK,
                 TextConstants.THIRD_TASK,
                 TextConstants.FOURTH_TASK,
@@ -42,7 +42,7 @@ public class Main {
                 );
         PoolTaskGenerator poolTaskGeneratorWithDuplicate = new PoolTaskGenerator(
                 true,
-                TextConstants.FIFTH_TASK,
+                TextConstants.FIRST_TASK,
                 TextConstants.SECOND_TASK,
                 TextConstants.THIRD_TASK,
                 TextConstants.FOURTH_TASK,

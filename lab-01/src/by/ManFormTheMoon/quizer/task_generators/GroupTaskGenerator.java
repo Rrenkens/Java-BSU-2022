@@ -15,6 +15,9 @@ public class GroupTaskGenerator implements Task.Generator {
     }
 
     public GroupTaskGenerator(Collection<Task.Generator> generators_) {
+        if (generators_ == null) {
+            throw new NullPointerException();
+        }
         generators = generators_.toArray(new Task.Generator[0]);
     }
 
@@ -30,7 +33,7 @@ public class GroupTaskGenerator implements Task.Generator {
                 return generators[index].generate();
             } catch (Exception e) {}
         }
-        // TODO : add exception
-        return null;
+
+        throw new RuntimeException();
     }
 }

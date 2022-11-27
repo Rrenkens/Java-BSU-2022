@@ -1,5 +1,6 @@
 package by.ManFormTheMoon.quizer.tasks.math_task;
 
+import java.security.InvalidParameterException;
 import java.util.EnumSet;
 
 public abstract class AbstractMathTask implements MathTask {
@@ -32,8 +33,7 @@ public abstract class AbstractMathTask implements MathTask {
                 return arr[i];
             }
         }
-        // TODO : add exception
-        return x;
+        throw new InvalidParameterException();
     }
 
     public static abstract class Generator implements MathTask.Generator {

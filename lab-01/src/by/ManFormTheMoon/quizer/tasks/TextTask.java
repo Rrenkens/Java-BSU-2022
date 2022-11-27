@@ -26,6 +26,9 @@ public class TextTask implements Task {
         private final PoolTaskGenerator poolTaskGenerator;
 
         public Generator(TextTask[] tasks) {
+            if (tasks.length == 0) {
+                throw new IllegalArgumentException();
+            }
             poolTaskGenerator = new  PoolTaskGenerator(true, tasks);
         }
 

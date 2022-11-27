@@ -14,6 +14,9 @@ public class EquationTask extends AbstractMathTask {
     private final boolean isAnyValid;
     public EquationTask(int first_, int second_, boolean isFirst_, Operation operation_) {
         super(first_, second_);
+        if (operation_ == null) {
+            throw new IllegalArgumentException();
+        }
         operation = operation_;
         isFirst = isFirst_;
         ans = calcAns(first_, second_, operation, isFirst_);
@@ -67,9 +70,7 @@ public class EquationTask extends AbstractMathTask {
                 return isFirst ? x * y : x / y;
         }
 
-        // TODO : add exception
-
-        return 1;
+        throw new IllegalArgumentException();
     }
 
 

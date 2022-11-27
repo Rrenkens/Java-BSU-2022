@@ -10,6 +10,9 @@ public class ExpressionTask extends AbstractMathTask {
     private final int ans;
     public ExpressionTask(int first_, int second_, Operation operation_) {
         super(first_, second_);
+        if (operation_ == null) {
+            throw new IllegalArgumentException();
+        }
         operation = operation_;
         ans = calcAns(first_, second_, operation_);
     }
@@ -39,8 +42,7 @@ public class ExpressionTask extends AbstractMathTask {
             case MULTIPLY:
                 return x * y;
         }
-        // TODO : add exception
-        return x + y;
+        throw new IllegalArgumentException();
     }
 
     public static class Generator extends AbstractMathTask.Generator {
@@ -51,9 +53,7 @@ public class ExpressionTask extends AbstractMathTask {
         @Override
         public Task generate() {
             Operation operation = Operation.fromInt((int)(Math.random() * operations.size()));
-            operation = Operation.DIVIDE;
             int first = (int)(Math.random() * (getDiffNumber() + 1)) + minNumber;
-            first = 8;
             if (minNumber == 0 && maxNumber == 0) {
                 while (operation == Operation.DIVIDE) {
                     operation = Operation.fromInt((int)(Math.random() * operations.size()));
