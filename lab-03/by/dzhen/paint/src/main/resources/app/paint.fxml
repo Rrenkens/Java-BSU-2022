@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="app.Controller">
+    <top>
+        <VBox>
+            <MenuBar>
+                <Menu text="File">
+                    <MenuItem text="Save"/>
+                    <MenuItem text="Open"/>
+                    <MenuItem text="Close"/>
+                </Menu>
+            </MenuBar>
+            <ToolBar>
+                <fx:define>
+                    <ToggleGroup fx:id="toolsToggleGroup"/>
+                </fx:define>
+                <RadioButton toggleGroup="$toolsToggleGroup" text="Pen Tool" selected="true" onAction="#onPenSelected"/>
+                <RadioButton toggleGroup="$toolsToggleGroup" text="Not Pen Tool"/>
+            </ToolBar>
+            <ToolBar>
+                <Label text="Stroke color:"/>
+                <ColorPicker fx:id="strokeColorPicker" onAction="#onStrokeColorPicked">
+                    <value>
+                        <Color />
+                    </value>
+                </ColorPicker>
+
+                <Separator orientation="VERTICAL"/>
+
+                <Label text="Fill color:"/>
+                <ColorPicker fx:id="fillColorPicker" onAction="#onFillColorPicked">
+                    <value>
+                        <Color />
+                    </value>
+                </ColorPicker>
+
+                <Slider min="1" max="100" value="5" fx:id="strokeWidthSlider" />
+            </ToolBar>
+        </VBox>
+    </top>
+    <center>
+        <Canvas
+                width="800"
+                height="600"
+                fx:id="canvas"
+                onMouseDragged="#onMouseDragged"
+                onMouseClicked="#onMouseClicked"
+                onMousePressed="#onMousePressed"/>
+    </center>
+</BorderPane>
