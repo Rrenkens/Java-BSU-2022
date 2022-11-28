@@ -1,3 +1,22 @@
 #root {
     -fx-background: #031326;
 }
+
+#sidePane {
+    -fx-background-color: #172C42;
+}
+
+.color-box {
+    -fx-pref-width: 24;
+    -fx-pref-height: 24;
+    -fx-border-width: 1;
+    -fx-border-color: gray;
+}
+
+#colorBoxFlow {
+    -fx-background-color: #2F445C;
+    -fx-min-width: 84;
+    -fx-padding: 3;
+    -fx-vgap: 3;
+    -fx-hgap: 3;
+}

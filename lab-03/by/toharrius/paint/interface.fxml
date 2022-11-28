@@ -4,12 +4,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.FlowPane?>
 <HBox xmlns:fx="http://javafx.com/fxml/1"
       fx:id="root"
       fx:controller="by.toharrius.paint.Controller"
       stylesheets="@style.css">
-    <VBox fx:id="sidePane">
-        <Button text="aboba"/>
+    <VBox id="sidePane">
+        <FlowPane fx:id="colorBoxFlow"/>
     </VBox>
     <ScrollPane maxHeight="Infinity" maxWidth="Infinity">
         <Canvas fx:id="mainCanvas" width="5000" height="3000"
