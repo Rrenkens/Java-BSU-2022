@@ -19,6 +19,20 @@ public abstract class AbstractMathTask implements MathTask {
     this.eps = Math.pow(0.1, precision);
   }
 
+  static boolean isDoubleEqual(double lhs, double rhs, double eps) {
+    return Math.abs(lhs - rhs) < eps;
+  }
+
+  static double truncate(double number, int precision) {
+    if (precision < 0) {
+      // exception
+    }
+
+    double scale = Math.pow(10, precision);
+
+    return Math.floor(number * scale) / scale;
+  }
+
   @Override
   public Result validate(String answer) {
     double givenAnswer;
@@ -29,7 +43,7 @@ public abstract class AbstractMathTask implements MathTask {
       return Result.INCORRECT_INPUT;
     }
 
-    if (Math.abs(givenAnswer - this.answer) < eps) {
+    if (isDoubleEqual(this.answer, givenAnswer, eps)) {
       return Result.OK;
     } else {
       return Result.WRONG;
