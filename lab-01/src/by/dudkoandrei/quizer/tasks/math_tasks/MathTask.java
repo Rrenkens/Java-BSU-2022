@@ -38,6 +38,26 @@ public interface MathTask extends Task {
     DIVIDE,
     MULTIPLY;
 
+    double compute(double lhs, double rhs) {
+      switch (this) {
+        case ADD -> {
+          return lhs + rhs;
+        }
+        case SUBTRACT -> {
+          return lhs - rhs;
+        }
+        case MULTIPLY -> {
+          return lhs * rhs;
+        }
+        case DIVIDE -> {
+          return lhs / rhs;
+        }
+        default -> {
+          // exception
+        }
+      }
+    }
+
     @Override
     public String toString() {
       switch (this) {
