@@ -3,9 +3,8 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<?import javafx.scene.control.skin.ColorPalette.ColorSquare?>
 <?import javafx.scene.paint.Color?>
+
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="by.marmotikon.paint.PaintController"
@@ -20,21 +19,26 @@
                 </Menu>
             </MenuBar>
             <ToolBar>
-                <HBox alignment="CENTER" spacing="20">
-                    <Spinner fx:id="brushSize" min="1" max="50" initialValue="15"/>
-                    <ColorPicker fx:id="brushColor">
+                <HBox spacing="50">
+                    <ComboBox fx:id="tool" maxWidth="150"/>
+                    <Spinner fx:id="brushSize" min="1" max="50" initialValue="15" maxWidth="100"/>
+                    <ColorPicker fx:id="brushColor" maxWidth="100">
                     <value>
                         <Color red="1.0" />
                     </value>
                     </ColorPicker>
-                    <CheckBox fx:id="eraser" text="eraser"/>
                 </HBox>
             </ToolBar>
         </VBox>
     </top>
 
     <center>
-        <Canvas fx:id="canvas" width="450" height="450">
-        </Canvas>
+        <AnchorPane>
+            <Canvas fx:id="canvas" width="450" height="450"/>
+            <Canvas fx:id="tempDrawCanvas" width="450" height="450"
+                    onMouseDragged="#onMouseDraggedListener"
+                    onMousePressed="#onMousePressedListener"
+                    onMouseReleased="#onMouseReleaseListener"/>
+        </AnchorPane>
     </center>
 </BorderPane>
