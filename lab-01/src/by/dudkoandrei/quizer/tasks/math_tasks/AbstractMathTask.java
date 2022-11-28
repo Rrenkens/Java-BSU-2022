@@ -1,13 +1,18 @@
 package by.dudkoandrei.quizer.tasks.math_tasks;
 
 import by.dudkoandrei.quizer.Result;
+import java.text.DecimalFormat;
 import java.util.EnumSet;
+import java.util.Iterator;
+import java.util.Random;
 
 public abstract class AbstractMathTask implements MathTask {
 
   protected final double answer;
   protected final int precision;
   protected final double eps;
+  protected String text;
+  protected static final DecimalFormat df = new DecimalFormat();
 
   AbstractMathTask(double answer, int precision) {
     if (precision < 0) {
@@ -50,14 +55,23 @@ public abstract class AbstractMathTask implements MathTask {
     }
   }
 
+  @Override
+  public String getText() {
+    return text;
+  }
+
   abstract static class Generator implements MathTask.Generator {
 
     protected final double minNumber;
     protected final double maxNumber;
     protected final int precision;
     protected final EnumSet<Operation> allowedOperations;
+    protected static Random rnd = new Random();
 
-    Generator(double minNumber, double maxNumber, EnumSet<Operation> operations) {
+    Generator(
+        double minNumber,
+        double maxNumber,
+        EnumSet<Operation> operations) {
       if (operations == null) {
         // exception
       }
@@ -74,7 +88,11 @@ public abstract class AbstractMathTask implements MathTask {
       this.precision = 0;
     }
 
-    Generator(double minNumber, double maxNumber, int precision, EnumSet<Operation> operations) {
+    Generator(
+        double minNumber,
+        double maxNumber,
+        int precision,
+        EnumSet<Operation> operations) {
       if (operations == null) {
         // exception
       }
@@ -92,6 +110,18 @@ public abstract class AbstractMathTask implements MathTask {
       this.maxNumber = maxNumber;
       this.allowedOperations = operations.clone();
       this.precision = precision;
+    }
+
+    Operation getRandomOperation() {
+      int index = rnd.nextInt(allowedOperations.size());
+      Iterator<Operation> iter = allowedOperations.iterator();
+
+      while (index != 0) {
+        iter.next();
+        --index;
+      }
+
+      return iter.next();
     }
 
     @Override
