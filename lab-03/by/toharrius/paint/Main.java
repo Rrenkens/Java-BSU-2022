@@ -19,8 +19,7 @@ public class Main extends Application {
         assert fxml_url != null;
         var scene = new Scene(FXMLLoader.load(fxml_url));
         window.setScene(scene);
-
-        Controller.getInstance().clicc(null);
+        Controller.getInstance().initElements();
 
         window.setTitle("PaintNotMS");
         window.setHeight(WINDOW_HEIGHT);
