@@ -124,10 +124,10 @@ public class Quiz {
      * ключ     - название теста {@link String},
      * значение - сам тест       {@link Quiz}
      */
-    public static Map<String, Quiz> getQuizMap() throws IOException, ParseException {
+    public static Map<String, Quiz> getQuizMap(String fileName) throws IOException, ParseException {
         HashMap<String, Quiz> quizMap = new HashMap<>();
         JSONParser parser = new JSONParser();
-        JSONArray quizzes = (JSONArray) parser.parse(new FileReader("src/by/polina_kostyukovich/quizer/jsons/quizzes.json"));
+        JSONArray quizzes = (JSONArray) parser.parse(new FileReader(fileName));
         for (Object quizObj : quizzes) {
             JSONObject quiz = (JSONObject) quizObj;
             String quizName = (String) quiz.get("QuizName");

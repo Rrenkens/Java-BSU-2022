@@ -10,16 +10,21 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws IOException, ParseException {
-        Map<String, Quiz> quizMap = Quiz.getQuizMap();
+        if (args.length != 1) {
+            throw new IllegalArgumentException("Invalid number of arguments");
+        }
+
+        Map<String, Quiz> quizMap = Quiz.getQuizMap(args[0]);
         System.out.print("Введите название теста: ");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         String testName = reader.readLine();
-        while (testName.equals("") || !quizMap.containsKey(testName) || quizMap.get(testName).generatorThrewException()) {
-            if (quizMap.get(testName).generatorThrewException()) {
-                System.out.print("Этот тест некорректен, поэтому не может быть запущен. Выберите другой тест: ");
-            } else {
+        while (testName.equals("") || !quizMap.containsKey(testName)
+                || quizMap.get(testName) == null || quizMap.get(testName).generatorThrewException()) {
+            if (testName.equals("") || !quizMap.containsKey(testName) || quizMap.get(testName) == null) {
                 System.out.print("Теста с таким названием нет(. Повторите попытку: ");
+            } else {
+                System.out.print("Этот тест некорректен, поэтому не может быть запущен. Выберите другой тест: ");
             }
             testName = reader.readLine();
         }

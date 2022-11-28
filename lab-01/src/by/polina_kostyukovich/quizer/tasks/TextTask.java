@@ -25,7 +25,12 @@ public class TextTask implements Task {
         }
         this.text = text + "\n";
         this.answer = answer;
-        isAnswerInteger = false;
+        boolean isAnswerInteger = false;
+        try {
+            Integer.parseInt(answer);
+            isAnswerInteger = true;
+        } catch (NumberFormatException ignored) {}
+        this.isAnswerInteger = isAnswerInteger;
     }
 
     public TextTask(String text, int answer) {

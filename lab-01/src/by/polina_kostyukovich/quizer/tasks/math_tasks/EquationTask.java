@@ -27,8 +27,8 @@ public class EquationTask extends AbstractMathTask {
         if (number1 == 0 && number2 != 0 && operation == Operation.MULTIPLICATION) {
             throw new IllegalArgumentException("The equation is \"0 * x = a\" or \"x * 0 = a\", where a != 0");
         }
-        if (operation == Operation.DIVISION && !isXOnFirstPosition && number2 != 0 && number1 % number2 != 0
-            || operation == Operation.MULTIPLICATION && number1 != 0 && number2 % number1 != 0) {
+        if ((operation == Operation.DIVISION && !isXOnFirstPosition && number2 != 0 && number1 % number2 != 0)
+            || (operation == Operation.MULTIPLICATION && number1 != 0 && number2 % number1 != 0)) {
             throw new BadTaskException("Not integer division");
         }
 

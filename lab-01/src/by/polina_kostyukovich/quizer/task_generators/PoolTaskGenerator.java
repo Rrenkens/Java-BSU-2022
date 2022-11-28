@@ -4,11 +4,11 @@ import by.polina_kostyukovich.quizer.exceptions.TooFewTasksException;
 import by.polina_kostyukovich.quizer.tasks.Task;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class PoolTaskGenerator implements Task.Generator {
-    private final Task[] tasks;
+    private final List<Task> tasks;
     private final boolean allowDuplicate;
-    private final int[] randomIndexes;
     private int currentIndex = 0;
 
     /**
@@ -26,12 +26,11 @@ public class PoolTaskGenerator implements Task.Generator {
         }
         this.allowDuplicate = allowDuplicate;
         if (allowDuplicate) {
-            this.tasks = tasks;
-            randomIndexes = null;
+            this.tasks = Arrays.asList(tasks);
         } else {
             this.tasks = getTasksWithoutDuplicate(tasks);
-            randomIndexes = RandomIndexesGenerator.getRandomIndexes(this.tasks.length);
         }
+        Collections.shuffle(this.tasks);
     }
 
     /**
@@ -48,43 +47,18 @@ public class PoolTaskGenerator implements Task.Generator {
             throw new IllegalArgumentException("Collection of tasks is empty");
         }
         this.allowDuplicate = allowDuplicate;
-        Task[] tasksArray = tasks.toArray(new Task[0]);
         if (allowDuplicate) {
-            this.tasks = tasksArray;
-            randomIndexes = null;
+            this.tasks = new ArrayList<>(tasks);
         } else {
-            this.tasks = getTasksWithoutDuplicate(tasksArray);
-            randomIndexes = RandomIndexesGenerator.getRandomIndexes(this.tasks.length);
+            this.tasks = getTasksWithoutDuplicate(tasks.toArray(new Task[0]));
         }
+        Collections.shuffle(this.tasks);
     }
 
-    private static Task[] getTasksWithoutDuplicate(Task[] tasks) {
-        if (tasks.length == 0) {
-            return new Task[0];
-        }
-
-        Arrays.sort(tasks, Comparator.comparing(Task::getText));
-        Task current_task = tasks[0];
-        int numberOfDifferentTasks = 1;
-        for (Task task : tasks) {
-            if (!current_task.getText().equals(task.getText())) {
-                ++numberOfDifferentTasks;
-                current_task = task;
-            }
-        }
-
-        Task[] differentTasks = new Task[numberOfDifferentTasks];
-        int current_index = 0;
-        current_task = tasks[0];
-        differentTasks[0] = tasks[0];
-        for (Task task : tasks) {
-            if (!current_task.getText().equals(task.getText())) {
-                ++current_index;
-                current_task = task;
-                differentTasks[current_index] = task;
-            }
-        }
-        return differentTasks;
+    private static List<Task> getTasksWithoutDuplicate(Task[] tasks) {
+        return Arrays.stream(tasks)
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     /**
@@ -93,14 +67,16 @@ public class PoolTaskGenerator implements Task.Generator {
     @Override
     public Task generate() {
         if (allowDuplicate) {
-            int randomIndex = (int) (Math.random() * tasks.length);
-            return tasks[randomIndex];
+            if (currentIndex == tasks.size()) {
+                Collections.shuffle(tasks);
+            }
+            currentIndex = currentIndex % tasks.size() + 1;
         } else {
-            if (currentIndex >= tasks.length) {
+            if (currentIndex >= tasks.size()) {
                 throw new TooFewTasksException("Various tasks have ended");
             }
             ++currentIndex;
-            return tasks[randomIndexes[currentIndex - 1]];
         }
+        return tasks.get(currentIndex - 1);
     }
 }

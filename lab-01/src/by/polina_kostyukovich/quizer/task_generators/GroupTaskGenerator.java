@@ -3,11 +3,10 @@ package by.polina_kostyukovich.quizer.task_generators;
 import by.polina_kostyukovich.quizer.exceptions.BadGeneratorException;
 import by.polina_kostyukovich.quizer.tasks.Task;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 public class GroupTaskGenerator implements Task.Generator {
-    private final Task.Generator[] generators;
+    private final List<Task.Generator> generators;
 
     /**
      * Конструктор с переменным числом аргументов
@@ -21,7 +20,7 @@ public class GroupTaskGenerator implements Task.Generator {
         if (generators.length == 0) {
             throw new IllegalArgumentException("Array of generators is empty");
         }
-        this.generators = generators;
+        this.generators = Arrays.asList(generators);
     }
 
     /**
@@ -36,7 +35,7 @@ public class GroupTaskGenerator implements Task.Generator {
         if (generators.isEmpty()) {
             throw new IllegalArgumentException("Collection of generators is empty");
         }
-        this.generators = generators.toArray(new Task.Generator[0]);
+        this.generators = new ArrayList<>(generators);
     }
 
     /**
@@ -46,10 +45,10 @@ public class GroupTaskGenerator implements Task.Generator {
      */
     @Override
     public Task generate() {
-        int[] randomIndexes = RandomIndexesGenerator.getRandomIndexes(generators.length);
-        for (int randomIndex : randomIndexes) {
+        Collections.shuffle(generators);
+        for (Task.Generator generator : generators) {
             try {
-                return generators[randomIndex].generate();
+                return generator.generate();
             } catch (RuntimeException ignored) {}
         }
         throw new BadGeneratorException("All generators threw exceptions");
