@@ -17,7 +17,9 @@ public class PaintApplication extends Application {
 
         stage.setTitle("Paint");
         stage.setMinHeight(550);
+        stage.setHeight(550);
         stage.setMinWidth(450);
+        stage.setWidth(450);
 
         stage.setScene(scene);
         stage.show();

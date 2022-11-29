@@ -7,8 +7,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="by.marmotikon.paint.PaintController"
-            prefHeight="500.0" prefWidth="500.0">
+            fx:controller="by.marmotikon.paint.PaintController">
     <top>
         <VBox>
             <MenuBar>
