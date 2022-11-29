@@ -4,6 +4,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+import javax.swing.text.Utilities;
 import java.io.IOException;
 
 public class Application extends javafx.application.Application {

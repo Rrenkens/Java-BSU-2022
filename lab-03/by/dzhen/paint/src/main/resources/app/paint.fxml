@@ -8,14 +8,15 @@
 
 <?import javafx.scene.layout.StackPane?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="app.Controller">
+            fx:controller="app.Controller"
+            fx:id="rootPane">
     <top>
         <VBox>
             <MenuBar>
                 <Menu text="File">
-                    <MenuItem text="Save"/>
-                    <MenuItem text="Open"/>
-                    <MenuItem text="Close"/>
+                    <MenuItem text="Save" onAction="#onSave"/>
+                    <MenuItem text="Open" onAction="#onOpen"/>
+                    <MenuItem text="Close" onAction="#onClose"/>
                 </Menu>
             </MenuBar>
             <ToolBar>

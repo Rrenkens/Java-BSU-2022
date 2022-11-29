@@ -4,17 +4,32 @@ import app.drawingtools.CircleTool;
 import app.drawingtools.DrawingTool;
 import app.drawingtools.PenTool;
 import app.drawingtools.RectangleTool;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 
 public class Controller {
     @FXML
-    public Slider strokeWidthSlider;
+    public BorderPane rootPane;
+    @FXML
+    private Slider strokeWidthSlider;
     @FXML
     private ColorPicker strokeColorPicker;
     @FXML
@@ -25,15 +40,17 @@ public class Controller {
     @FXML
     private Canvas bufferCanvas;
 
-    DrawingTool currentTool;
+    private DrawingTool currentTool;
 
-    Color strokeColor;
-    Color fillColor;
-    double strokeWidth;
+    private Color strokeColor;
+    private Color fillColor;
+    private double strokeWidth;
 
-    DrawingTool penTool;
-    DrawingTool rectangleTool;
-    DrawingTool circleTool;
+    private DrawingTool penTool;
+    private DrawingTool rectangleTool;
+    private DrawingTool circleTool;
+
+    private Stage stage;
 
     public void initialize() {
         initializeDrawingParameters();
@@ -43,6 +60,11 @@ public class Controller {
         strokeWidthSlider.valueChangingProperty().addListener((obs, oldVal, newVal) -> {
             if (!newVal) {
                 onStrokeWidthChanged();
+            }
+        });
+        rootPane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
+            if (oldScene == null && newScene != null) {
+                stage = ((Stage) newScene.getWindow());
             }
         });
     }
@@ -81,14 +103,11 @@ public class Controller {
     @FXML
     void onMouseDragged(MouseEvent e) {
         currentTool.onMouseDragged(e);
-        System.out.println("Dragged");
     }
 
-    int pressed = 0;
     @FXML
     void onMousePressed(MouseEvent e) {
         currentTool.onMousePressed(e);
-        System.out.println("Pressed" + pressed++);
     }
 
     @FXML
@@ -96,11 +115,9 @@ public class Controller {
         currentTool.onMouseClicked(e);
     }
 
-    int released = 0;
     @FXML
     void onMouseReleased(MouseEvent e) {
         currentTool.onMouseReleased(e);
-        System.out.println("Released" + released++);
     }
 
     @FXML
@@ -133,5 +150,61 @@ public class Controller {
     @FXML
     void onCircleToolSelected() {
         pick(circleTool);
+    }
+
+    @FXML
+    void onOpen() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select image file");
+        File file = fileChooser.showOpenDialog(stage);
+
+        if (file == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "File hasn't been specified");
+            alert.showAndWait();
+            return;
+        }
+
+        Image image;
+        try {
+            image = new Image(file.toURI().toString());
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+            alert.showAndWait();
+            e.printStackTrace();
+            return;
+        }
+
+        mainCanvas.getGraphicsContext2D().drawImage(image, 0, 0);
+    }
+
+    @FXML
+    void onSave() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select file name");
+        File file = fileChooser.showSaveDialog(stage);
+
+        if (file == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "File hasn't been specified");
+            alert.showAndWait();
+            return;
+        }
+
+        SnapshotParameters params = new SnapshotParameters();
+        params.setFill(Color.TRANSPARENT);
+        WritableImage writableImage = mainCanvas.getGraphicsContext2D().getCanvas().snapshot(params, null);
+
+        BufferedImage image = SwingFXUtils.fromFXImage(writableImage, null);
+        try {
+            ImageIO.write(image, "png", file);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+            alert.showAndWait();
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void onClose() {
+        Platform.exit();
     }
 }

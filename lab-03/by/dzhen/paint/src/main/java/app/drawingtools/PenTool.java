@@ -16,7 +16,7 @@ public class PenTool extends DrawingTool {
     @Override
     protected void configureGraphicsContext() {
         super.configureGraphicsContext();
-        g.setLineCap(StrokeLineCap.ROUND);
+        mainG.setLineCap(StrokeLineCap.ROUND);
     }
 
     @Override
