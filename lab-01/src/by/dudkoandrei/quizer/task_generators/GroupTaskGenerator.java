@@ -16,7 +16,7 @@ public class GroupTaskGenerator implements Task.Generator {
   private final ArrayList<Generator> generators;
 
   /**
-   * Конструктор с переменным числом аргументов
+   * Конструктор с переменным числом аргументов.
    *
    * @param generators генераторы, которые в конструктор передаются через запятую
    */
@@ -25,7 +25,7 @@ public class GroupTaskGenerator implements Task.Generator {
   }
 
   /**
-   * Конструктор, который принимает коллекцию генераторов
+   * Конструктор, который принимает коллекцию генераторов.
    *
    * @param generators генераторы, которые передаются в конструктор в Collection (например,
    *                   {@link ArrayList})

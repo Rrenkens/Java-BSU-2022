@@ -9,7 +9,6 @@ import java.util.Random;
 public abstract class AbstractMathTask implements MathTask {
 
   protected final double answer;
-  protected final int precision;
   protected final double eps;
   protected String text;
   protected static final DecimalFormat df = new DecimalFormat();
@@ -20,7 +19,6 @@ public abstract class AbstractMathTask implements MathTask {
     }
 
     this.answer = answer;
-    this.precision = precision;
     this.eps = Math.pow(0.1, precision);
   }
 
@@ -66,7 +64,7 @@ public abstract class AbstractMathTask implements MathTask {
     protected final double maxNumber;
     protected final int precision;
     protected final EnumSet<Operation> allowedOperations;
-    protected static Random rnd = new Random();
+    protected static final Random rnd = new Random();
 
     Generator(
         double minNumber,

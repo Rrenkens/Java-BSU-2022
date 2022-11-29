@@ -1,6 +1,7 @@
 package by.dudkoandrei.quizer.tasks;
 
 import by.dudkoandrei.quizer.Result;
+import by.dudkoandrei.quizer.task_generators.PoolTaskGenerator;
 
 /**
  * Задание с заранее заготовленным текстом. Можно использовать {@link PoolTaskGenerator}, чтобы
