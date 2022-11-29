@@ -16,7 +16,7 @@ public abstract class AbstractMathTask implements MathTask {
 
   AbstractMathTask(double answer, int precision) {
     if (precision < 0) {
-      // exception
+      throw new IllegalArgumentException("precision is negative");
     }
 
     this.answer = answer;
@@ -30,7 +30,7 @@ public abstract class AbstractMathTask implements MathTask {
 
   static double truncate(double number, int precision) {
     if (precision < 0) {
-      // exception
+      throw new IllegalArgumentException("precision is negative");
     }
 
     double scale = Math.pow(10, precision);
@@ -81,16 +81,16 @@ public abstract class AbstractMathTask implements MathTask {
         int precision,
         EnumSet<Operation> operations) {
       if (operations == null) {
-        // exception
+        throw new IllegalArgumentException("operations is null");
       }
       if (operations.isEmpty()) {
-        // exception
+        throw new IllegalArgumentException("operations is empty");
       }
       if (minNumber > maxNumber) {
-        // exception
+        throw new IllegalArgumentException("minNumber is greater that maxNumber");
       }
       if (precision < 0) {
-        // exception
+        throw new IllegalArgumentException("precision is negative");
       }
 
       this.minNumber = minNumber;

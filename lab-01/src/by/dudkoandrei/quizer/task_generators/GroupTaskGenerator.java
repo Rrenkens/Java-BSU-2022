@@ -1,5 +1,6 @@
 package by.dudkoandrei.quizer.task_generators;
 
+import by.dudkoandrei.quizer.exceptions.GeneratorsFailedException;
 import by.dudkoandrei.quizer.tasks.Task;
 import by.dudkoandrei.quizer.tasks.Task.Generator;
 import java.util.ArrayList;
@@ -31,13 +32,13 @@ public class GroupTaskGenerator implements Task.Generator {
    */
   GroupTaskGenerator(Collection<Generator> generators) {
     if (generators == null) {
-      // exception
+      throw new IllegalArgumentException("generators is null");
     }
     if (generators.isEmpty()) {
-      // exception
+      throw new IllegalArgumentException("generators is empty");
     }
     if (generators.contains(null)) {
-      // exception
+      throw new IllegalArgumentException("generators contains null");
     }
 
     this.generators = new ArrayList<>(generators);
@@ -50,6 +51,7 @@ public class GroupTaskGenerator implements Task.Generator {
    */
   public Task generate() {
     Collections.shuffle(generators);
+
     try {
       for (Generator generator : generators) {
         return generator.generate();
@@ -57,6 +59,6 @@ public class GroupTaskGenerator implements Task.Generator {
     } catch (Exception ignored) {
     }
 
-    throw new RuntimeException("");
+    throw new GeneratorsFailedException();
   }
 }

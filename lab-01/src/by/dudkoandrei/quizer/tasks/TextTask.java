@@ -17,10 +17,10 @@ class TextTask implements Task {
    */
   TextTask(String text, String answer) {
     if (text == null || answer == null) {
-      // exception
+      throw new IllegalArgumentException("Arguments shouldn't be null");
     }
     if (text.isEmpty() || answer.isEmpty()) {
-      // exception
+      throw new IllegalArgumentException("Arguments shouldn't be empty");
     }
 
     this.text = text;
@@ -35,7 +35,7 @@ class TextTask implements Task {
   @Override
   public Result validate(String answer) {
     if (answer == null) {
-      // exception
+      throw new IllegalArgumentException("answer is null");
     }
 
     if (answer.isEmpty()) {

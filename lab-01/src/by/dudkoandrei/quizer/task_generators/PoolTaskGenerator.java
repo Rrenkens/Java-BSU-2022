@@ -1,5 +1,6 @@
 package by.dudkoandrei.quizer.task_generators;
 
+import by.dudkoandrei.quizer.exceptions.NoMoreTasksException;
 import by.dudkoandrei.quizer.tasks.Task;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,13 +37,13 @@ public class PoolTaskGenerator implements Task.Generator {
    */
   PoolTaskGenerator(boolean allowDuplicate, Collection<Task> tasks) {
     if (tasks == null) {
-      // exception
+      throw new IllegalArgumentException("tasks is null");
     }
     if (tasks.isEmpty()) {
-      // exception
+      throw new IllegalArgumentException("tasks is empty");
     }
     if (tasks.contains(null)) {
-      // exception
+      throw new IllegalArgumentException("tasks contains null");
     }
 
     this.allowDuplicate = allowDuplicate;
@@ -62,7 +63,7 @@ public class PoolTaskGenerator implements Task.Generator {
     }
 
     if (currentPosition == tasks.size()) {
-      // exception;
+      throw new NoMoreTasksException();
     }
 
     return tasks.get(currentPosition++);

@@ -1,5 +1,7 @@
 package by.dudkoandrei.quizer;
 
+import by.dudkoandrei.quizer.exceptions.QuizFinishedException;
+import by.dudkoandrei.quizer.exceptions.QuizNotFinishedException;
 import by.dudkoandrei.quizer.tasks.Task;
 
 /**
@@ -12,7 +14,6 @@ class Quiz {
   private Task currentTask = null;
   private final int taskCount;
   private boolean answeredOnCurrentTask = false;
-
   private int correctAnswerNumber = 0;
   private int wrongAnswerNumber = 0;
   private int incorrectInputNumber = 0;
@@ -23,10 +24,10 @@ class Quiz {
    */
   Quiz(Task.Generator generator, int taskCount) {
     if (taskCount <= 0) {
-      // exception
+      throw new IllegalArgumentException("Task count should be positive");
     }
     if (generator == null) {
-      // exception
+      throw new IllegalArgumentException("Generator is null");
     }
     this.taskGenerator = generator;
     this.taskCount = taskCount;
@@ -38,7 +39,7 @@ class Quiz {
    */
   Task nextTask() {
     if (isFinished()) {
-      // exception
+      throw new QuizFinishedException();
     }
 
     if (answeredOnCurrentTask || currentTask == null) {
@@ -56,7 +57,7 @@ class Quiz {
    */
   Result provideAnswer(String answer) {
     if (isFinished()) {
-      // exception
+      throw new QuizFinishedException();
     }
 
     Result result = currentTask.validate(answer);
@@ -110,7 +111,7 @@ class Quiz {
    */
   double getMark() {
     if (!isFinished()) {
-      // exception
+      throw new QuizNotFinishedException();
     }
 
     return ((double) correctAnswerNumber) / taskCount;
