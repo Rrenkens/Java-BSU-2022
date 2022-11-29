@@ -2,7 +2,6 @@ package by.toharrius.paint;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -10,8 +9,10 @@ import javafx.scene.paint.Color;
 
 public class Controller {
     private static Controller instance = null;
-    public FlowPane colorBoxFlow;
+    private ColorChooser colorChooser;
     private PaintingTool paintingTool = PaintingTool.PENCIL;
+
+    public FlowPane colorBoxFlow;
     public HBox root;
     public Canvas mainCanvas;
     public Controller() {
@@ -22,22 +23,14 @@ public class Controller {
         var ctx = mainCanvas.getGraphicsContext2D();
         ctx.setFill(Color.WHITE);
         ctx.fillRect(0, 0, mainCanvas.getWidth(), mainCanvas.getHeight());
-
-        for (var color : new String[]{
-                "white", "black", "grey",
-                "red", "green", "blue",
-                "yellow", "hotpink", "lightblue"
-        }) {
-            var box = new Label();
-            box.getStyleClass().add("color-box");
-            box.setStyle("-fx-background-color: " + color);
-            colorBoxFlow.getChildren().add(box);
-        }
+        colorChooser = new ColorChooser(colorBoxFlow);
     }
     public void mousePressed(MouseEvent mouseEvent) {
+        var ctx = getDrawingContext();
         switch (paintingTool) {
             case PENCIL -> {
-                getDrawingContext().moveTo(mouseEvent.getX(), mouseEvent.getY());
+                ctx.beginPath();
+                ctx.moveTo(mouseEvent.getX(), mouseEvent.getY());
             }
         }
     }
@@ -51,6 +44,12 @@ public class Controller {
         }
     }
     public void mouseReleased(MouseEvent mouseEvent) {
+        var ctx = getDrawingContext();
+        switch (paintingTool) {
+            case PENCIL -> {
+                ctx.closePath();
+            }
+        }
     }
 
     public static Controller getInstance() {

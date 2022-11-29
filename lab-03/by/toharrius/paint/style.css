@@ -13,6 +13,10 @@
     -fx-border-color: gray;
 }
 
+.color-box.chosen {
+    -fx-border-color: white;
+}
+
 #colorBoxFlow {
     -fx-background-color: #2F445C;
     -fx-min-width: 84;

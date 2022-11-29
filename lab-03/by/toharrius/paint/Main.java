@@ -3,6 +3,7 @@ package by.toharrius.paint;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -17,13 +18,17 @@ public class Main extends Application {
     public void start(Stage window) throws Exception {
         var fxml_url = getClass().getResource("interface.fxml");
         assert fxml_url != null;
-        var scene = new Scene(FXMLLoader.load(fxml_url));
+        var scene = new Scene(
+                FXMLLoader.load(fxml_url),
+                WINDOW_WIDTH,
+                WINDOW_HEIGHT,
+                false,
+                SceneAntialiasing.BALANCED
+        );
         window.setScene(scene);
         Controller.getInstance().initElements();
 
         window.setTitle("PaintNotMS");
-        window.setHeight(WINDOW_HEIGHT);
-        window.setWidth(WINDOW_WIDTH);
         window.show();
     }
 }
