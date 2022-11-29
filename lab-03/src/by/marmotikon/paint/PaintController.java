@@ -1,16 +1,24 @@
 package by.marmotikon.paint;
 
+import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Spinner;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -90,11 +98,39 @@ public class PaintController implements Initializable {
 
     @FXML
     protected void onSave() {
-        System.err.println("Save");
-//        try {
-//            Image snapshot = canvas.snapshot(null, null);
-//            ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", )
-//        }
+        Image snapshot = canvas.snapshot(null, null);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save image");
+        File file = fileChooser.showSaveDialog(new Stage());
+        if (file == null) {
+            return;
+        }
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", file);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error. Failed to save image as " + file.getName() + ".", ButtonType.OK);
+            alert.show();
+        }
+    }
+
+    public void onOpen() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("All", "*"),
+                new FileChooser.ExtensionFilter("PNG", "*.png"));
+        File file = fileChooser.showOpenDialog(new Stage());
+        if (file == null) {
+            return;
+        }
+        try {
+            BufferedImage bufferedImage = ImageIO.read(file);
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            graphicsContext.drawImage(image, 0, 0, canvas.getWidth(), canvas.getHeight());
+        } catch (IOException exception) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error. Failed to open " + file.getName() + " as image.", ButtonType.OK);
+            alert.show();
+        }
     }
 
     @FXML
@@ -105,7 +141,7 @@ public class PaintController implements Initializable {
 
     @FXML
     protected void onExit() {
-        System.err.println("Exit");
+        Platform.exit();
     }
 
     @FXML
@@ -163,9 +199,7 @@ public class PaintController implements Initializable {
     @FXML
     public void onMouseReleaseListener(MouseEvent mouseEvent) {
         switch (toolByName.get(tool.getValue())) {
-            case ROUND_BRUSH, BUTT_BRUSH -> {
-                graphicsContext.strokeLine(startX, startY, mouseEvent.getX(), mouseEvent.getY());
-            }
+            case ROUND_BRUSH, BUTT_BRUSH -> graphicsContext.strokeLine(startX, startY, mouseEvent.getX(), mouseEvent.getY());
             case ERASER -> {}
             case RECTANGLE -> {
                 ClearTempCanvas();

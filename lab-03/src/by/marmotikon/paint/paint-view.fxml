@@ -13,6 +13,8 @@
             <MenuBar>
                 <Menu text="File">
                     <MenuItem text="Save image" onAction="#onSave"/>
+                    <MenuItem text="Open image" onAction="#onOpen"/>
+                    <SeparatorMenuItem/>
                     <MenuItem text="Clear canvas" onAction="#onClear"/>
                     <MenuItem text="Exit" onAction="#onExit"/>
                 </Menu>
