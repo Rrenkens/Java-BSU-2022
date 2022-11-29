@@ -22,16 +22,17 @@ public class Hobos {
     }
 
     public void steal(int product) throws InterruptedException {
+        label:
         while (Controller.getController().isWorking()) {
             ArrayList<Dock> docks = Controller.getController().getDocks();
             for (Dock dock : docks) {
                 if (dock.stealProduct(product)) {
-                    break;
+                    break label;
                 }
             }
         }
         sleep(stealingTime * 1000L);
-        ++Controller.getController().getHobosVillage()
-                .getCurrentIngredientsCount()[product];
+        Controller.getController().getHobosVillage()
+                .getCurrentIngredientsCount().incrementAndGet(product);
     }
 }

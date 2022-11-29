@@ -1,12 +1,13 @@
 package by.parfen01.docks_and_hobos;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicIntegerArray;
 
 import static java.lang.Thread.sleep;
 
 public class HobosVillage {
     private final int[] requiredIngredientsCount;
-    private final int[] currentIngredientsCount;
+    private final AtomicIntegerArray currentIngredientsCount;
     private final int eatingTime;
     private final ArrayList<Hobos> hobos;
 
@@ -14,16 +15,16 @@ public class HobosVillage {
         this.requiredIngredientsCount = requiredIngredientsCount;
         this.eatingTime = eatingTime;
         this.hobos = hobos;
-        currentIngredientsCount = new int[this.requiredIngredientsCount.length];
+        currentIngredientsCount = new AtomicIntegerArray(this.requiredIngredientsCount.length);
     }
 
-    public int[] getCurrentIngredientsCount() {
+    public AtomicIntegerArray getCurrentIngredientsCount() {
         return currentIngredientsCount;
     }
 
     public int getAbsentProduct() {
-        for (int i = 0; i < currentIngredientsCount.length; ++i) {
-            if (requiredIngredientsCount[i] > currentIngredientsCount[i]) {
+        for (int i = 0; i < requiredIngredientsCount.length; ++i) {
+            if (requiredIngredientsCount[i] > currentIngredientsCount.get(i)) {
                 return i;
             }
         }
@@ -31,8 +32,8 @@ public class HobosVillage {
     }
 
     public void cookAndEat() throws InterruptedException {
-        for (int i = 0; i < currentIngredientsCount.length; ++i) {
-            currentIngredientsCount[i] -= requiredIngredientsCount[i];
+        for (int i = 0; i < requiredIngredientsCount.length; ++i) {
+            currentIngredientsCount.set(i, currentIngredientsCount.get(i) - requiredIngredientsCount[i]);
         }
         sleep(eatingTime * 1000L);
     }

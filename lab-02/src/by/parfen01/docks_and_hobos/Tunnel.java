@@ -16,13 +16,11 @@ public class Tunnel {
             return;
         }
         shipQueue.add(ship);
-        if (shipQueue.size() == 1) {
-            notify();
-        }
+        notify();
     }
 
     public Ship getShip() throws InterruptedException {
-        if (shipQueue.isEmpty()) {
+        while (shipQueue.isEmpty()) {
             wait();
         }
         return shipQueue.poll();
