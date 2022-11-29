@@ -10,6 +10,8 @@ public class Controller {
     private final CargoDecoder cargoDecoder;
 
     private final ArrayList<Dock> docks;
+
+    private ArrayList<Thread> workingThreads;
 //    private final Logger logger;
     private static Controller controller;
 
@@ -55,9 +57,45 @@ public class Controller {
 
     public void start() {
         isWorking = true;
+        workingThreads = new ArrayList<>();
+        Thread shipGeneratorThread = new Thread(() -> {
+            try {
+                shipGenerator.start();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        workingThreads.add(shipGeneratorThread);
+        Thread hobosVillageThread = new Thread(() -> {
+            try {
+                hobosVillage.start();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        workingThreads.add(hobosVillageThread);
+        for (Dock i : docks) {
+            Thread dockThread = new Thread(() -> {
+                try {
+                    i.start();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            workingThreads.add(dockThread);
+        }
+        for (Thread i : workingThreads) {
+            i.start();
+        }
     }
 
-    public void stop() {
+    public void stop() throws InterruptedException {
+        if (workingThreads == null) {
+            return;
+        }
         isWorking = false;
+        for (Thread i : workingThreads) {
+            i.join();
+        }
     }
 }

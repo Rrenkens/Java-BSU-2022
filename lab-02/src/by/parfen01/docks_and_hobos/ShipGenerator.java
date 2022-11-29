@@ -19,7 +19,7 @@ public class ShipGenerator {
     }
 
     public void start() throws InterruptedException {
-        while(Controller.getController().isWorking()) {
+        while (Controller.getController().isWorking()) {
             Controller.getController().getTunnel().addShip(this.generate());
             sleep(generatingTime * 1000L);
         }

@@ -26,4 +26,12 @@ public class Dock {
             UnloadShip(Controller.getController().getTunnel().getShip());
         }
     }
+
+    boolean stealProduct(int product) {
+        if (productsCount[product] == 0) {
+            return false;
+        }
+        --productsCount[product];
+        return true;
+    }
 }
