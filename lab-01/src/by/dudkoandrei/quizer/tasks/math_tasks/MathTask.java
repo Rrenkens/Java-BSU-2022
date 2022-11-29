@@ -39,75 +39,33 @@ public interface MathTask extends Task {
     MULTIPLY;
 
     double compute(double lhs, double rhs) {
-      switch (this) {
-        case ADD -> {
-          return lhs + rhs;
-        }
-        case SUBTRACT -> {
-          return lhs - rhs;
-        }
-        case MULTIPLY -> {
-          return lhs * rhs;
-        }
-        case DIVIDE -> {
-          return lhs / rhs;
-        }
-        default -> {
-          return 0;
-          // exception
-        }
-      }
+      return switch (this) {
+        case ADD -> lhs + rhs;
+        case SUBTRACT -> lhs - rhs;
+        case MULTIPLY -> lhs * rhs;
+        case DIVIDE -> lhs / rhs;
+      };
     }
 
     @Override
     public String toString() {
-      switch (this) {
-        case ADD -> {
-          return "+";
-        }
-        case SUBTRACT -> {
-          return "-";
-        }
-        case MULTIPLY -> {
-          return "*";
-        }
-        case DIVIDE -> {
-          return "/";
-        }
-        default -> {
-          // exception
-        }
-      }
-      return "";
+      return switch (this) {
+        case ADD -> "+";
+        case SUBTRACT -> "-";
+        case MULTIPLY -> "*";
+        case DIVIDE -> "/";
+      };
     }
 
     double solve(double firstNumber, double secondNumber, boolean isFirstNumberUnknown) {
-      switch (this) {
-        case ADD -> {
-          return secondNumber - firstNumber;
-        }
-        case MULTIPLY -> {
-          return secondNumber / firstNumber;
-        }
-        case SUBTRACT -> {
-          if (isFirstNumberUnknown) {
-            return secondNumber + firstNumber;
-          } else {
-            return firstNumber - secondNumber;
-          }
-        }
-        case DIVIDE -> {
-          if (isFirstNumberUnknown) {
-            return firstNumber * secondNumber;
-          } else {
-            return firstNumber / secondNumber;
-          }
-        }
-        default -> {
-          return 0;
-          // exception
-        }
-      }
+      return switch (this) {
+        case ADD -> secondNumber - firstNumber;
+        case MULTIPLY -> secondNumber / firstNumber;
+        case SUBTRACT ->
+            isFirstNumberUnknown ? secondNumber + firstNumber : firstNumber - secondNumber;
+        case DIVIDE ->
+            isFirstNumberUnknown ? firstNumber * secondNumber : firstNumber / secondNumber;
+      };
     }
   }
 }
