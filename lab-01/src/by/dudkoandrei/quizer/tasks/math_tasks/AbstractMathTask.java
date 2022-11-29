@@ -72,20 +72,7 @@ public abstract class AbstractMathTask implements MathTask {
         double minNumber,
         double maxNumber,
         EnumSet<Operation> operations) {
-      if (operations == null) {
-        // exception
-      }
-      if (operations.isEmpty()) {
-        // exception
-      }
-      if (minNumber > maxNumber) {
-        // exception
-      }
-
-      this.minNumber = minNumber;
-      this.maxNumber = maxNumber;
-      this.allowedOperations = operations.clone();
-      this.precision = 0;
+      this(minNumber, maxNumber, 0, operations);
     }
 
     Generator(
@@ -99,7 +86,7 @@ public abstract class AbstractMathTask implements MathTask {
       if (operations.isEmpty()) {
         // exception
       }
-      if (minNumber > maxNumber) {
+      if (minNumber >= maxNumber) {
         // exception
       }
       if (precision < 0) {
