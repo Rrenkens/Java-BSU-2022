@@ -17,6 +17,10 @@
     -fx-border-color: white;
 }
 
+.color-box:hover {
+    -fx-border-color: gold;
+}
+
 #colorBoxFlow {
     -fx-background-color: #2F445C;
     -fx-min-width: 84;

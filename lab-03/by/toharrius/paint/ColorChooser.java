@@ -9,12 +9,16 @@ import java.util.ArrayList;
 public class ColorChooser {
     private final FlowPane flow;
     private static final String[] defaultColorNames = {
-            "white", "black", "grey",
-            "red", "green", "blue",
-            "yellow", "hotpink", "lightblue",
+            "black", "white", "grey",
+            "darkred", "red", "hotpink",
+            "#808000", "yellow", "gold",
+            "brown", "orange", "salmon",
+            "purple", "#8000ff", "#ff00ff",
+            "green", "#00ff00", "lightgreen",
+            "darkblue", "blue", "skyblue",
     };
     private final Color[] defaultColors;
-    private int activeColorIndex = 1;
+    private int activeColorIndex = 0;
 
     private Color colorByIndex(int index) {
         return defaultColors[index];
@@ -47,6 +51,6 @@ public class ColorChooser {
             arr.add(Color.valueOf(color));
         }
         this.defaultColors = arr.toArray(new Color[0]);
-        chooseActiveColor(1);
+        chooseActiveColor(0);
     }
 }
