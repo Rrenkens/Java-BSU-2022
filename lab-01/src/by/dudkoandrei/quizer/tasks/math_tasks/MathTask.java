@@ -53,6 +53,7 @@ public interface MathTask extends Task {
           return lhs / rhs;
         }
         default -> {
+          return 0;
           // exception
         }
       }
@@ -78,6 +79,35 @@ public interface MathTask extends Task {
         }
       }
       return "";
+    }
+
+    double solve(double firstNumber, double secondNumber, boolean isFirstNumberUnknown) {
+      switch (this) {
+        case ADD -> {
+          return secondNumber - firstNumber;
+        }
+        case MULTIPLY -> {
+          return secondNumber / firstNumber;
+        }
+        case SUBTRACT -> {
+          if (isFirstNumberUnknown) {
+            return secondNumber + firstNumber;
+          } else {
+            return firstNumber - secondNumber;
+          }
+        }
+        case DIVIDE -> {
+          if (isFirstNumberUnknown) {
+            return firstNumber * secondNumber;
+          } else {
+            return firstNumber / secondNumber;
+          }
+        }
+        default -> {
+          return 0;
+          // exception
+        }
+      }
     }
   }
 }
