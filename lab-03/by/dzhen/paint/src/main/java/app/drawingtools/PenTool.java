@@ -8,8 +8,8 @@ import javafx.scene.shape.StrokeLineCap;
 public class PenTool extends DrawingTool {
     private Point2D prevPos;
 
-    public PenTool(GraphicsContext g) {
-        super(g);
+    public PenTool(GraphicsContext mainG, GraphicsContext g) {
+        super(mainG, g);
         prevPos = new Point2D(0, 0);
     }
 
@@ -25,7 +25,7 @@ public class PenTool extends DrawingTool {
 
         configureGraphicsContext();
 
-        g.strokeLine(prevPos.getX(), prevPos.getY(), curPos.getX(), curPos.getY());
+        mainG.strokeLine(prevPos.getX(), prevPos.getY(), curPos.getX(), curPos.getY());
 
         prevPos = curPos;
     }

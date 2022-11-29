@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 
+<?import javafx.scene.layout.StackPane?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="app.Controller">
     <top>
@@ -21,8 +22,9 @@
                 <fx:define>
                     <ToggleGroup fx:id="toolsToggleGroup"/>
                 </fx:define>
-                <RadioButton toggleGroup="$toolsToggleGroup" text="Pen Tool" selected="true" onAction="#onPenSelected"/>
-                <RadioButton toggleGroup="$toolsToggleGroup" text="Not Pen Tool"/>
+                <RadioButton toggleGroup="$toolsToggleGroup" text="Pen Tool" selected="true" onAction="#onPenToolSelected"/>
+                <RadioButton toggleGroup="$toolsToggleGroup" text="Rectangle Tool" onAction="#onRectangleToolSelected"/>
+                <RadioButton toggleGroup="$toolsToggleGroup" text="Circle Tool" onAction="#onCircleToolSelected"/>
             </ToolBar>
             <ToolBar>
                 <Label text="Stroke color:"/>
@@ -46,12 +48,19 @@
         </VBox>
     </top>
     <center>
-        <Canvas
-                width="800"
-                height="600"
-                fx:id="canvas"
-                onMouseDragged="#onMouseDragged"
-                onMouseClicked="#onMouseClicked"
-                onMousePressed="#onMousePressed"/>
+        <StackPane>
+            <Canvas
+                    width="800"
+                    height="600"
+                    fx:id="mainCanvas"/>
+            <Canvas
+                    width="800"
+                    height="600"
+                    fx:id="bufferCanvas"
+                    onMouseDragged="#onMouseDragged"
+                    onMouseClicked="#onMouseClicked"
+                    onMousePressed="#onMousePressed"
+                    onMouseReleased="#onMouseReleased"/>
+        </StackPane>
     </center>
 </BorderPane>

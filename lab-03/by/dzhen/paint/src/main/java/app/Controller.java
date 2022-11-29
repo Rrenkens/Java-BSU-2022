@@ -1,9 +1,12 @@
 package app;
 
+import app.drawingtools.CircleTool;
 import app.drawingtools.DrawingTool;
 import app.drawingtools.PenTool;
+import app.drawingtools.RectangleTool;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
@@ -13,11 +16,14 @@ public class Controller {
     @FXML
     public Slider strokeWidthSlider;
     @FXML
-    private Canvas canvas;
-    @FXML
     private ColorPicker strokeColorPicker;
     @FXML
     private ColorPicker fillColorPicker;
+
+    @FXML
+    private Canvas mainCanvas;
+    @FXML
+    private Canvas bufferCanvas;
 
     DrawingTool currentTool;
 
@@ -26,6 +32,8 @@ public class Controller {
     double strokeWidth;
 
     DrawingTool penTool;
+    DrawingTool rectangleTool;
+    DrawingTool circleTool;
 
     public void initialize() {
         initializeDrawingParameters();
@@ -62,22 +70,37 @@ public class Controller {
     }
 
     private void initializeDrawingTools() {
-        penTool = new PenTool(canvas.getGraphicsContext2D());
+        GraphicsContext bufferG = bufferCanvas.getGraphicsContext2D();
+        GraphicsContext mainG = mainCanvas.getGraphicsContext2D();
+
+        penTool = new PenTool(mainG, bufferG);
+        rectangleTool = new RectangleTool(mainG, bufferG);
+        circleTool = new CircleTool(mainG, bufferG);
     }
 
     @FXML
     void onMouseDragged(MouseEvent e) {
         currentTool.onMouseDragged(e);
+        System.out.println("Dragged");
     }
 
+    int pressed = 0;
     @FXML
     void onMousePressed(MouseEvent e) {
         currentTool.onMousePressed(e);
+        System.out.println("Pressed" + pressed++);
     }
 
     @FXML
     void onMouseClicked(MouseEvent e) {
         currentTool.onMouseClicked(e);
+    }
+
+    int released = 0;
+    @FXML
+    void onMouseReleased(MouseEvent e) {
+        currentTool.onMouseReleased(e);
+        System.out.println("Released" + released++);
     }
 
     @FXML
@@ -95,11 +118,20 @@ public class Controller {
     void onStrokeWidthChanged() {
         strokeWidth = strokeWidthSlider.getValue();
         currentTool.setStrokeWidth(strokeWidth);
-        System.out.println(1);
     }
 
     @FXML
-    void onPenSelected() {
+    void onPenToolSelected() {
         pick(penTool);
+    }
+
+    @FXML
+    void onRectangleToolSelected() {
+        pick(rectangleTool);
+    }
+
+    @FXML
+    void onCircleToolSelected() {
+        pick(circleTool);
     }
 }
