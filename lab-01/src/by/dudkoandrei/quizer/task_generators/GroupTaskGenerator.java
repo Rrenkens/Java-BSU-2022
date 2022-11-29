@@ -20,7 +20,7 @@ public class GroupTaskGenerator implements Task.Generator {
    *
    * @param generators генераторы, которые в конструктор передаются через запятую
    */
-  GroupTaskGenerator(Task.Generator... generators) {
+  public GroupTaskGenerator(Task.Generator... generators) {
     this(Arrays.asList(generators));
   }
 
@@ -30,7 +30,7 @@ public class GroupTaskGenerator implements Task.Generator {
    * @param generators генераторы, которые передаются в конструктор в Collection (например,
    *                   {@link ArrayList})
    */
-  GroupTaskGenerator(Collection<Generator> generators) {
+  public GroupTaskGenerator(Collection<Generator> generators) {
     if (generators == null) {
       throw new IllegalArgumentException("generators is null");
     }
@@ -52,11 +52,11 @@ public class GroupTaskGenerator implements Task.Generator {
   public Task generate() {
     Collections.shuffle(generators);
 
-    try {
-      for (Generator generator : generators) {
+    for (Generator generator : generators) {
+      try {
         return generator.generate();
+      } catch (Exception ignored) {
       }
-    } catch (Exception ignored) {
     }
 
     throw new GeneratorsFailedException();

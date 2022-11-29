@@ -24,7 +24,7 @@ public class PoolTaskGenerator implements Task.Generator {
    * @param allowDuplicate разрешить повторения
    * @param tasks          задания, которые в конструктор передаются через запятую
    */
-  PoolTaskGenerator(boolean allowDuplicate, Task... tasks) {
+  public PoolTaskGenerator(boolean allowDuplicate, Task... tasks) {
     this(allowDuplicate, Arrays.asList(tasks));
   }
 
@@ -35,7 +35,7 @@ public class PoolTaskGenerator implements Task.Generator {
    * @param tasks          задания, которые передаются в конструктор в Collection (например,
    *                       {@link LinkedList})
    */
-  PoolTaskGenerator(boolean allowDuplicate, Collection<Task> tasks) {
+  public PoolTaskGenerator(boolean allowDuplicate, Collection<Task> tasks) {
     if (tasks == null) {
       throw new IllegalArgumentException("tasks is null");
     }
