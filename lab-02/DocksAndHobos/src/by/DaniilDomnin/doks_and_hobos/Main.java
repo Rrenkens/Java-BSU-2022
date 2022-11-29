@@ -15,7 +15,7 @@ import org.json.simple.parser.ParseException;
 public class Main {
 
     public static void main(String[] args) throws IOException, ParseException, InterruptedException {
-        Object obj = new JSONParser().parse(new FileReader(args[1]));
+        Object obj = new JSONParser().parse(new FileReader(args[0]));
         // Object obj = new JSONParser().parse(new FileReader("config.json"));
         JSONObject jo = (JSONObject) obj;
         ShipGenerator generator = new ShipGenerator((long)jo.get("ship_capacity_max"), (long)jo.get("ship_capacity_min"), (ArrayList<String>) jo.get("cargo_types"));
