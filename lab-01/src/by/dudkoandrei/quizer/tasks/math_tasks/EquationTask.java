@@ -70,10 +70,18 @@ public class EquationTask extends AbstractMathTask {
       }
       if (isFirstNumberUnknown && operation == Operation.DIVIDE
           && isDoubleEqual(firstNumber, 0.0, eps)) {
-        operation = Operation.ADD;
+        operation = Operation.SUBTRACT;
       }
       if (!isFirstNumberUnknown && operation == Operation.DIVIDE
           && isDoubleEqual(secondNumber, 0.0, eps)) {
+        operation = Operation.ADD;
+      }
+      if (precision == 0 && operation == Operation.MULTIPLY
+          && (int) secondNumber % (int) firstNumber != 0) {
+        operation = Operation.SUBTRACT;
+      }
+      if (precision == 0 && !isFirstNumberUnknown && operation == Operation.DIVIDE
+          && (int) firstNumber % (int) secondNumber != 0) {
         operation = Operation.ADD;
       }
 

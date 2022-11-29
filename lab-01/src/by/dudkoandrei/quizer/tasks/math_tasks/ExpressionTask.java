@@ -58,6 +58,10 @@ public class ExpressionTask extends AbstractMathTask {
           && isDoubleEqual(secondNumber, 0.0, Math.pow(0.1, precision))) {
         operation = Operation.MULTIPLY;
       }
+      if (precision == 0 && operation == Operation.DIVIDE
+          && (int) firstNumber % (int) secondNumber != 0) {
+        operation = Operation.MULTIPLY;
+      }
 
       return new ExpressionTask(firstNumber, secondNumber, precision, operation);
     }
