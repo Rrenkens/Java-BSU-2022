@@ -57,8 +57,8 @@ public class EquationTask extends AbstractMathTask {
     public EquationTask generate() {
       double eps = Math.pow(0.1, precision);
 
-      double firstNumber = truncate(rnd.nextDouble(minNumber, maxNumber), precision);
-      double secondNumber = truncate(rnd.nextDouble(minNumber, maxNumber), precision);
+      double firstNumber = getRandomDouble();
+      double secondNumber = getRandomDouble();
       boolean isFirstNumberUnknown = rnd.nextBoolean();
       Operation operation = getRandomOperation();
 

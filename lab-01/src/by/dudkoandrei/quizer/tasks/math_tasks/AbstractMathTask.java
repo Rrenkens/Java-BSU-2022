@@ -86,7 +86,7 @@ public abstract class AbstractMathTask implements MathTask {
       if (operations.isEmpty()) {
         // exception
       }
-      if (minNumber >= maxNumber) {
+      if (minNumber > maxNumber) {
         // exception
       }
       if (precision < 0) {
@@ -97,6 +97,10 @@ public abstract class AbstractMathTask implements MathTask {
       this.maxNumber = maxNumber;
       this.allowedOperations = operations.clone();
       this.precision = precision;
+    }
+
+    double getRandomDouble() {
+      return truncate(rnd.nextDouble(minNumber, maxNumber + Double.MIN_VALUE), precision);
     }
 
     Operation getRandomOperation() {

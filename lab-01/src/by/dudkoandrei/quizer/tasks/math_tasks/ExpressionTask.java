@@ -50,8 +50,8 @@ public class ExpressionTask extends AbstractMathTask {
      */
     @Override
     public ExpressionTask generate() {
-      double firstNumber = truncate(rnd.nextDouble(minNumber, maxNumber), precision);
-      double secondNumber = truncate(rnd.nextDouble(minNumber, maxNumber), precision);
+      double firstNumber = getRandomDouble();
+      double secondNumber = getRandomDouble();
       Operation operation = getRandomOperation();
 
       if (operation == Operation.DIVIDE
