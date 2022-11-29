@@ -1,6 +1,6 @@
 package app;
 
-// For some reason I couldn't add this as a dependency, so I just copied it
+// Почему-то эта штука не добавлялась как зависимость
 
 /*
  * Copyright (c) 2012, 2018, Oracle and/or its affiliates. All rights reserved.

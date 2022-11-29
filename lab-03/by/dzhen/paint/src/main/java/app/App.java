@@ -1,22 +1,23 @@
 package app;
 
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-import javax.swing.text.Utilities;
 import java.io.IOException;
 
-public class Application extends javafx.application.Application {
+public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("paint.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("paint.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+
         stage.setTitle("Paint");
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.setResizable(false);
+
         stage.show();
     }
 

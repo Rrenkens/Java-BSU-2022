@@ -45,19 +45,7 @@ public abstract class DrawingTool {
         mainG.setLineWidth(strokeWidth);
     }
 
-    public void onToolPicked() {
-
-    }
-
-    public void onToolPutAside() {
-
-    }
-
     public void onMouseDragged(MouseEvent e) {
-
-    }
-
-    public void onMouseClicked(MouseEvent e) {
 
     }
 

@@ -1,5 +1,6 @@
 package app.drawingtools;
 
+import app.Utils;
 import javafx.geometry.Point2D;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
@@ -19,16 +20,12 @@ public class CircleTool extends DrawingTool {
     public void onMouseDragged(MouseEvent e) {
         configureGraphicsContext();
 
-        Clear(g);
+        Utils.Clear(g);
 
         Point2D secondPoint = new Point2D(e.getX(), e.getY());
-
         double radius = secondPoint.distance(center);
-        double topLeftX = center.getX() - radius;
-        double topLeftY = center.getY() - radius;
 
-        g.fillOval(topLeftX, topLeftY, radius * 2, radius * 2);
-        g.strokeOval(topLeftX, topLeftY, radius * 2, radius * 2);
+        Utils.drawCircle(center, radius, g);
     }
 
     @Override
@@ -43,10 +40,6 @@ public class CircleTool extends DrawingTool {
         WritableImage image = g.getCanvas().snapshot(params, null);
         mainG.drawImage(image, 0, 0);
 
-        Clear(g);
-    }
-
-    private void Clear(GraphicsContext g) {
-        g.clearRect(0, 0, g.getCanvas().getWidth(), g.getCanvas().getHeight());
+        Utils.Clear(g);
     }
 }

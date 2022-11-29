@@ -6,24 +6,20 @@ import app.drawingtools.PenTool;
 import app.drawingtools.RectangleTool;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 
 public class Controller {
     @FXML
@@ -76,12 +72,7 @@ public class Controller {
     }
 
     private void pick(DrawingTool tool) {
-        if (currentTool != null) {
-            currentTool.onToolPutAside();
-        }
         currentTool = tool;
-        tool.onToolPicked();
-
         configureCurrentTool();
     }
 
@@ -108,11 +99,6 @@ public class Controller {
     @FXML
     void onMousePressed(MouseEvent e) {
         currentTool.onMousePressed(e);
-    }
-
-    @FXML
-    void onMouseClicked(MouseEvent e) {
-        currentTool.onMouseClicked(e);
     }
 
     @FXML
@@ -159,8 +145,7 @@ public class Controller {
         File file = fileChooser.showOpenDialog(stage);
 
         if (file == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "File hasn't been specified");
-            alert.showAndWait();
+            Utils.showErrorAlert("File hasn't been specified");
             return;
         }
 
@@ -168,8 +153,7 @@ public class Controller {
         try {
             image = new Image(file.toURI().toString());
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
-            alert.showAndWait();
+            Utils.showErrorAlert(e.getMessage());
             e.printStackTrace();
             return;
         }
@@ -184,21 +168,15 @@ public class Controller {
         File file = fileChooser.showSaveDialog(stage);
 
         if (file == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "File hasn't been specified");
-            alert.showAndWait();
+            Utils.showErrorAlert("File hasn't been specified");
             return;
         }
 
-        SnapshotParameters params = new SnapshotParameters();
-        params.setFill(Color.TRANSPARENT);
-        WritableImage writableImage = mainCanvas.getGraphicsContext2D().getCanvas().snapshot(params, null);
-
-        BufferedImage image = SwingFXUtils.fromFXImage(writableImage, null);
+        BufferedImage image = Utils.snapshot(mainCanvas);
         try {
             ImageIO.write(image, "png", file);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
-            alert.showAndWait();
+            Utils.showErrorAlert(e.getMessage());
             e.printStackTrace();
         }
     }
