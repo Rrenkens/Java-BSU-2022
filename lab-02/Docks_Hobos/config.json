@@ -1,0 +1,17 @@
+{
+  "generating_time": 10,
+  "ship_capacity_min": 20,
+  "ship_capacity_max": 100,
+  "max_ships": 4,
+  "unloading_speed": 3,
+  "dock_capacity": 100,
+  "hobos": 4,
+  "stealing_time": 10,
+  "eating_time": 20,
+  "cargo_types" : [
+    "meat",
+    "fish",
+    "oil"
+  ],
+  "ingredients_count" : 8
+}

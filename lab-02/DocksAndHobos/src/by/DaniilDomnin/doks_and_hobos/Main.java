@@ -18,7 +18,6 @@ public class Main {
        // Object obj = new JSONParser().parse(new FileReader(args[1]));
         Object obj = new JSONParser().parse(new FileReader("config.json"));
         JSONObject jo = (JSONObject) obj;
-        CLogger.GetInstance().WriteInLog(Le);
         ShipGenerator generator = new ShipGenerator((long)jo.get("ship_capacity_max"), (long)jo.get("ship_capacity_min"), (ArrayList<String>) jo.get("cargo_types"));
         Docks docks = new Docks((long)jo.get("dock_capacity"), (long)jo.get("unloading_speed"),  (ArrayList<String>) jo.get("cargo_types"), (long)jo.get("hobos"),   (ArrayList<Long>) jo.get("ingredients_count"), (long)jo.get("eating_time"), (long)jo.get("stealing_time"));
         Controller c = new Controller(generator, docks, (long)jo.get("generating_time"), (long)jo.get("max_ships"));
