@@ -2,6 +2,10 @@
     -fx-background: #031326;
 }
 
+FlowPane {
+    -fx-alignment: center;
+}
+
 #sidePane {
     -fx-background-color: #172C42;
 }
@@ -21,10 +25,26 @@
     -fx-border-color: gold;
 }
 
-#colorBoxFlow {
+.tool-pane {
     -fx-background-color: #2F445C;
-    -fx-min-width: 84;
-    -fx-padding: 3;
-    -fx-vgap: 3;
-    -fx-hgap: 3;
+    -fx-min-width: 100;
+    -fx-max-width: 100;
+    -fx-border-width: 3;
+    -fx-border-color: grey;
+    -fx-padding: 5;
+}
+
+Button.choose-stroke {
+    -fx-min-width: 39;
+    -fx-border-width: 1;
+    -fx-max-width: 60;
+}
+
+#colorBoxFlow {
+    -fx-vgap: 5;
+    -fx-hgap: 5;
+}
+
+.spacer {
+    -fx-font-size: 4;
 }

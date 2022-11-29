@@ -6,12 +6,29 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.control.Spinner?>
 <HBox xmlns:fx="http://javafx.com/fxml/1"
       fx:id="root"
       fx:controller="by.toharrius.paint.Controller"
       stylesheets="@style.css">
     <VBox id="sidePane">
-        <FlowPane fx:id="colorBoxFlow"/>
+        <FlowPane fx:id="colorBoxFlow" styleClass="tool-pane"/>
+        <Label styleClass="spacer"/>
+        <VBox styleClass="tool-pane">
+            <Label text="stroke width"/>
+            <Spinner fx:id="strokeWidthSpinner" min="1" max="200" initialValue="5"/>
+            <FlowPane>
+                <Button text="1" styleClass="choose-stroke" onMouseClicked="#chooseStroke"/>
+                <Button text="5" styleClass="choose-stroke" onMouseClicked="#chooseStroke"/>
+                <Button text="10" styleClass="choose-stroke" onMouseClicked="#chooseStroke"/>
+                <Button text="20" styleClass="choose-stroke" onMouseClicked="#chooseStroke"/>
+                <Button text="40" styleClass="choose-stroke" onMouseClicked="#chooseStroke"/>
+                <Button text="70" styleClass="choose-stroke" onMouseClicked="#chooseStroke"/>
+                <Button text="100" styleClass="choose-stroke" onMouseClicked="#chooseStroke"/>
+                <Button text="150" styleClass="choose-stroke" onMouseClicked="#chooseStroke"/>
+                <Button text="200" styleClass="choose-stroke" onMouseClicked="#chooseStroke"/>
+            </FlowPane>
+        </VBox>
     </VBox>
     <ScrollPane maxHeight="Infinity" maxWidth="Infinity">
         <Canvas fx:id="mainCanvas" width="5000" height="3000"
