@@ -16,6 +16,7 @@ public class Docks {
         this.ingredients_count = ingredients_count;
         this.eating_time = eating_time;
         this.stealing_time = stealing_time;
+        this.cargo_names = cargo_names;
         current_ingredients_count = new ArrayList<>();
         for (int i = 0; i < ingredients_count.size(); ++i) {
             current_ingredients_count.add(0L);
@@ -52,7 +53,11 @@ public class Docks {
         while (true) {
             Thread.sleep(stealing_time * 1000);
             add_ingredient_mutex.lock();
-            int index = new Random().nextInt(0, ingredients_count.size());
+            int index = GetStealIndex();
+            if (index == -1) {
+                continue;
+            }
+            cargo_count.put(cargo_names.get(index), cargo_count.get(cargo_names.get(index)) - 1);
             current_ingredients_count.set(index, current_ingredients_count.get(index) + 1);
             if (CanStartEating()) {
                 ClearCurrentIngredients();;
@@ -60,6 +65,19 @@ public class Docks {
             }
             add_ingredient_mutex.unlock();
         }
+    }
+
+    private int GetStealIndex () {
+        ArrayList<Integer> indexes = new ArrayList<Integer>();
+        for (int i = 0; i < cargo_names.size(); ++i) {
+            if (cargo_count.get(cargo_names.get(i)) > 0) {
+                indexes.add(i);
+            }
+        }
+        if (indexes.size() == 0) {
+            return -1;
+        }
+        return indexes.get(new Random().nextInt(0, indexes.size()));
     }
 
     private void ClearCurrentIngredients() {
@@ -80,20 +98,22 @@ public class Docks {
 
 
 
-    private long dock_capacity;
-    private long unloading_speed;
+    private final long dock_capacity;
+    private final long unloading_speed;
 
-    private long hobos;
+    private final long hobos;
 
-    private long eating_time;
+    private final long eating_time;
 
-    private long stealing_time;
+    private final long stealing_time;
 
-    private ArrayList<Long> current_ingredients_count;
+    private final ArrayList<Long> current_ingredients_count;
 
-    private Lock add_ingredient_mutex;
+    private final Lock add_ingredient_mutex;
 
-    private ArrayList<Long> ingredients_count;
+    private final ArrayList<Long> ingredients_count;
 
-    private ConcurrentHashMap<String, Long> cargo_count = new ConcurrentHashMap<>();
+    private final ArrayList<String> cargo_names;
+
+    private final ConcurrentHashMap<String, Long> cargo_count = new ConcurrentHashMap<>();
 }

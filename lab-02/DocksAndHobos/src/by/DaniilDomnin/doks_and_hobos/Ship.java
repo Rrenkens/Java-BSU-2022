@@ -19,5 +19,5 @@ public class Ship {
     }
 
     private long capacity;
-    private String cargo_name;
+    private final String cargo_name;
 }

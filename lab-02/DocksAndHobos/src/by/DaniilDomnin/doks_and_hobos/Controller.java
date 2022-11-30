@@ -40,12 +40,12 @@ public class Controller {
         ship_count.decrementAndGet();
     }
 
-    private ShipGenerator generator;
+    private final ShipGenerator generator;
 
-    private AtomicInteger ship_count;
-    private long generating_time;
+    private final AtomicInteger ship_count;
+    private final long generating_time;
 
-    private long max_ships;
+    private final long max_ships;
 
-    private Docks docks;
+    private final Docks docks;
 }
