@@ -1,4 +1,10 @@
-package by.parfen01.docks_and_hobos;
+package by.parfen01.docks_and_hobos.control;
+
+import by.parfen01.docks_and_hobos.CargoDecoder;
+import by.parfen01.docks_and_hobos.Dock;
+import by.parfen01.docks_and_hobos.Tunnel;
+import by.parfen01.docks_and_hobos.hobos.HobosVillage;
+import by.parfen01.docks_and_hobos.ships.ShipGenerator;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -57,6 +63,8 @@ public class Controller {
 
     public void start() {
         isWorking = true;
+        consoleLogger.log(
+                Level.INFO, "Start");
         workingThreads = new ArrayList<>();
         Thread shipGeneratorThread = new Thread(() -> {
             try {
@@ -95,7 +103,9 @@ public class Controller {
         }
         isWorking = false;
         for (Thread i : workingThreads) {
-            i.join();
+            if (i.getState() != Thread.State.WAITING) {
+                i.join();
+            }
         }
         consoleLogger.log(
                 Level.INFO, "Stop");

@@ -1,4 +1,6 @@
-package by.parfen01.docks_and_hobos;
+package by.parfen01.docks_and_hobos.hobos;
+
+import by.parfen01.docks_and_hobos.control.Controller;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicIntegerArray;
@@ -74,6 +76,11 @@ public class HobosVillage {
             }
             Controller.getController().getConsoleLogger().log(
                     Level.INFO, "All hobos returned home");
+            // нужно для stop(), чтобы не есть, когда бродяги закончили красть из-за остановки системы,
+            // а не потому что всё украли
+            if (!Controller.getController().isWorking()) {
+                break;
+            }
             cookAndEat();
         }
     }

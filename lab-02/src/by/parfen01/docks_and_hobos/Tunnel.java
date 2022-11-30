@@ -1,5 +1,8 @@
 package by.parfen01.docks_and_hobos;
 
+import by.parfen01.docks_and_hobos.control.Controller;
+import by.parfen01.docks_and_hobos.ships.Ship;
+
 import java.util.ArrayDeque;
 import java.util.logging.Level;
 

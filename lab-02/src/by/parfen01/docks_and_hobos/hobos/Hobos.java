@@ -1,4 +1,7 @@
-package by.parfen01.docks_and_hobos;
+package by.parfen01.docks_and_hobos.hobos;
+
+import by.parfen01.docks_and_hobos.control.Controller;
+import by.parfen01.docks_and_hobos.Dock;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -22,7 +25,7 @@ public class Hobos {
         }
     }
 
-    public void steal(int product) throws InterruptedException {
+    private void steal(int product) throws InterruptedException {
         int dockId = -1;
         label:
         while (Controller.getController().isWorking()) {
@@ -33,6 +36,10 @@ public class Hobos {
                     break label;
                 }
             }
+        }
+        // нужно для stop(). Если ничего не нашёл, при остановке, то просто возвращается домой, иначе честно доносит до дома
+        if (dockId == -1 && !Controller.getController().isWorking()) {
+            return;
         }
         sleep(stealingTime * 1000L);
         Controller.getController().getConsoleLogger().log(

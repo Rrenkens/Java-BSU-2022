@@ -1,5 +1,8 @@
 package by.parfen01.docks_and_hobos;
 
+import by.parfen01.docks_and_hobos.control.Controller;
+import by.parfen01.docks_and_hobos.ships.Ship;
+
 import java.util.concurrent.atomic.AtomicIntegerArray;
 import java.util.logging.Level;
 
@@ -20,7 +23,7 @@ public class Dock {
 
     public void UnloadShip(Ship ship) throws InterruptedException {
         Controller.getController().getConsoleLogger().log(
-                Level.INFO, "Ship number " + ship.getId() + " started unload in dock number " + id);
+                Level.INFO, "Ship number " + ship.getId() + " started to unload in dock number " + id);
         int product = Controller.getController().getCargoDecoder().cargoToProduct(ship.getCargoType());
         int pred = productsCount.get(product);
         productsCount.set(product, Math.min(maxProductCapacity[product],
@@ -38,7 +41,7 @@ public class Dock {
         }
     }
 
-    boolean stealProduct(int product) {
+    public boolean stealProduct(int product) {
         if (productsCount.get(product) == 0) {
             return false;
         }

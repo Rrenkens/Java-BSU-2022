@@ -1,4 +1,6 @@
-package by.parfen01.docks_and_hobos;
+package by.parfen01.docks_and_hobos.ships;
+
+import by.parfen01.docks_and_hobos.control.Controller;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
