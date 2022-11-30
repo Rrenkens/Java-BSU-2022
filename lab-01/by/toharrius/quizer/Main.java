@@ -1,5 +1,7 @@
 package by.toharrius.quizer;
 
+import by.toharrius.quizer.task_generators.PoolTaskGenerator;
+import by.toharrius.quizer.tasks.TextTask;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
@@ -16,6 +18,14 @@ public class Main {
      */
     private static @NotNull Map<String, Quiz> getQuizMap() {
         var map = new HashMap<String, Quiz>();
+        {
+            var gen = new PoolTaskGenerator(false,
+                    new TextTask("Какая (по слухам) подработка у С*****ча?", "сборщик мусора"),
+                    new TextTask("Как называется человек, убегающий от каннибала?", "фастфуд"),
+                    new TextTask("Какой вид порно не могут снять бомжи?", "домашнее"),
+                    new TextTask("Как называется оглушающий удар татара?", "татарстан"));
+            map.put("stupid-questions", new Quiz(gen, 4));
+        }
         return map;
     }
 
@@ -73,7 +83,13 @@ public class Main {
             }
             if (map.containsKey(query)) {
                 System.out.println("Starting quiz \"" + query + "\"!");
-                runProblemSet(map.get(query));
+                Quiz clone;
+                try {
+                    clone = new Quiz(map.get(query));
+                } catch (Exception e) {
+                    throw new RuntimeException("Unable to clone", e);
+                }
+                runProblemSet(clone);
             } else {
                 System.out.println("Sorry, not found. Type \"list\" to see available");
             }

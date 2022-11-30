@@ -3,7 +3,7 @@ package by.toharrius.quizer;
 /**
  * Class, который описывает один тест
  */
-class Quiz {
+public class Quiz implements Cloneable {
     private int correctAnswerNumber = 0;
     private int wrongAnswerNumber = 0;
     private int incorrectInputNumber = 0;
@@ -19,6 +19,15 @@ class Quiz {
         this.taskGenerator = generator;
         this.taskCount = taskCount;
     }
+
+    /**
+     * Copy constructor refreshing state
+     * @param other object to copy
+     */
+    public Quiz(Quiz other) throws Exception {
+        this(other.taskGenerator.getClass().getConstructor(TaskGenerator.class, CopyParameter.class)
+                .newInstance(other.taskGenerator, CopyParameter.FLAG), other.taskCount);
+    }
     public int getTaskCount() {
         return taskCount;
     }
@@ -28,7 +37,7 @@ class Quiz {
      * @see Task
      */
     public Task nextTask() {
-        if (lastResult == Result.INCORRECT_INPUT) {
+        if (lastResult != Result.INCORRECT_INPUT) {
             currentTask = taskGenerator.generate();
         }
         return currentTask;
@@ -41,15 +50,9 @@ class Quiz {
     public Result provideAnswer(String answer) {
         lastResult = currentTask.validate(answer);
         switch (lastResult) {
-            case OK: {
-                ++correctAnswerNumber;
-            }
-            case WRONG: {
-                ++wrongAnswerNumber;
-            }
-            case INCORRECT_INPUT: {
-                ++incorrectInputNumber;
-            }
+            case OK -> ++correctAnswerNumber;
+            case WRONG -> ++wrongAnswerNumber;
+            case INCORRECT_INPUT -> ++incorrectInputNumber;
         }
         return lastResult;
     }

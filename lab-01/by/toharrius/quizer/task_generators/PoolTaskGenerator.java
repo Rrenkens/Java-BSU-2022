@@ -1,5 +1,6 @@
 package by.toharrius.quizer.task_generators;
 
+import by.toharrius.quizer.CopyParameter;
 import by.toharrius.quizer.Task;
 import by.toharrius.quizer.TaskGenerator;
 
@@ -16,11 +17,16 @@ public class PoolTaskGenerator implements TaskGenerator {
      * @param allowDuplicate разрешить повторения
      * @param tasks          задания, которые в конструктор передаются через запятую
      */
-    PoolTaskGenerator(
+    public PoolTaskGenerator(
             boolean allowDuplicate,
             Task... tasks
     ) {
         this(allowDuplicate, Arrays.stream(tasks).collect(Collectors.toList()));
+    }
+
+    public PoolTaskGenerator(TaskGenerator other, CopyParameter f) {
+        this(((PoolTaskGenerator)other).allowDuplicate,
+                ((PoolTaskGenerator)other).pool);
     }
 
     /**

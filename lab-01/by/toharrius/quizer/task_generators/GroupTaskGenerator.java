@@ -1,5 +1,6 @@
 package by.toharrius.quizer.task_generators;
 
+import by.toharrius.quizer.CopyParameter;
 import by.toharrius.quizer.Task;
 import by.toharrius.quizer.TaskGenerator;
 
@@ -14,9 +15,13 @@ class GroupTaskGenerator implements TaskGenerator {
      *
      * @param generators генераторы, которые в конструктор передаются через запятую
      */
-    GroupTaskGenerator(TaskGenerator... generators) {
+    public GroupTaskGenerator(TaskGenerator... generators) {
         this.generators = new ArrayList<>();
         Collections.addAll(this.generators, generators);
+    }
+
+    public GroupTaskGenerator(TaskGenerator other, CopyParameter f) {
+        this(((GroupTaskGenerator)other).generators);
     }
 
     /**
