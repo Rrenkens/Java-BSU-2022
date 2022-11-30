@@ -1,0 +1,55 @@
+2022-11-30 19:36:53: Added ship: type - tomato, amount - 19
+2022-11-30 19:36:57: Hobo #1 stole one tomato
+2022-11-30 19:36:57: Hobo #2 stole one tomato
+2022-11-30 19:36:57: Hobo #0 stole one tomato
+2022-11-30 19:36:57: Added ship: type - cheese, amount - 13
+2022-11-30 19:36:58: Hobo #3 stole one tomato
+2022-11-30 19:36:58: Hobo #4 stole one tomato
+2022-11-30 19:37:00: Dock #0 ended unloading 19 ones of tomato
+2022-11-30 19:37:00: Hobo #1 stole one tomato
+2022-11-30 19:37:00: Hobo #2 stole one tomato
+2022-11-30 19:37:00: Hobo #0 stole one tomato
+2022-11-30 19:37:01: Hobo #3 stole one tomato
+2022-11-30 19:37:01: Hobo #4 stole one tomato
+2022-11-30 19:37:01: Added ship: type - cheese, amount - 15
+2022-11-30 19:37:02: Dock #1 ended unloading 13 ones of cheese
+2022-11-30 19:37:03: Hobo #1 stole one cheese
+2022-11-30 19:37:03: Hobo #0 stole one cheese
+2022-11-30 19:37:03: Hobo #2 stole one cheese
+2022-11-30 19:37:04: Hobo #3 stole one cheese
+2022-11-30 19:37:04: Hobo #4 stole one cheese
+2022-11-30 19:37:05: Added ship: type - cucumber, amount - 14
+2022-11-30 19:37:06: Hobo #1 stole one cheese
+2022-11-30 19:37:06: Hobo #0 stole one cheese
+2022-11-30 19:37:06: Hobos started eating
+2022-11-30 19:37:06: Dock #0 ended unloading 15 ones of cheese
+2022-11-30 19:37:09: Added ship: type - cucumber, amount - 13
+2022-11-30 19:37:10: Dock #1 ended unloading 14 ones of cucumber
+2022-11-30 19:37:11: Hobos finished eating
+2022-11-30 19:37:13: Added ship: type - cheese, amount - 10
+2022-11-30 19:37:14: Hobo #0 stole one tomato
+2022-11-30 19:37:14: Hobo #2 stole one tomato
+2022-11-30 19:37:14: Hobo #3 stole one cucumber
+2022-11-30 19:37:14: Hobo #1 stole one tomato
+2022-11-30 19:37:14: Hobo #4 stole one cucumber
+2022-11-30 19:37:14: Dock #0 ended unloading 13 ones of cucumber
+2022-11-30 19:37:17: Hobo #0 stole one cucumber
+2022-11-30 19:37:17: Hobo #2 stole one cucumber
+2022-11-30 19:37:17: Hobo #1 stole one cheese
+2022-11-30 19:37:17: Hobo #3 stole one cheese
+2022-11-30 19:37:17: Hobo #4 stole one cheese
+2022-11-30 19:37:17: Added ship: type - tomato, amount - 17
+2022-11-30 19:37:17: Dock #1 ended unloading 10 ones of cheese
+2022-11-30 19:37:20: Hobo #0 stole one cheese
+2022-11-30 19:37:20: Hobo #2 stole one cheese
+2022-11-30 19:37:20: Hobo #1 stole one cheese
+2022-11-30 19:37:20: Hobo #3 stole one cheese
+2022-11-30 19:37:20: Hobo #4 stole one cheese
+2022-11-30 19:37:21: Added ship: type - cucumber, amount - 16
+2022-11-30 19:37:23: Hobo #0 stole one cheese
+2022-11-30 19:37:23: Hobo #2 stole one cheese
+2022-11-30 19:37:23: Hobos started eating
+2022-11-30 19:37:23: Dock #0 ended unloading 17 ones of tomato
+2022-11-30 19:37:25: Added ship: type - cucumber, amount - 12
+2022-11-30 19:37:27: Dock #1 ended unloading 16 ones of cucumber
+2022-11-30 19:37:28: Hobos finished eating

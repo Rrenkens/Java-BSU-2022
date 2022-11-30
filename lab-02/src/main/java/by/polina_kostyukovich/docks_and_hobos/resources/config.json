@@ -1,0 +1,46 @@
+{
+  "Generating time": 4,
+  "Min ship capacity": 10,
+  "Max ship capacity": 20,
+  "Cargo types": [
+    "bread",
+    "ham",
+    "cheese",
+    "butter",
+    "cucumber",
+    "tomato"
+  ],
+  "Max ships in tunnel": 3,
+  "Number of docks": 4,
+  "Unloading speed": 3,
+  "Dock capacity": 50,
+  "Number of hobos": 7,
+  "Ingredients count": [
+    {
+      "Cargo type": "bread",
+      "Cargo amount": 2
+    },
+    {
+      "Cargo type": "ham",
+      "Cargo amount": 4
+    },
+    {
+      "Cargo type": "cheese",
+      "Cargo amount": 3
+    },
+    {
+      "Cargo type": "butter",
+      "Cargo amount": 1
+    },
+    {
+      "Cargo type": "cucumber",
+      "Cargo amount": 4
+    },
+    {
+      "Cargo type": "tomato",
+      "Cargo amount": 3
+    }
+  ],
+  "Stealing time": 3,
+  "Eating time": 5
+}
