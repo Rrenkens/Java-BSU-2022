@@ -2,6 +2,7 @@ package by.toharrius.quizer.tasks;
 
 import by.toharrius.quizer.Result;
 import by.toharrius.quizer.Task;
+import by.toharrius.quizer.task_generators.PoolTaskGenerator;
 
 /**
  * Задание с заранее заготовленным текстом.

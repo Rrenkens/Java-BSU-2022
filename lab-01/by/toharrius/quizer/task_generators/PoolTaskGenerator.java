@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
-class PoolTaskGenerator implements TaskGenerator {
+public class PoolTaskGenerator implements TaskGenerator {
     private final ArrayList<Task> pool;
     private final boolean allowDuplicate;
     /**
