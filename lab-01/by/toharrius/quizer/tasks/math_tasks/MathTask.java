@@ -26,9 +26,8 @@ public interface MathTask extends Task {
         }
         default MathOperation generateMathOperation() {
             var r = ThreadLocalRandom.current();
-            var stream = getAllowed().stream();
-            int index = r.nextInt((int)stream.count());
-            return stream.skip(index).findFirst().get();
+            int index = r.nextInt((int)getAllowed().stream().count());
+            return getAllowed().stream().skip(index).findFirst().get();
         }
     }
 }

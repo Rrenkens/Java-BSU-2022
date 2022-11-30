@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
-class GroupTaskGenerator implements TaskGenerator {
+public class GroupTaskGenerator implements TaskGenerator {
     ArrayList<TaskGenerator> generators;
     /**
      * Конструктор с переменным числом аргументов

@@ -1,12 +1,17 @@
 package by.toharrius.quizer;
 
+import by.toharrius.quizer.task_generators.GroupTaskGenerator;
 import by.toharrius.quizer.task_generators.PoolTaskGenerator;
 import by.toharrius.quizer.tasks.TextTask;
+import by.toharrius.quizer.tasks.math_tasks.EquationTask;
+import by.toharrius.quizer.tasks.math_tasks.ExpressionTask;
+import by.toharrius.quizer.tasks.math_tasks.MathOperation;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +30,21 @@ public class Main {
                     new TextTask("Какой вид порно не могут снять бомжи?", "домашнее"),
                     new TextTask("Как называется оглушающий удар татара?", "татарстан"));
             map.put("stupid-questions", new Quiz(gen, 4));
+        }
+        {
+            var gen_eq_add = new EquationTask.Generator(2, 55,
+                    EnumSet.of(MathOperation.ADD));
+            var gen_eq_42_all = new EquationTask.Generator(42, 42,
+                    EnumSet.allOf(MathOperation.class));
+            var gen_ex_div = new ExpressionTask.Generator(17, 42,
+                    EnumSet.of(MathOperation.DIVIDE));
+            var gen_ex_all = new ExpressionTask.Generator(41, 42,
+                    EnumSet.allOf(MathOperation.class));
+            var gen_eq = new GroupTaskGenerator(gen_eq_42_all, gen_eq_add);
+            var gen_ex = new GroupTaskGenerator(new ExpressionTask.Generator[]{gen_ex_div, gen_ex_all});
+            var gen_group = new GroupTaskGenerator(gen_ex, gen_eq,
+                    new EquationTask.Generator(gen_eq_42_all, CopyParameter.FLAG));
+            map.put("tricky-math", new Quiz(gen_group, 5));
         }
         return map;
     }
@@ -80,18 +100,20 @@ public class Main {
                     interactionFinished = true;
                     continue;
                 }
-            }
-            if (map.containsKey(query)) {
-                System.out.println("Starting quiz \"" + query + "\"!");
-                Quiz clone;
-                try {
-                    clone = new Quiz(map.get(query));
-                } catch (Exception e) {
-                    throw new RuntimeException("Unable to clone", e);
+                default -> {
+                    if (map.containsKey(query)) {
+                        System.out.println("Starting quiz \"" + query + "\"!");
+                        Quiz clone;
+                        try {
+                            clone = new Quiz(map.get(query));
+                        } catch (Exception e) {
+                            throw new RuntimeException("Unable to clone", e);
+                        }
+                        runProblemSet(clone);
+                    } else {
+                        System.out.println("Sorry, not found. Type \"list\" to see available");
+                    }
                 }
-                runProblemSet(clone);
-            } else {
-                System.out.println("Sorry, not found. Type \"list\" to see available");
             }
         }
     }
