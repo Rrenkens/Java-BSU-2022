@@ -1,7 +1,7 @@
 package by.toharrius.quizer.tasks.math_tasks;
 
-import by.toharrius.quizer.Task;
-import by.toharrius.quizer.TaskGenerator;
+import by.toharrius.quizer.tasks.Task;
+import by.toharrius.quizer.task_generators.TaskGenerator;
 
 import java.util.EnumSet;
 import java.util.concurrent.ThreadLocalRandom;

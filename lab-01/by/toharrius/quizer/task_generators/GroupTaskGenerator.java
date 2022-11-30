@@ -1,8 +1,7 @@
 package by.toharrius.quizer.task_generators;
 
 import by.toharrius.quizer.CopyParameter;
-import by.toharrius.quizer.Task;
-import by.toharrius.quizer.TaskGenerator;
+import by.toharrius.quizer.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Collections;

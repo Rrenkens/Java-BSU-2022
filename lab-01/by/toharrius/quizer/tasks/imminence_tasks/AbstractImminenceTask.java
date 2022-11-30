@@ -1,7 +1,7 @@
 package by.toharrius.quizer.tasks.imminence_tasks;
 
 import by.toharrius.quizer.Result;
-import by.toharrius.quizer.Task;
+import by.toharrius.quizer.tasks.Task;
 
 public class AbstractImminenceTask implements Task {
     private final String text;

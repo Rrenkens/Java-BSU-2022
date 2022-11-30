@@ -1,5 +1,8 @@
 package by.toharrius.quizer;
 
+import by.toharrius.quizer.task_generators.TaskGenerator;
+import by.toharrius.quizer.tasks.Task;
+
 /**
  * Class, который описывает один тест
  */

@@ -46,7 +46,7 @@ interface Task {
 ### TaskGenerator
 
 ```java
-import by.toharrius.quizer.Task;
+import by.toharrius.quizer.tasks.Task;
 
 /**
  * Interface, который описывает один генератор заданий
@@ -65,7 +65,7 @@ interface TaskGenerator {
 ### Quiz
 
 ```java
-import by.toharrius.quizer.Task;
+import by.toharrius.quizer.tasks.Task;
 
 /**
  * Class, который описывает один тест
@@ -242,7 +242,7 @@ class EquationTaskGenerator implements TaskGenerator {
 `TaskGenerator`, который позволяет объединить несколько других `TaskGenerator`.
 
 ```java
-import by.toharrius.quizer.Task;
+import by.toharrius.quizer.tasks.Task;
 
 class GroupTaskGenerator implements TaskGenerator {
     /**
@@ -278,7 +278,7 @@ class GroupTaskGenerator implements TaskGenerator {
 `TaskGenerator`, который отдает задания из заранее заготовленного набора.
 
 ```java
-import by.toharrius.quizer.Task;
+import by.toharrius.quizer.tasks.Task;
 
 class PoolTaskGenerator implements TaskGenerator {
     /**
@@ -319,7 +319,7 @@ class PoolTaskGenerator implements TaskGenerator {
 ### TextTask
 
 ```java
-import by.toharrius.quizer.Task;
+import by.toharrius.quizer.tasks.Task;
 
 /**
  * Задание с заранее заготовленным текстом. 
@@ -383,13 +383,13 @@ interface Task {
     // ...
 }
 
-interface MathTask extends by.toharrius.quizer.Task {
-    interface Generator extends by.toharrius.quizer.Task.Generator { /* ... */
+interface MathTask extends by.toharrius.quizer.tasks.Task {
+    interface Generator extends by.toharrius.quizer.tasks.Task.Generator { /* ... */
     }
     // ...
 }
 
-abstract class AbstractMathTask implements by.toharrius.quizer.Task {
+abstract class AbstractMathTask implements by.toharrius.quizer.tasks.Task {
     static abstract class Generator implements MathTask.Generator { /* ... */
     }
     // ...

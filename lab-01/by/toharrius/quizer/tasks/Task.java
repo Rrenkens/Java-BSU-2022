@@ -1,4 +1,6 @@
-package by.toharrius.quizer;
+package by.toharrius.quizer.tasks;
+
+import by.toharrius.quizer.Result;
 
 /**
  * Interface, который описывает одно задание

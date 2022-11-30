@@ -18,7 +18,7 @@ public class ExpressionTask extends AbstractMathTask {
     @Override
     public Result validate(String answer) {
         try {
-            if (Integer.parseInt(answer) == c) {
+            if (Double.parseDouble(answer) == c) {
                 return Result.OK;
             } else {
                 return Result.WRONG;

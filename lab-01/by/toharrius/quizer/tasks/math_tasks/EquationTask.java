@@ -2,7 +2,7 @@ package by.toharrius.quizer.tasks.math_tasks;
 
 import by.toharrius.quizer.CopyParameter;
 import by.toharrius.quizer.Result;
-import by.toharrius.quizer.Task;
+import by.toharrius.quizer.tasks.Task;
 
 import java.util.EnumSet;
 import java.util.concurrent.ThreadLocalRandom;
@@ -26,7 +26,7 @@ public class EquationTask extends AbstractMathTask {
     public Result validate(String answer) {
         double value;
         try {
-            value = Integer.parseInt(answer);
+            value = Double.parseDouble(answer);
         } catch (NumberFormatException e) {
             return Result.INCORRECT_INPUT;
         }
