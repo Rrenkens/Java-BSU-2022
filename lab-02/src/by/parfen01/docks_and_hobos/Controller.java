@@ -1,6 +1,8 @@
 package by.parfen01.docks_and_hobos;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Controller {
     private boolean isWorking;
@@ -8,11 +10,9 @@ public class Controller {
     private final HobosVillage hobosVillage;
     private final Tunnel tunnel;
     private final CargoDecoder cargoDecoder;
-
     private final ArrayList<Dock> docks;
-
     private ArrayList<Thread> workingThreads;
-//    private final Logger logger;
+    private final Logger consoleLogger;
     private static Controller controller;
 
     public Controller(ShipGenerator shipGenerator,
@@ -24,15 +24,12 @@ public class Controller {
         this.tunnel = tunnel;
         this.cargoDecoder = cargoDecoder;
         this.docks = docks;
+        this.consoleLogger = Logger.getLogger(Controller.class.getName());
         controller = this;
     }
 
     public static Controller getController() {
         return controller;
-    }
-
-    public ShipGenerator getShipGenerator() {
-        return shipGenerator;
     }
 
     public HobosVillage getHobosVillage() {
@@ -49,6 +46,9 @@ public class Controller {
 
     public ArrayList<Dock> getDocks() {
         return docks;
+    }
+    public Logger getConsoleLogger() {
+        return consoleLogger;
     }
 
     public boolean isWorking() {
@@ -97,5 +97,7 @@ public class Controller {
         for (Thread i : workingThreads) {
             i.join();
         }
+        consoleLogger.log(
+                Level.INFO, "Stop");
     }
 }

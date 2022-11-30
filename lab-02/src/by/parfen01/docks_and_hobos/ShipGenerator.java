@@ -1,6 +1,7 @@
 package by.parfen01.docks_and_hobos;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import static java.lang.Thread.sleep;
 
@@ -19,6 +20,8 @@ public class ShipGenerator {
     }
 
     public void start() throws InterruptedException {
+        Controller.getController().getConsoleLogger().log(
+                Level.INFO, "ShipGenerator started to work");
         while (Controller.getController().isWorking()) {
             Controller.getController().getTunnel().addShip(this.generate());
             sleep(generatingTime * 1000L);
@@ -29,21 +32,5 @@ public class ShipGenerator {
         int capacity = (int) (Math.random() * (shipCapacityMax - shipCapacityMin)) + shipCapacityMin;
         String cargoType = cargoTypes.get((int) (Math.random() * cargoTypes.size()));
         return new Ship(capacity, cargoType);
-    }
-
-    public int getShipCapacityMin() {
-        return shipCapacityMin;
-    }
-
-    public int getShipCapacityMax() {
-        return shipCapacityMax;
-    }
-
-    public int getGeneratingTime() {
-        return generatingTime;
-    }
-
-    public ArrayList<String> getCargoTypes() {
-        return cargoTypes;
     }
 }
