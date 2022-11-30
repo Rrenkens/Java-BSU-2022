@@ -2,7 +2,9 @@ package by.toharrius.quizer;
 
 import by.toharrius.quizer.task_generators.GroupTaskGenerator;
 import by.toharrius.quizer.task_generators.PoolTaskGenerator;
+import by.toharrius.quizer.tasks.imminence_tasks.GenerousTask;
 import by.toharrius.quizer.tasks.TextTask;
+import by.toharrius.quizer.tasks.imminence_tasks.TrickyTask;
 import by.toharrius.quizer.tasks.math_tasks.EquationTask;
 import by.toharrius.quizer.tasks.math_tasks.ExpressionTask;
 import by.toharrius.quizer.tasks.math_tasks.MathOperation;
@@ -30,6 +32,12 @@ public class Main {
                     new TextTask("Какой вид порно не могут снять бомжи?", "домашнее"),
                     new TextTask("Как называется оглушающий удар татара?", "татарстан"));
             map.put("stupid-questions", new Quiz(gen, 4));
+        }
+        {
+            var gen = new PoolTaskGenerator(true,
+                    new GenerousTask("Каков правильный ответ?"),
+                    new TrickyTask("Это утверждение ложно."));
+            map.put("know-your-luck", new Quiz(gen, 7));
         }
         {
             var gen_eq_add = new EquationTask.Generator(2, 55,
