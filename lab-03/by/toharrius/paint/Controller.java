@@ -3,6 +3,7 @@ package by.toharrius.paint;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
@@ -13,6 +14,7 @@ import javafx.scene.shape.StrokeLineCap;
 public class Controller {
     private static Controller instance = null;
     public Spinner<Integer> strokeWidthSpinner;
+    public ComboBox lineCapChoice;
     private ColorChooser colorChooser;
     private PaintingTool paintingTool = PaintingTool.PENCIL;
 
@@ -27,7 +29,6 @@ public class Controller {
         var ctx = mainCanvas.getGraphicsContext2D();
         ctx.setFill(Color.WHITE);
         ctx.fillRect(0, 0, mainCanvas.getWidth(), mainCanvas.getHeight());
-        ctx.setLineCap(StrokeLineCap.ROUND);
         colorChooser = new ColorChooser(colorBoxFlow);
         strokeWidthSpinner.setOnScroll(event -> {
             if (event.getDeltaY() < 0) {
@@ -38,6 +39,18 @@ public class Controller {
         });
         strokeWidthSpinner.valueProperty().addListener((obs, oldValue, newValue) ->
                 getDrawingContext().setLineWidth(newValue));
+        lineCapChoice.getItems().setAll("Round", "Butt", "Square");
+        lineCapChoice.getSelectionModel()
+                .selectedItemProperty()
+                .addListener((selected, oldv, newv) -> {
+            getDrawingContext().setLineCap(switch ((String)newv) {
+                case "Round" -> StrokeLineCap.ROUND;
+                case "Butt" -> StrokeLineCap.BUTT;
+                case "Square" -> StrokeLineCap.SQUARE;
+                default -> null;
+            });
+        });
+        lineCapChoice.getSelectionModel().select(0);
     }
     public void mousePressed(MouseEvent mouseEvent) {
         var ctx = getDrawingContext();

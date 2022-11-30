@@ -7,11 +7,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.ComboBox?>
 <HBox xmlns:fx="http://javafx.com/fxml/1"
       fx:id="root"
       fx:controller="by.toharrius.paint.Controller"
       stylesheets="@style.css">
-    <VBox id="sidePane">
+    <VBox id="sidePane" alignment="TOP_CENTER">
         <FlowPane fx:id="colorBoxFlow" styleClass="tool-pane"/>
         <Label styleClass="spacer"/>
         <VBox styleClass="tool-pane">
@@ -29,6 +30,8 @@
                 <Button text="200" styleClass="choose-stroke" onMouseClicked="#chooseStroke"/>
             </FlowPane>
         </VBox>
+        <Label styleClass="spacer"/>
+        <ComboBox fx:id="lineCapChoice"/>
     </VBox>
     <ScrollPane maxHeight="Infinity" maxWidth="Infinity">
         <Canvas fx:id="mainCanvas" width="5000" height="3000"
