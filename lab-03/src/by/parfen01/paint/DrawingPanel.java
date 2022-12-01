@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 public class DrawingPanel extends JPanel {
     private Option option;
     private BufferedImage image;
-    private Graphics graphics;
+    private Graphics2D graphics;
     private Color color;
     private int currentX;
     private int currentY;
@@ -18,6 +18,7 @@ public class DrawingPanel extends JPanel {
     public DrawingPanel() {
         image = new BufferedImage(600, 600, BufferedImage.TYPE_INT_RGB);
         graphics = image.createGraphics();
+        graphics.setStroke(new BasicStroke(1));
         color = Color.GREEN;
         option = Option.PEN;
 
@@ -82,8 +83,11 @@ public class DrawingPanel extends JPanel {
         this.image = image;
      }
 
-    public void setGraphics(Graphics graphics) {
+    public void setGraphics(Graphics2D graphics) {
         this.graphics = graphics;
+    }
+    public void setFontSize(int fontSize) {
+        graphics.setStroke(new BasicStroke(fontSize));
     }
 
     public void clear() {

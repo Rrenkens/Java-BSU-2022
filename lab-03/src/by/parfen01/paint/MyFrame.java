@@ -14,7 +14,7 @@ public class MyFrame extends JFrame {
     public MyFrame(String string) {
         super(string);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setBounds(200, 200, 500, 500);
+        setBounds(200, 200, 550, 500);
         setResizable(false);
         ButtonGroup option = new ButtonGroup();
         JRadioButton pen = new JRadioButton("pen");
@@ -29,9 +29,9 @@ public class MyFrame extends JFrame {
         add(circle);
         add(rectangle);
 
-        pen.setBounds(10, 30, 80, 20);
-        circle.setBounds(100, 30, 80, 20);
-        rectangle.setBounds(190, 30, 80, 20);
+        pen.setBounds(10, 30, 60, 20);
+        circle.setBounds(80, 30, 60, 20);
+        rectangle.setBounds(160, 30, 80, 20);
 
         pen.setSelected(true);
 
@@ -52,9 +52,9 @@ public class MyFrame extends JFrame {
         add(green);
         add(blue);
 
-        red.setBounds(10, 10, 80, 20);
-        green.setBounds(100, 10, 80, 20);
-        blue.setBounds(190, 10, 80, 20);
+        red.setBounds(10, 10, 60, 20);
+        green.setBounds(80, 10, 60, 20);
+        blue.setBounds(160, 10, 60, 20);
 
         green.setSelected(true);
 
@@ -64,12 +64,12 @@ public class MyFrame extends JFrame {
 
         JButton clearButton = new JButton("Clear");
         add(clearButton);
-        clearButton.setBounds(270, 15, 65, 40);
+        clearButton.setBounds(320, 15, 65, 40);
         clearButton.addActionListener(e -> drawingPanel.clear());
 
         JButton openButton = new JButton("Open");
         add(openButton);
-        openButton.setBounds(345, 15, 65, 40);
+        openButton.setBounds(395, 15, 65, 40);
         openButton.addActionListener(e -> {
             fileChooser = new JFileChooser(".");
             int ret = fileChooser.showDialog(null, "Select");
@@ -88,7 +88,7 @@ public class MyFrame extends JFrame {
 
         JButton saveButton = new JButton("Save");
         add(saveButton);
-        saveButton.setBounds(420, 15, 65, 40);
+        saveButton.setBounds(470, 15, 65, 40);
 
         saveButton.addActionListener(e -> {
             fileChooser = new JFileChooser(".");
@@ -103,12 +103,21 @@ public class MyFrame extends JFrame {
             }
         });
 
+        JSpinner spinner = new JSpinner();
+        spinner.setValue(1);
+        ((SpinnerNumberModel) spinner.getModel()).setMinimum(1);
+        ((SpinnerNumberModel) spinner.getModel()).setMaximum(10);
+        ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField().setEditable(false);
+        add(spinner);
+        spinner.setBounds(260, 15, 50, 40);
+        spinner.addChangeListener(e -> drawingPanel.setFontSize((int) spinner.getValue()));
+
         drawingPanel.setPreferredSize(new Dimension(600, 600));
         JScrollPane pane = new JScrollPane(drawingPanel);
         pane.setViewportView(drawingPanel);
         pane.createVerticalScrollBar();
         add(pane);
-        pane.setBounds(0, 70, 486, 393);
+        pane.setBounds(0, 70, 536, 393);
         // для чёрной магии
         add(new JLabel(""));
     }
