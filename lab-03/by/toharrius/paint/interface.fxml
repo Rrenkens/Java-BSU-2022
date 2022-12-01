@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.StackPane?>
 <HBox xmlns:fx="http://javafx.com/fxml/1"
       fx:id="root"
       fx:controller="by.toharrius.paint.Controller"
@@ -34,9 +35,12 @@
         <ComboBox fx:id="lineCapChoice"/>
     </VBox>
     <ScrollPane maxHeight="Infinity" maxWidth="Infinity">
-        <Canvas fx:id="mainCanvas" width="5000" height="3000"
-                onMousePressed="#mousePressed"
-                onMouseReleased="#mouseReleased"
-                onMouseDragged="#mouseDragged"/>
+        <StackPane>
+            <Canvas fx:id="mainCanvas" width="5000" height="3000"/>
+            <Canvas fx:id="secondaryCanvas" width="5000" height="3000"
+                    onMousePressed="#mousePressed"
+                    onMouseReleased="#mouseReleased"
+                    onMouseDragged="#mouseDragged"/>
+        </StackPane>
     </ScrollPane>
 </HBox>

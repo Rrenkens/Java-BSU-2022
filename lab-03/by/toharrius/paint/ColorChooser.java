@@ -26,11 +26,15 @@ public class ColorChooser {
     private void chooseActiveColor(int new_color_index) {
         getNthCell(activeColorIndex).getStyleClass().remove("chosen");
         activeColorIndex = new_color_index;
-        var ctx = Controller.getDrawingContext();
         var color = colorByIndex(new_color_index);
+        getNthCell(activeColorIndex).getStyleClass().add("chosen");
+
+        var ctx = Controller.getMainDC();
         ctx.setFill(color);
         ctx.setStroke(color);
-        getNthCell(activeColorIndex).getStyleClass().add("chosen");
+        ctx = Controller.getSecondaryDC();
+        ctx.setFill(color);
+        ctx.setStroke(color);
     }
     private void addColorBox(String color) {
         var box = new Label();
