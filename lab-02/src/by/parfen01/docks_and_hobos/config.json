@@ -2,7 +2,7 @@
   "ShipGenerator" : {
     "shipCapacityMin" : 1,
     "shipCapacityMax" : 100,
-    "generatingTime" : 7,
+    "generatingTime" : 10,
     "cargoTypes" : [
       "milk",
       "meat",
@@ -38,19 +38,24 @@
   ],
   "Hobos" : [
     {
-      "stealingTime" : 7
+      "stealingTime" : 7,
+      "name" : "Ivan"
     },
     {
-      "stealingTime" : 2
+      "stealingTime" : 2,
+      "name" : "Vlad"
     },
     {
-      "stealingTime" : 1
+      "stealingTime" : 1,
+      "name" : "Danil"
     },
     {
-      "stealingTime" : 5
+      "stealingTime" : 5,
+      "name" : "Nicolay"
     },
     {
-      "stealingTime" : 3
+      "stealingTime" : 3,
+      "name" : "Jon"
     }
   ],
   "hobosVillage" : {

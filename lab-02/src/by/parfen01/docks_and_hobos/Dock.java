@@ -36,7 +36,7 @@ public class Dock {
     public void start() throws InterruptedException {
         Controller.getController().getConsoleLogger().log(
                 Level.INFO, "Dock number " + id + " started to work");
-        while(Controller.getController().isWorking()) {
+        while (Controller.getController().isWorking()) {
             UnloadShip(Controller.getController().getTunnel().getShip());
         }
     }

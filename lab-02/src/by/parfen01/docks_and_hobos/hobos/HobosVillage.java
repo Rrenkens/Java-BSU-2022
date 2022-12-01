@@ -54,6 +54,10 @@ public class HobosVillage {
             if (secondCook == firstCook) {
                 secondCook = (secondCook + 1) % hobos.size();
             }
+            Controller.getController().getConsoleLogger().log(
+                    Level.INFO, "Hobos " + hobos.get(firstCook).getName() + " is first cook");
+            Controller.getController().getConsoleLogger().log(
+                    Level.INFO, "Hobos " + hobos.get(secondCook).getName() + " is second cook");
             ArrayList<Thread> threads = new ArrayList<>();
             Controller.getController().getConsoleLogger().log(
                     Level.INFO, "Hobos started to steal");

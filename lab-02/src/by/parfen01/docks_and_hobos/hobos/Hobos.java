@@ -10,9 +10,15 @@ import static java.lang.Thread.sleep;
 
 public class Hobos {
     private final int stealingTime;
+    private final String name;
 
-    public Hobos(int stealingTime) {
+    public Hobos(int stealingTime, String name) {
         this.stealingTime = stealingTime;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void start() throws InterruptedException {
@@ -43,7 +49,7 @@ public class Hobos {
         }
         sleep(stealingTime * 1000L);
         Controller.getController().getConsoleLogger().log(
-                Level.INFO, "Hobos stole  " +
+                Level.INFO, "Hobos " + name + " stole  " +
                         Controller.getController().getCargoDecoder().getProductName(product) +
                         " from dock number " + dockId);
         Controller.getController().getHobosVillage()

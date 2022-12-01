@@ -58,7 +58,8 @@ public class ProjectInitializer {
         for (Object i : jsonHobos) {
             JSONObject jsonHob = (JSONObject) i;
             int stealingTime = (int) (long) jsonHob.get("stealingTime");
-            hobos.add(new Hobos(stealingTime));
+            String name = (String) jsonHob.get("name");
+            hobos.add(new Hobos(stealingTime, name));
         }
         JSONObject jsonVillage = (JSONObject) jsonObject.get("hobosVillage");
         int eatingTime = (int) (long) jsonVillage.get("eatingTime");
