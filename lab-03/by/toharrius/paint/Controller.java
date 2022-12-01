@@ -22,7 +22,7 @@ public class Controller {
     public ComboBox<String> lineCapChoice;
     public Canvas secondaryCanvas;
     private ColorChooser colorChooser;
-    private PaintingTool paintingTool = PaintingTool.ELLIPSE;
+    private PaintingTool paintingTool = PaintingTool.PENCIL;
     private Point2D mousePressPos;
 
     public FlowPane colorBoxFlow;
@@ -145,5 +145,18 @@ public class Controller {
     public void chooseStroke(MouseEvent event) {
         int value = Integer.parseInt(((Button)event.getSource()).getText());
         strokeWidthSpinner.increment(value - strokeWidthSpinner.getValue());
+    }
+
+    public void chooseTool(MouseEvent mouseEvent) {
+        var btn = (Button)mouseEvent.getSource();
+        var current = Main.getScene().lookup(".choose-tool.chosen");
+        if (current != null) current.getStyleClass().remove("chosen");
+        btn.getStyleClass().add("chosen");
+        paintingTool = switch (btn.getText()) {
+            case "Pencil" -> PaintingTool.PENCIL;
+            case "Rectangle" -> PaintingTool.RECTANGLE;
+            case "Ellipse" -> PaintingTool.ELLIPSE;
+            default -> null;
+        };
     }
 }

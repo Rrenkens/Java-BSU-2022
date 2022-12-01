@@ -14,6 +14,12 @@
       fx:controller="by.toharrius.paint.Controller"
       stylesheets="@style.css">
     <VBox id="sidePane" alignment="TOP_CENTER">
+        <VBox styleClass="tool-pane" alignment="CENTER" spacing="4">
+            <Button text="Pencil" onMouseClicked="#chooseTool" styleClass="choose-tool,chosen"/>
+            <Button text="Rectangle" onMouseClicked="#chooseTool" styleClass="choose-tool"/>
+            <Button text="Ellipse" onMouseClicked="#chooseTool" styleClass="choose-tool"/>
+        </VBox>
+        <Label styleClass="spacer"/>
         <FlowPane fx:id="colorBoxFlow" styleClass="tool-pane"/>
         <Label styleClass="spacer"/>
         <VBox styleClass="tool-pane">

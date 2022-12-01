@@ -48,3 +48,9 @@ Button.choose-stroke {
 .spacer {
     -fx-font-size: 4;
 }
+
+.choose-tool.chosen {
+    -fx-border-color: gold;
+    -fx-border-width: 4;
+    -fx-border-radius: 2;
+}
