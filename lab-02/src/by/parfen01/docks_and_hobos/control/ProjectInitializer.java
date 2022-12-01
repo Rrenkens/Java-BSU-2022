@@ -16,7 +16,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ProjectInitializer {
+    private static String previousPath;
     public static Controller initController(String path) throws IOException, ParseException {
+        if (path.equals(previousPath)) {
+            return Controller.getController();
+        }
+        previousPath = path;
         ArrayList<Hobos> hobos = new ArrayList<>();
         ArrayList<String> cargo = new ArrayList<>();
         ArrayList<Dock> docks = new ArrayList<>();
