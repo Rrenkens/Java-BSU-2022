@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
 import javafx.scene.shape.StrokeLineCap;
 
 public class Controller {
@@ -21,7 +22,7 @@ public class Controller {
     public ComboBox<String> lineCapChoice;
     public Canvas secondaryCanvas;
     private ColorChooser colorChooser;
-    private PaintingTool paintingTool = PaintingTool.RECTANGLE;
+    private PaintingTool paintingTool = PaintingTool.ELLIPSE;
     private Point2D mousePressPos;
 
     public FlowPane colorBoxFlow;
@@ -75,7 +76,7 @@ public class Controller {
                 ctx.beginPath();
                 ctx.moveTo(event.getX(), event.getY());
             }
-            case RECTANGLE -> {
+            case RECTANGLE, ELLIPSE -> {
                 recordMousePress(event);
             }
         }
@@ -102,6 +103,14 @@ public class Controller {
                         mousePressPos.getX(), mousePressPos.getY());
                 secondaryCanvas.getGraphicsContext2D().strokeRect(
                         r.getMinX(), r.getMinY(), r.getWidth(), r.getHeight());
+            }
+            case ELLIPSE -> {
+                clearFrontLayer();
+                var r = rectByCorners(mouseEvent.getX(), mouseEvent.getY(),
+                        mousePressPos.getX(), mousePressPos.getY());
+                secondaryCanvas.getGraphicsContext2D().strokeArc(
+                        r.getMinX(), r.getMinY(), r.getWidth(), r.getHeight(),
+                        0, 360, ArcType.CHORD);
             }
         }
     }
