@@ -3,7 +3,7 @@ package by.parfen01.docks_and_hobos.control;
 import by.parfen01.docks_and_hobos.CargoDecoder;
 import by.parfen01.docks_and_hobos.Dock;
 import by.parfen01.docks_and_hobos.Tunnel;
-import by.parfen01.docks_and_hobos.hobos.Hobos;
+import by.parfen01.docks_and_hobos.hobos.Hobo;
 import by.parfen01.docks_and_hobos.hobos.HobosVillage;
 import by.parfen01.docks_and_hobos.ships.ShipGenerator;
 import org.json.simple.JSONArray;
@@ -22,7 +22,7 @@ public class ProjectInitializer {
             return Controller.getController();
         }
         previousPath = path;
-        ArrayList<Hobos> hobos = new ArrayList<>();
+        ArrayList<Hobo> hobos = new ArrayList<>();
         ArrayList<String> cargo = new ArrayList<>();
         ArrayList<Dock> docks = new ArrayList<>();
         ShipGenerator shipGenerator;
@@ -56,10 +56,10 @@ public class ProjectInitializer {
         }
         JSONArray jsonHobos = (JSONArray) jsonObject.get("Hobos");
         for (Object i : jsonHobos) {
-            JSONObject jsonHob = (JSONObject) i;
-            int stealingTime = (int) (long) jsonHob.get("stealingTime");
-            String name = (String) jsonHob.get("name");
-            hobos.add(new Hobos(stealingTime, name));
+            JSONObject jsonHobo = (JSONObject) i;
+            int stealingTime = (int) (long) jsonHobo.get("stealingTime");
+            String name = (String) jsonHobo.get("name");
+            hobos.add(new Hobo(stealingTime, name));
         }
         JSONObject jsonVillage = (JSONObject) jsonObject.get("hobosVillage");
         int eatingTime = (int) (long) jsonVillage.get("eatingTime");

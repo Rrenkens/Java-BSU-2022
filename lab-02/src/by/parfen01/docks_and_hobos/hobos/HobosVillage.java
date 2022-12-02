@@ -12,9 +12,9 @@ public class HobosVillage {
     private final int[] requiredIngredientsCount;
     private final AtomicIntegerArray currentIngredientsCount;
     private final int eatingTime;
-    private final ArrayList<Hobos> hobos;
+    private final ArrayList<Hobo> hobos;
 
-    public HobosVillage(int[] requiredIngredientsCount, int eatingTime, ArrayList<Hobos> hobos) {
+    public HobosVillage(int[] requiredIngredientsCount, int eatingTime, ArrayList<Hobo> hobos) {
         this.requiredIngredientsCount = requiredIngredientsCount;
         this.eatingTime = eatingTime;
         this.hobos = hobos;
@@ -55,9 +55,9 @@ public class HobosVillage {
                 secondCook = (secondCook + 1) % hobos.size();
             }
             Controller.getController().getConsoleLogger().log(
-                    Level.INFO, "Hobos " + hobos.get(firstCook).getName() + " is first cook");
+                    Level.INFO, "Hobo " + hobos.get(firstCook).getName() + " is first cook");
             Controller.getController().getConsoleLogger().log(
-                    Level.INFO, "Hobos " + hobos.get(secondCook).getName() + " is second cook");
+                    Level.INFO, "Hobo " + hobos.get(secondCook).getName() + " is second cook");
             ArrayList<Thread> threads = new ArrayList<>();
             Controller.getController().getConsoleLogger().log(
                     Level.INFO, "Hobos started to steal");

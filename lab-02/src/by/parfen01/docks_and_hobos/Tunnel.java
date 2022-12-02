@@ -30,7 +30,7 @@ public class Tunnel {
     }
 
     public synchronized Ship getShip() throws InterruptedException {
-        if (shipQueue.isEmpty()) {
+        while (shipQueue.isEmpty()) {
             wait();
         }
         Ship result = shipQueue.poll();

@@ -8,11 +8,11 @@ import java.util.logging.Level;
 
 import static java.lang.Thread.sleep;
 
-public class Hobos {
+public class Hobo {
     private final int stealingTime;
     private final String name;
 
-    public Hobos(int stealingTime, String name) {
+    public Hobo(int stealingTime, String name) {
         this.stealingTime = stealingTime;
         this.name = name;
     }
@@ -49,7 +49,7 @@ public class Hobos {
         }
         sleep(stealingTime * 1000L);
         Controller.getController().getConsoleLogger().log(
-                Level.INFO, "Hobos " + name + " stole  " +
+                Level.INFO, "Hobo " + name + " stole  " +
                         Controller.getController().getCargoDecoder().getProductName(product) +
                         " from dock number " + dockId);
         Controller.getController().getHobosVillage()
