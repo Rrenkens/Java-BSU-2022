@@ -22,9 +22,7 @@ public class Tunnel {
             return;
         }
         shipQueue.add(ship);
-        if (shipQueue.size() == 1) {
-            notify();
-        }
+        notify();
         Controller.getController().getConsoleLogger().log(
                 Level.INFO, "The ship number " + ship.getId() + " entered tunnel");
     }
