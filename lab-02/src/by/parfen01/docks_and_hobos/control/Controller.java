@@ -53,10 +53,8 @@ public class Controller {
     public ArrayList<Dock> getDocks() {
         return docks;
     }
-    // synchronized нужен для того, чтобы логировалось всё в нужной последовательности
-    // в частности, чтобы после стопа не логировались вещи, которые произошли до него, ибо это странно
-    // в остальном, вроде, порядок логирования не принципиален
-    public synchronized Logger getConsoleLogger() {
+
+    public Logger getConsoleLogger() {
         return consoleLogger;
     }
 
