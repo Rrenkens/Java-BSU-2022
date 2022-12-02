@@ -14,6 +14,7 @@ public class DrawingPanel extends JPanel {
     private int currentY;
     private int oldX;
     private int oldY;
+    private int fontSize;
 
     public DrawingPanel() {
         image = new BufferedImage(600, 600, BufferedImage.TYPE_INT_RGB);
@@ -21,6 +22,7 @@ public class DrawingPanel extends JPanel {
         graphics.setStroke(new BasicStroke(1));
         color = Color.GREEN;
         option = Option.PEN;
+        fontSize = 1;
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -85,9 +87,12 @@ public class DrawingPanel extends JPanel {
 
     public void setGraphics(Graphics2D graphics) {
         this.graphics = graphics;
+        graphics.setStroke(new BasicStroke(fontSize));
     }
+
     public void setFontSize(int fontSize) {
         graphics.setStroke(new BasicStroke(fontSize));
+        this.fontSize = fontSize;
     }
 
     public void clear() {
