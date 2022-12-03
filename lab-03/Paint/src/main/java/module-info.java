@@ -6,7 +6,6 @@ module com.example.paint {
 
 
     opens com.example.paint to javafx.fxml;
-    exports com.example.paint;
     exports by.DaniilDomnin.paint;
     opens by.DaniilDomnin.paint to javafx.fxml;
 }
