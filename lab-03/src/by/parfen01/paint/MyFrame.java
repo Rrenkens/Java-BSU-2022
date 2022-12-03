@@ -77,7 +77,7 @@ public class MyFrame extends JFrame {
         openButton.addActionListener(e -> {
             fileChooser = new JFileChooser(".");
             int ret = fileChooser.showDialog(null, "Select");
-            if (ret == JFileChooser.APPROVE_OPTION){
+            if (ret == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
                 try {
                     drawingPanel.setImage(ImageIO.read(file));

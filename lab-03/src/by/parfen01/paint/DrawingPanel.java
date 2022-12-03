@@ -30,6 +30,7 @@ public class DrawingPanel extends JPanel {
                 oldX = e.getX();
                 oldY = e.getY();
             }
+
             @Override
             public void mouseReleased(MouseEvent e) {
                 currentX = e.getX();
@@ -81,9 +82,9 @@ public class DrawingPanel extends JPanel {
         this.option = option;
     }
 
-     public void setImage(BufferedImage image) {
+    public void setImage(BufferedImage image) {
         this.image = image;
-     }
+    }
 
     public void setGraphics(Graphics2D graphics) {
         this.graphics = graphics;
