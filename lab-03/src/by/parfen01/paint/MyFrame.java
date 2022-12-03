@@ -16,6 +16,10 @@ public class MyFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(200, 200, 550, 500);
         setResizable(false);
+
+        JLabel mainPanel = new JLabel("");
+        add(mainPanel);
+
         ButtonGroup option = new ButtonGroup();
         JRadioButton pen = new JRadioButton("pen");
         JRadioButton circle = new JRadioButton("ellipse");
@@ -25,9 +29,9 @@ public class MyFrame extends JFrame {
         option.add(circle);
         option.add(rectangle);
 
-        add(pen);
-        add(circle);
-        add(rectangle);
+        mainPanel.add(pen);
+        mainPanel.add(circle);
+        mainPanel.add(rectangle);
 
         pen.setBounds(10, 30, 60, 20);
         circle.setBounds(80, 30, 60, 20);
@@ -48,9 +52,9 @@ public class MyFrame extends JFrame {
         color.add(green);
         color.add(blue);
 
-        add(red);
-        add(green);
-        add(blue);
+        mainPanel.add(red);
+        mainPanel.add(green);
+        mainPanel.add(blue);
 
         red.setBounds(10, 10, 60, 20);
         green.setBounds(80, 10, 60, 20);
@@ -63,12 +67,12 @@ public class MyFrame extends JFrame {
         green.addActionListener(e -> drawingPanel.setColor(Color.GREEN));
 
         JButton clearButton = new JButton("Clear");
-        add(clearButton);
+        mainPanel.add(clearButton);
         clearButton.setBounds(320, 15, 65, 40);
         clearButton.addActionListener(e -> drawingPanel.clear());
 
         JButton openButton = new JButton("Open");
-        add(openButton);
+        mainPanel.add(openButton);
         openButton.setBounds(395, 15, 65, 40);
         openButton.addActionListener(e -> {
             fileChooser = new JFileChooser(".");
@@ -87,7 +91,7 @@ public class MyFrame extends JFrame {
         });
 
         JButton saveButton = new JButton("Save");
-        add(saveButton);
+        mainPanel.add(saveButton);
         saveButton.setBounds(470, 15, 65, 40);
 
         saveButton.addActionListener(e -> {
@@ -108,7 +112,7 @@ public class MyFrame extends JFrame {
         ((SpinnerNumberModel) spinner.getModel()).setMinimum(1);
         ((SpinnerNumberModel) spinner.getModel()).setMaximum(10);
         ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField().setEditable(false);
-        add(spinner);
+        mainPanel.add(spinner);
         spinner.setBounds(260, 15, 50, 40);
         spinner.addChangeListener(e -> drawingPanel.setFontSize((int) spinner.getValue()));
 
@@ -116,9 +120,7 @@ public class MyFrame extends JFrame {
         JScrollPane pane = new JScrollPane(drawingPanel);
         pane.setViewportView(drawingPanel);
         pane.createVerticalScrollBar();
-        add(pane);
+        mainPanel.add(pane);
         pane.setBounds(0, 70, 536, 393);
-        // для чёрной магии
-        add(new JLabel(""));
     }
 }
