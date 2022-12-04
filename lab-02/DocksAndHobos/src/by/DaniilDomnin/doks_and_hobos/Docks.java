@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
 
 public class Docks {
     Docks(long dock_capacity, long unloading_speed, ArrayList<String> cargo_names, long hobos, ArrayList<Long> ingredients_count, long eating_time, long stealing_time) {
@@ -29,11 +30,13 @@ public class Docks {
     }
 
     public void Unloading (Ship ship) throws InterruptedException {
+        long capacity = ship.GetCapacity();
         while (ship.GetCapacity() != 0) {
             Thread.sleep(1000);
             cargo_count.put(ship.GetCargoName(), Math.min(cargo_count.get(ship.GetCargoName()) + Math.min(ship.GetCapacity(), unloading_speed), dock_capacity));
             ship.SetCapacity(Math.max(0, ship.GetCapacity() - unloading_speed));
         }
+        Controller.GetConsoleLogger().log(Level.INFO, "Unload " + capacity + " " + ship.GetCargoName());
     }
 
     public void StartStealing () {
@@ -57,11 +60,14 @@ public class Docks {
             if (index == -1) {
                 continue;
             }
+            Controller.GetConsoleLogger().log(Level.INFO, "Hobo steals " + cargo_names.get(index));
             cargo_count.put(cargo_names.get(index), cargo_count.get(cargo_names.get(index)) - 1);
             current_ingredients_count.set(index, current_ingredients_count.get(index) + 1);
             if (CanStartEating()) {
-                ClearCurrentIngredients();;
+                ClearCurrentIngredients();
+                Controller.GetConsoleLogger().log(Level.INFO, "Hobos start eating");
                 Thread.sleep(eating_time * 1000);
+                Controller.GetConsoleLogger().log(Level.INFO, "Hobos finish eating");
             }
             add_ingredient_mutex.unlock();
         }

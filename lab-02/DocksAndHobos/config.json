@@ -1,9 +1,9 @@
 {
-  "generating_time": 2,
+  "generating_time": 15,
   "ship_capacity_min": 20,
   "ship_capacity_max": 100,
   "max_ships": 4,
-  "unloading_speed": 1,
+  "unloading_speed": 7,
   "dock_capacity": 100,
   "hobos": 10,
   "stealing_time": 2,
