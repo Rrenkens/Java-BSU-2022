@@ -1,7 +1,7 @@
 package by.AlexAzyavchikov.paint.Mediator;
 
 import by.AlexAzyavchikov.paint.Components.Component;
-import by.AlexAzyavchikov.paint.Components.Draw.Figure;
+import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.AbstractFigure;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -14,7 +14,7 @@ public interface Mediator {
 
     void setPenSize(int size);
 
-    void setShape(Figure.Shape shape);
+    void setFigure(AbstractFigure figure);
 
     void createGUI(Stage stage);
 }

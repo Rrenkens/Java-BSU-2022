@@ -3,7 +3,7 @@ package by.AlexAzyavchikov.paint.Mediator;
 
 import by.AlexAzyavchikov.paint.Components.Component;
 import by.AlexAzyavchikov.paint.Components.Draw.DrawComponent;
-import by.AlexAzyavchikov.paint.Components.Draw.Figure;
+import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.AbstractFigure;
 import by.AlexAzyavchikov.paint.Components.FileUtils.LoadComponent;
 import by.AlexAzyavchikov.paint.Components.FileUtils.SaveComponent;
 import by.AlexAzyavchikov.paint.Components.Settings.FillColorComponent;
@@ -44,21 +44,21 @@ public class Paint implements Mediator {
 
     @Override
     public void setFillColor(Color color) {
-        drawComponent.setFillColor(color);
+        drawComponent.getPen().setFillColor(color);
     }
 
     public void setPenColor(javafx.scene.paint.Color color) {
-        drawComponent.setPenColor(color);
+        drawComponent.getPen().setPenColor(color);
     }
 
     @Override
     public void setPenSize(int size) {
-        drawComponent.setPenSize(size);
+        drawComponent.getPen().setSize(size);
     }
 
     @Override
-    public void setShape(Figure.Shape shape) {
-        drawComponent.setShape(shape);
+    public void setFigure(AbstractFigure figure) {
+        drawComponent.getFigure().setFigure(figure);
     }
 
     @Override

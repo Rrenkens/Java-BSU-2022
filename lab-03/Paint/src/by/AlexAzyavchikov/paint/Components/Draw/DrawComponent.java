@@ -3,9 +3,7 @@ package by.AlexAzyavchikov.paint.Components.Draw;
 import by.AlexAzyavchikov.paint.Components.Component;
 import by.AlexAzyavchikov.paint.Mediator.Mediator;
 import javafx.geometry.Point2D;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 
 
 public class DrawComponent extends ResizableCanvas implements Component {
@@ -23,20 +21,12 @@ public class DrawComponent extends ResizableCanvas implements Component {
         return "Draw";
     }
 
-    public void setFillColor(Color color) {
-        pen.setFillColor(color);
+    public Pen getPen() {
+        return pen;
     }
 
-    public void setPenColor(Color color) {
-        pen.setPenColor(color);
-    }
-
-    public void setPenSize(int size) {
-        pen.setSize(size);
-    }
-
-    public void setShape(Figure.Shape shape) {
-        figure.setShape(shape);
+    public Figure getFigure() {
+        return figure;
     }
 
     public void mousePressed(MouseEvent event) {
@@ -45,6 +35,6 @@ public class DrawComponent extends ResizableCanvas implements Component {
 
     public void mouseReleased(MouseEvent event) {
         figure.setFinishPoint(new Point2D(event.getX(), event.getY()));
-        figure.drawFigure(this.getGraphicsContext2D(), pen);
+        figure.draw(this.getGraphicsContext2D(), pen);
     }
 }
