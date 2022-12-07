@@ -1,4 +1,4 @@
-package by.AlexAzyavchikov.paint.Components.FileUtils;
+package by.AlexAzyavchikov.paint.Components.Instruments;
 
 import by.AlexAzyavchikov.paint.Components.Component;
 import by.AlexAzyavchikov.paint.Mediator.Mediator;

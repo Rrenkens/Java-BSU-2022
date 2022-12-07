@@ -1,4 +1,4 @@
-package by.AlexAzyavchikov.paint.Components.Draw;
+package by.AlexAzyavchikov.paint.Components.Draw.Utils;
 
 import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.AbstractStrategy;
 import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.Rectangle;

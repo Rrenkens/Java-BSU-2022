@@ -2,11 +2,11 @@ package by.AlexAzyavchikov.paint.Mediator;
 
 
 import by.AlexAzyavchikov.paint.Components.Component;
-import by.AlexAzyavchikov.paint.Components.Draw.ClearComponent;
+import by.AlexAzyavchikov.paint.Components.Instruments.ClearComponent;
 import by.AlexAzyavchikov.paint.Components.Draw.DrawComponent;
 import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.AbstractStrategy;
-import by.AlexAzyavchikov.paint.Components.FileUtils.LoadComponent;
-import by.AlexAzyavchikov.paint.Components.FileUtils.SaveComponent;
+import by.AlexAzyavchikov.paint.Components.Instruments.LoadComponent;
+import by.AlexAzyavchikov.paint.Components.Instruments.SaveComponent;
 import by.AlexAzyavchikov.paint.Components.Settings.FillColorComponent;
 import by.AlexAzyavchikov.paint.Components.Settings.PenColorComponent;
 import by.AlexAzyavchikov.paint.Components.Settings.ShapeComponent;
@@ -19,6 +19,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+import java.util.Arrays;
 
 
 public class Paint implements Mediator {
@@ -82,47 +84,50 @@ public class Paint implements Mediator {
         penColorComponent.setValue(Color.BLACK);
 
         setConnections();
-
         manageLayout(stage);
+        stage.show();
     }
 
     private void manageLayout(Stage stage) {
-        HBox settings = new HBox();
-        HBox.setHgrow(fillColorComponent, Priority.ALWAYS);
-        HBox.setHgrow(penColorComponent, Priority.ALWAYS);
-        HBox.setHgrow(shapeComponent, Priority.ALWAYS);
-        HBox.setHgrow(sizeComponent, Priority.ALWAYS);
-        fillColorComponent.setMaxWidth(Double.MAX_VALUE);
-        penColorComponent.setMaxWidth(Double.MAX_VALUE);
-        shapeComponent.setMaxWidth(Double.MAX_VALUE);
-        sizeComponent.setMaxWidth(Double.MAX_VALUE);
-        settings.getChildren().addAll(fillColorComponent, penColorComponent, shapeComponent, sizeComponent);
-        HBox.setHgrow(settings, Priority.NEVER);
-
-        HBox fileWork = new HBox();
-        HBox.setHgrow(loadComponent, Priority.ALWAYS);
-        HBox.setHgrow(saveComponent, Priority.ALWAYS);
-        HBox.setHgrow(clearComponent, Priority.ALWAYS);
-        loadComponent.setMaxWidth(Double.MAX_VALUE);
-        saveComponent.setMaxWidth(Double.MAX_VALUE);
-        clearComponent.setMaxWidth(Double.MAX_VALUE);
-        fileWork.getChildren().addAll(loadComponent, saveComponent, clearComponent);
-        HBox.setHgrow(fileWork, Priority.NEVER);
-
         VBox root = new VBox();
-        VBox.setVgrow(drawComponent, Priority.ALWAYS);
-        StackPane holder = new StackPane();
-        VBox.setVgrow(holder, Priority.ALWAYS);
-        holder.getChildren().add(drawComponent);
-        holder.setStyle("-fx-background-color: white");
-        root.getChildren().addAll(settings, holder, fileWork);
+        root.getChildren().addAll(manageSettingsLayout(), manageDrawingField(), manageInstrumentsLayout());
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
+        stage.setScene(new Scene(root));
         stage.setTitle("PAINT");
         stage.setMinHeight(400);
         stage.setMinWidth(600);
-        stage.show();
+    }
+
+    private HBox manageSettingsLayout() {
+        HBox settings = new HBox();
+        makeHResizable(fillColorComponent, penColorComponent, shapeComponent, sizeComponent);
+        settings.getChildren().addAll(fillColorComponent, penColorComponent, shapeComponent, sizeComponent);
+        HBox.setHgrow(settings, Priority.NEVER);
+        return settings;
+    }
+
+    private HBox manageInstrumentsLayout() {
+        HBox instruments = new HBox();
+        makeHResizable(loadComponent, saveComponent, clearComponent);
+        instruments.getChildren().addAll(loadComponent, saveComponent, clearComponent);
+        HBox.setHgrow(instruments, Priority.NEVER);
+        return instruments;
+    }
+
+    private StackPane manageDrawingField() {
+        StackPane holder = new StackPane();
+        VBox.setVgrow(holder, Priority.ALWAYS);
+        holder.setStyle("-fx-background-color: white");
+        VBox.setVgrow(drawComponent, Priority.ALWAYS);
+        holder.getChildren().add(drawComponent);
+        return holder;
+    }
+
+    private static void makeHResizable(javafx.scene.control.Control... objects) {
+        Arrays.stream(objects).forEach((object) -> {
+            HBox.setHgrow(object, Priority.ALWAYS);
+            object.setMaxWidth(Double.MAX_VALUE);
+        });
     }
 
     private void setConnections() {

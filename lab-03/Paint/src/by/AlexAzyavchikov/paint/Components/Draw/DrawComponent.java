@@ -1,9 +1,10 @@
 package by.AlexAzyavchikov.paint.Components.Draw;
 
 import by.AlexAzyavchikov.paint.Components.Component;
+import by.AlexAzyavchikov.paint.Components.Draw.Utils.Figure;
+import by.AlexAzyavchikov.paint.Components.Draw.Utils.Pen;
 import by.AlexAzyavchikov.paint.Mediator.Mediator;
 import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 

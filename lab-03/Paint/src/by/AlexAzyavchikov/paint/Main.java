@@ -1,9 +1,9 @@
 package by.AlexAzyavchikov.paint;
 
-import by.AlexAzyavchikov.paint.Components.Draw.ClearComponent;
+import by.AlexAzyavchikov.paint.Components.Instruments.ClearComponent;
 import by.AlexAzyavchikov.paint.Components.Draw.DrawComponent;
-import by.AlexAzyavchikov.paint.Components.FileUtils.LoadComponent;
-import by.AlexAzyavchikov.paint.Components.FileUtils.SaveComponent;
+import by.AlexAzyavchikov.paint.Components.Instruments.LoadComponent;
+import by.AlexAzyavchikov.paint.Components.Instruments.SaveComponent;
 import by.AlexAzyavchikov.paint.Components.Settings.FillColorComponent;
 import by.AlexAzyavchikov.paint.Components.Settings.PenColorComponent;
 import by.AlexAzyavchikov.paint.Components.Settings.ShapeComponent;

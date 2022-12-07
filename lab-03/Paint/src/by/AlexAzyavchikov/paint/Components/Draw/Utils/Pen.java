@@ -1,4 +1,4 @@
-package by.AlexAzyavchikov.paint.Components.Draw;
+package by.AlexAzyavchikov.paint.Components.Draw.Utils;
 
 import javafx.scene.paint.Color;
 
