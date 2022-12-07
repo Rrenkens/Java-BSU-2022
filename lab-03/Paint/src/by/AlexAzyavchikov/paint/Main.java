@@ -1,5 +1,6 @@
 package by.AlexAzyavchikov.paint;
 
+import by.AlexAzyavchikov.paint.Components.Draw.ClearComponent;
 import by.AlexAzyavchikov.paint.Components.Draw.DrawComponent;
 import by.AlexAzyavchikov.paint.Components.FileUtils.LoadComponent;
 import by.AlexAzyavchikov.paint.Components.FileUtils.SaveComponent;
@@ -28,6 +29,7 @@ public class Main extends Application {
         mediator.registerComponent(new SizeComponent());
         mediator.registerComponent(new SaveComponent());
         mediator.registerComponent(new LoadComponent());
+        mediator.registerComponent(new ClearComponent());
 
         mediator.createGUI(stage);
     }

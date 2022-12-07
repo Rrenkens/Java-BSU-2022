@@ -2,8 +2,9 @@ package by.AlexAzyavchikov.paint.Mediator;
 
 
 import by.AlexAzyavchikov.paint.Components.Component;
+import by.AlexAzyavchikov.paint.Components.Draw.ClearComponent;
 import by.AlexAzyavchikov.paint.Components.Draw.DrawComponent;
-import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.AbstractFigure;
+import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.AbstractStrategy;
 import by.AlexAzyavchikov.paint.Components.FileUtils.LoadComponent;
 import by.AlexAzyavchikov.paint.Components.FileUtils.SaveComponent;
 import by.AlexAzyavchikov.paint.Components.Settings.FillColorComponent;
@@ -14,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -27,6 +29,7 @@ public class Paint implements Mediator {
     private SizeComponent sizeComponent;
     private SaveComponent saveComponent;
     private LoadComponent loadComponent;
+    private ClearComponent clearComponent;
 
     @Override
     public void registerComponent(Component component) {
@@ -39,6 +42,7 @@ public class Paint implements Mediator {
             case "Size" -> sizeComponent = (SizeComponent) component;
             case "Save" -> saveComponent = (SaveComponent) component;
             case "Load" -> loadComponent = (LoadComponent) component;
+            case "Clear" -> clearComponent = (ClearComponent) component;
         }
     }
 
@@ -57,14 +61,20 @@ public class Paint implements Mediator {
     }
 
     @Override
-    public void setFigure(AbstractFigure figure) {
-        drawComponent.getFigure().setFigure(figure);
+    public void setFigure(AbstractStrategy strategy) {
+        drawComponent.getFigure().setStrategy(strategy);
+    }
+
+    @Override
+    public void clear() {
+        drawComponent.clear();
     }
 
     @Override
     public void createGUI(Stage stage) {
         loadComponent.setText("Load");
         saveComponent.setText("Save");
+        clearComponent.setText("Clear");
         shapeComponent.setItems(FXCollections.observableArrayList("Rectangle", "Circle"));
         shapeComponent.setValue("Rectangle");
         sizeComponent.setItems(FXCollections.observableArrayList("Thin pen", "Standard pen", "Thick pen"));
@@ -92,14 +102,20 @@ public class Paint implements Mediator {
         HBox fileWork = new HBox();
         HBox.setHgrow(loadComponent, Priority.ALWAYS);
         HBox.setHgrow(saveComponent, Priority.ALWAYS);
+        HBox.setHgrow(clearComponent, Priority.ALWAYS);
         loadComponent.setMaxWidth(Double.MAX_VALUE);
         saveComponent.setMaxWidth(Double.MAX_VALUE);
-        fileWork.getChildren().addAll(loadComponent, saveComponent);
+        clearComponent.setMaxWidth(Double.MAX_VALUE);
+        fileWork.getChildren().addAll(loadComponent, saveComponent, clearComponent);
         HBox.setHgrow(fileWork, Priority.NEVER);
 
         VBox root = new VBox();
         VBox.setVgrow(drawComponent, Priority.ALWAYS);
-        root.getChildren().addAll(settings, drawComponent, fileWork);
+        StackPane holder = new StackPane();
+        VBox.setVgrow(holder, Priority.ALWAYS);
+        holder.getChildren().add(drawComponent);
+        holder.setStyle("-fx-background-color: white");
+        root.getChildren().addAll(settings, holder, fileWork);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -117,5 +133,8 @@ public class Paint implements Mediator {
         drawComponent.setOnMousePressed((event) -> drawComponent.mousePressed(event));
 //        drawComponent.setOnMouseDragged((event) -> drawComponent.mouseReleased(event));
         drawComponent.setOnMouseReleased((event) -> drawComponent.mouseReleased(event));
+        loadComponent.setOnAction((event) -> loadComponent.actionPerformed(event, drawComponent));
+        saveComponent.setOnAction((event) -> saveComponent.actionPerformed(event, drawComponent));
+        clearComponent.setOnAction((event) -> clearComponent.actionPerformed(event));
     }
 }

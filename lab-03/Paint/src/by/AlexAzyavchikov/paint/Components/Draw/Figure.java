@@ -1,6 +1,6 @@
 package by.AlexAzyavchikov.paint.Components.Draw;
 
-import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.AbstractFigure;
+import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.AbstractStrategy;
 import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.Rectangle;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -8,10 +8,10 @@ import javafx.scene.canvas.GraphicsContext;
 public class Figure {
     private Point2D startPoint = new Point2D(0, 0);
     private Point2D finishPoint = new Point2D(0, 0);
-    private AbstractFigure figure = new Rectangle();
+    private AbstractStrategy strategy = new Rectangle();
 
-    public void setFigure(AbstractFigure figure) {
-        this.figure = figure;
+    public void setStrategy(AbstractStrategy strategy) {
+        this.strategy = strategy;
     }
 
     public void setStartPoint(Point2D point) {
@@ -27,7 +27,7 @@ public class Figure {
         Point2D top = lessPoint(startPoint, finishPoint);
         int width = (int) Math.abs(finishPoint.getX() - startPoint.getX());
         int height = (int) Math.abs(finishPoint.getY() - startPoint.getY());
-        figure.draw(graphicContext, top, width, height);
+        strategy.draw(graphicContext, top, width, height);
     }
 
     static private Point2D lessPoint(Point2D point1, Point2D point2) {
