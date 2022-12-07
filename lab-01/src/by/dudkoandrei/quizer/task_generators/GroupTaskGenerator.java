@@ -7,13 +7,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Task.Generator, который позволяет объединить несколько других Task.Generator.
  */
 public class GroupTaskGenerator implements Task.Generator {
 
-  private final ArrayList<Generator> generators;
+  private final List<Generator> generators;
 
   /**
    * Конструктор с переменным числом аргументов.

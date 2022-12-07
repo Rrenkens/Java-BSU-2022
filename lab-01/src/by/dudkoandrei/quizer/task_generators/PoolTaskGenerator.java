@@ -7,14 +7,16 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * Task.Generator, который отдает задания из заранее заготовленного набора.
  */
 public class PoolTaskGenerator implements Task.Generator {
 
-  private final ArrayList<Task> tasks;
+  private final List<Task> tasks;
   private final boolean allowDuplicate;
   private int currentPosition = 0;
   private static final Random rnd = new Random();
@@ -48,11 +50,14 @@ public class PoolTaskGenerator implements Task.Generator {
     }
 
     this.allowDuplicate = allowDuplicate;
-    this.tasks = new ArrayList<>(tasks);
 
     if (!allowDuplicate) {
-      Collections.shuffle(this.tasks);
+      this.tasks = tasks.stream().distinct().collect(Collectors.toList());
+    } else {
+      this.tasks = new ArrayList<>(tasks);
     }
+
+    Collections.shuffle(this.tasks);
   }
 
   /**
