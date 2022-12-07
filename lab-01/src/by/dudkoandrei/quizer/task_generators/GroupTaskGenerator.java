@@ -15,6 +15,7 @@ import java.util.List;
 public class GroupTaskGenerator implements Task.Generator {
 
   private final List<Generator> generators;
+  private int lastGeneratorIndex = 0;
 
   /**
    * Конструктор с переменным числом аргументов.
@@ -43,6 +44,8 @@ public class GroupTaskGenerator implements Task.Generator {
     }
 
     this.generators = new ArrayList<>(generators);
+
+    Collections.shuffle(this.generators);
   }
 
   /**
@@ -51,15 +54,20 @@ public class GroupTaskGenerator implements Task.Generator {
    * исключение, то и тут выбрасывается исключение.
    */
   public Task generate() {
-    Collections.shuffle(generators);
-
-    for (Generator generator : generators) {
+    for (int offset = 1; offset <= generators.size(); ++offset) {
       try {
-        return generator.generate();
+        int index = getGeneratorIndex(offset);
+        Task t = generators.get(index).generate();
+        lastGeneratorIndex = index;
+        return t;
       } catch (Exception ignored) {
       }
     }
 
     throw new GeneratorsFailedException();
+  }
+
+  private int getGeneratorIndex(int offset) {
+    return (lastGeneratorIndex + offset) % generators.size();
   }
 }
