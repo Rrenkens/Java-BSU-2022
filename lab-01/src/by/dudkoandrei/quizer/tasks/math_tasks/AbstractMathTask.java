@@ -98,7 +98,11 @@ public abstract class AbstractMathTask implements MathTask {
     }
 
     double getRandomDouble() {
-      return truncate(rnd.nextDouble(minNumber, maxNumber + Double.MIN_VALUE), precision);
+      try {
+        return truncate(rnd.nextDouble(minNumber, maxNumber), precision);
+      } catch (IllegalArgumentException e) {
+        return truncate(minNumber, precision);
+      }
     }
 
     Operation getRandomOperation() {
