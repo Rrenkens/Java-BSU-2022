@@ -4,7 +4,7 @@ package by.AlexAzyavchikov.paint.Mediator;
 import by.AlexAzyavchikov.paint.Components.Component;
 import by.AlexAzyavchikov.paint.Components.Instruments.ClearComponent;
 import by.AlexAzyavchikov.paint.Components.Draw.DrawComponent;
-import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.AbstractStrategy;
+import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.AbstractDrawingStrategy;
 import by.AlexAzyavchikov.paint.Components.Instruments.LoadComponent;
 import by.AlexAzyavchikov.paint.Components.Instruments.SaveComponent;
 import by.AlexAzyavchikov.paint.Components.Settings.FillColorComponent;
@@ -63,7 +63,7 @@ public class Paint implements Mediator {
     }
 
     @Override
-    public void setFigure(AbstractStrategy strategy) {
+    public void setFigure(AbstractDrawingStrategy strategy) {
         drawComponent.getFigure().setStrategy(strategy);
     }
 

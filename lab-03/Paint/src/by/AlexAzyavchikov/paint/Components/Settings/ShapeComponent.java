@@ -1,9 +1,9 @@
 package by.AlexAzyavchikov.paint.Components.Settings;
 
 import by.AlexAzyavchikov.paint.Components.Component;
-import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.Circle;
-import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.Line;
-import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.Rectangle;
+import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.OnceDrawingStrategy.Circle;
+import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.ContinuousDrawingStrategy.Line;
+import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.OnceDrawingStrategy.Rectangle;
 import by.AlexAzyavchikov.paint.Mediator.Mediator;
 import javafx.event.Event;
 import javafx.scene.control.ComboBox;

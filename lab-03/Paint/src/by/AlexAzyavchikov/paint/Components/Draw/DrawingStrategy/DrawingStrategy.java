@@ -4,5 +4,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 
 public interface DrawingStrategy {
-    void draw(GraphicsContext graphicContext, Point2D top, int w, int h);
+    void drawFinal(GraphicsContext graphicContext, Point2D pressedPoint, Point2D releasedPoint);
+    void drawIntermediately(GraphicsContext graphicContext, Point2D pressedPoint, Point2D releasedPoint);
 }
