@@ -1,6 +1,7 @@
 package by.AlexAzyavchikov.paint.Components.Draw.Utils;
 
 import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.AbstractStrategy;
+import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.Line;
 import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.Rectangle;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -27,6 +28,14 @@ public class Figure {
         Point2D top = lessPoint(startPoint, finishPoint);
         int width = (int) Math.abs(finishPoint.getX() - startPoint.getX());
         int height = (int) Math.abs(finishPoint.getY() - startPoint.getY());
+        if (strategy.toString().equals("Line")) {
+            if (startPoint.getX() <= finishPoint.getX() && startPoint.getY() <= finishPoint.getY()
+                    || startPoint.getX() >= finishPoint.getX() && startPoint.getY() >= finishPoint.getY()) {
+                ((Line) strategy).setType(Line.Type.STANDARD);
+            } else {
+                ((Line) strategy).setType(Line.Type.REVERSED);
+            }
+        }
         strategy.draw(graphicContext, top, width, height);
     }
 
@@ -39,5 +48,10 @@ public class Figure {
         graphicContext.setFill(pen.getFillColor());
         graphicContext.setLineWidth(pen.getSize());
         graphicContext.setStroke(pen.getPenColor());
+    }
+
+    @Override
+    public String toString() {
+        return strategy.toString();
     }
 }

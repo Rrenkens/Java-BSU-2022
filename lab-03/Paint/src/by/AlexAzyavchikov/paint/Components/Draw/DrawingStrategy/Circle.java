@@ -10,4 +10,9 @@ public class Circle extends AbstractStrategy {
         graphicContext.fillOval(top.getX(), top.getY(), w, h);
         graphicContext.strokeOval(top.getX(), top.getY(), w, h);
     }
+
+    @Override
+    public String toString() {
+        return "Circle";
+    }
 }

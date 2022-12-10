@@ -9,4 +9,9 @@ public class Rectangle extends AbstractStrategy {
         graphicContext.fillRect(top.getX(), top.getY(), w, h);
         graphicContext.strokeRect(top.getX(), top.getY(), w, h);
     }
+
+    @Override
+    public String toString() {
+        return "Rectangle";
+    }
 }

@@ -2,6 +2,7 @@ package by.AlexAzyavchikov.paint.Components.Settings;
 
 import by.AlexAzyavchikov.paint.Components.Component;
 import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.Circle;
+import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.Line;
 import by.AlexAzyavchikov.paint.Components.Draw.DrawingStrategy.Rectangle;
 import by.AlexAzyavchikov.paint.Mediator.Mediator;
 import javafx.event.Event;
@@ -25,6 +26,7 @@ public class ShapeComponent extends ComboBox implements Component {
         switch (this.getValue().toString()) {
             case "Rectangle" -> mediator.setFigure(new Rectangle());
             case "Circle" -> mediator.setFigure(new Circle());
+            case "Line" -> mediator.setFigure(new Line());
         }
     }
 }

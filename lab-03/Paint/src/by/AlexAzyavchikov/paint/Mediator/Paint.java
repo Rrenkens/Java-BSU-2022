@@ -77,7 +77,7 @@ public class Paint implements Mediator {
         loadComponent.setText("Load");
         saveComponent.setText("Save");
         clearComponent.setText("Clear");
-        shapeComponent.setItems(FXCollections.observableArrayList("Rectangle", "Circle"));
+        shapeComponent.setItems(FXCollections.observableArrayList("Rectangle", "Circle", "Line"));
         shapeComponent.setValue("Rectangle");
         sizeComponent.setItems(FXCollections.observableArrayList("Thin pen", "Standard pen", "Thick pen"));
         sizeComponent.setValue("Thin pen");
@@ -136,7 +136,7 @@ public class Paint implements Mediator {
         shapeComponent.setOnAction((event) -> shapeComponent.actionPerformed(event));
         sizeComponent.setOnAction((event) -> sizeComponent.actionPerformed(event));
         drawComponent.setOnMousePressed((event) -> drawComponent.mousePressed(event));
-//        drawComponent.setOnMouseDragged((event) -> drawComponent.mouseReleased(event));
+        drawComponent.setOnMouseDragged((event) -> drawComponent.mouseDragged(event));
         drawComponent.setOnMouseReleased((event) -> drawComponent.mouseReleased(event));
         loadComponent.setOnAction((event) -> loadComponent.actionPerformed(event, drawComponent));
         saveComponent.setOnAction((event) -> saveComponent.actionPerformed(event, drawComponent));

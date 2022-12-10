@@ -36,6 +36,14 @@ public class DrawComponent extends ResizableCanvas implements Component {
         figure.setStartPoint(new Point2D(event.getX(), event.getY()));
     }
 
+    public void mouseDragged(MouseEvent event) {
+        if (figure.toString().equals("Line")) {
+
+            mouseReleased(event);
+            figure.setStartPoint(new Point2D(event.getX(), event.getY()));
+        }
+    }
+
     public void mouseReleased(MouseEvent event) {
         figure.setFinishPoint(new Point2D(event.getX(), event.getY()));
         figure.draw(this.getGraphicsContext2D(), pen);
