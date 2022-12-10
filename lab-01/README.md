@@ -46,6 +46,8 @@ interface Task {
 ### TaskGenerator
 
 ```java
+import by.toharrius.quizer.tasks.Task;
+
 /**
  * Interface, который описывает один генератор заданий
  */
@@ -61,7 +63,10 @@ interface TaskGenerator {
 ```
 
 ### Quiz
+
 ```java
+import by.toharrius.quizer.tasks.Task;
+
 /**
  * Class, который описывает один тест
  */
@@ -70,10 +75,10 @@ class Quiz {
      * @param generator генератор заданий
      * @param taskCount количество заданий в тесте
      */
-    Quiz(TaskGenerator generator, int taskCount) { 
+    Quiz(TaskGenerator generator, int taskCount) {
         // ...
     }
-    
+
     /**
      * @return задание, повторный вызов вернет слелующее
      * @see Task
@@ -81,7 +86,7 @@ class Quiz {
     Task nextTask() {
         // ...
     }
-    
+
     /**
      * Предоставить ответ ученика. Если результат {@link Result#INCORRECT_INPUT}, то счетчик неправильных 
      * ответов не увеличивается, а {@link #nextTask()} в следующий раз вернет тот же самый объект {@link Task}.
@@ -89,35 +94,35 @@ class Quiz {
     Result provideAnswer(String answer) {
         // ...
     }
-    
+
     /**
      * @return завершен ли тест
      */
     boolean isFinished() {
         // ...
     }
-    
+
     /**
      * @return количество правильных ответов
      */
     int getCorrectAnswerNumber() {
         // ...
     }
-    
+
     /**
      * @return количество неправильных ответов
      */
     int getWrongAnswerNumber() {
         // ...
     }
-    
+
     /**
      * @return количество раз, когда был предоставлен неправильный ввод
      */
     int getIncorrectInputNumber() {
         // ...
     }
-    
+
     /**
      * @return оценка, которая является отношением количества правильных ответов к количеству всех вопросов. 
      *         Оценка выставляется только в конце!
@@ -137,11 +142,11 @@ class Quiz {
 /**
  * @return тесты в {@link Map}, где
  * ключ     - название теста {@link String}
- * значение - сам тест       {@link Quiz}
+ * значение - сам тест       {@link by.toharrius.quizer.Quiz}
  */
-static Map<String, Quiz> getQuizMap() {
-    // ...
-}
+static Map<String, Quiz> getQuizMap(){
+        // ...
+        }
 ```
 
 ### public static void main()
@@ -237,6 +242,8 @@ class EquationTaskGenerator implements TaskGenerator {
 `TaskGenerator`, который позволяет объединить несколько других `TaskGenerator`.
 
 ```java
+import by.toharrius.quizer.tasks.Task;
+
 class GroupTaskGenerator implements TaskGenerator {
     /**
      * Конструктор с переменным числом аргументов
@@ -271,6 +278,8 @@ class GroupTaskGenerator implements TaskGenerator {
 `TaskGenerator`, который отдает задания из заранее заготовленного набора.
 
 ```java
+import by.toharrius.quizer.tasks.Task;
+
 class PoolTaskGenerator implements TaskGenerator {
     /**
      * Конструктор с переменным числом аргументов
@@ -279,8 +288,8 @@ class PoolTaskGenerator implements TaskGenerator {
      * @param tasks          задания, которые в конструктор передаются через запятую
      */
     PoolTaskGenerator(
-        boolean allowDuplicate,
-        Task... tasks
+            boolean allowDuplicate,
+            Task... tasks
     ) {
         // ...
     }
@@ -292,8 +301,8 @@ class PoolTaskGenerator implements TaskGenerator {
      * @param tasks          задания, которые передаются в конструктор в Collection (например, {@link LinkedList})
      */
     PoolTaskGenerator(
-        boolean allowDuplicate,
-        Collection<Task> tasks
+            boolean allowDuplicate,
+            Collection<Task> tasks
     ) {
         // ...
     }
@@ -310,6 +319,8 @@ class PoolTaskGenerator implements TaskGenerator {
 ### TextTask
 
 ```java
+import by.toharrius.quizer.tasks.Task;
+
 /**
  * Задание с заранее заготовленным текстом. 
  * Можно использовать {@link PoolTaskGenerator}, чтобы задавать задания такого типа.
@@ -320,12 +331,12 @@ class TextTask implements Task {
      * @param answer ответ на задание
      */
     TextTask(
-        String text,
-        String answer
+            String text,
+            String answer
     ) {
         // ...
     }
-    
+
     // ...
 }
 ```
@@ -363,31 +374,36 @@ default int getDiffNumber();
 
 ## Generator как nested class в Task★
 
-Сейчас вся иерархия `Task` дублируется и для `Generator` в отдельном пакете, это не очень хорошая практика, т. к. за таким кодом сложно следить. Давайте сделаем все `Generator`'ы внутреннеми классами в соответствующих `Task`. Например, вместо `ExpressionTaskGenerator` будет `ExpressionTask.Generator`. При этом `GroupTaskGenerator` и `PoolTaskGenerator` остануться в отдельном пакете, т.к. они не привязаны к конкретному типу задачи.
+Сейчас вся иерархия `Task` дублируется и для `Generator` в отдельном пакете, это не очень хорошая практика, т. к. за таким кодом сложно следить. Давайте сделаем все `Generator`'ы внутреннеми классами в соответствующих `Task`. Например, вместо `ExpressionTaskGenerator` будет `ExpressionTask.Generator`. При этом `GroupTaskGenerator` и `PoolTaskGenerator` останутся в отдельном пакете, т.к. они не привязаны к конкретному типу задачи.
 
 ```java
 interface Task {
-    interface Generator  { /* ... */ }
+    interface Generator { /* ... */
+    }
     // ...
 }
 
-interface MathTask extends Task {
-    interface Generator extends Task.Generator { /* ... */ }
+interface MathTask extends by.toharrius.quizer.tasks.Task {
+    interface Generator extends by.toharrius.quizer.tasks.Task.Generator { /* ... */
+    }
     // ...
 }
 
-abstract class AbstractMathTask implements Task {
-    static abstract class Generator implements MathTask.Generator { /* ... */ }
+abstract class AbstractMathTask implements by.toharrius.quizer.tasks.Task {
+    static abstract class Generator implements MathTask.Generator { /* ... */
+    }
     // ...
 }
 
 class ExpressionTask extends AbstractMathTask {
-    static class Generator extends AbstractMathTask.Generator { /* ... */ }
+    static class Generator extends AbstractMathTask.Generator { /* ... */
+    }
     // ...
 }
 
 class EquationTask extends AbstractMathTask {
-    static class Generator extends AbstractMathTask.Generator { /* ... */ }
+    static class Generator extends AbstractMathTask.Generator { /* ... */
+    }
     // ...
 }
 ```
