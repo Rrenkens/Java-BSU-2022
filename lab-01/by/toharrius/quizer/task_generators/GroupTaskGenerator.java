@@ -30,9 +30,7 @@ public class GroupTaskGenerator implements TaskGenerator {
      */
     GroupTaskGenerator(Iterable<TaskGenerator> generators) {
         this.generators = new ArrayList<>();
-        for (var gen : generators) {
-            this.generators.add(gen);
-        }
+        generators.forEach(this.generators::add);
     }
 
     /**

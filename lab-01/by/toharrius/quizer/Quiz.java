@@ -104,6 +104,6 @@ public class Quiz implements Cloneable {
      *         Оценка выставляется только в конце!
      */
     public double getMark() {
-        return (double)getCorrectAnswerNumber() / getTotalAnswerNumber();
+        return (double)getCorrectAnswerNumber() / getTaskCount();
     }
 }

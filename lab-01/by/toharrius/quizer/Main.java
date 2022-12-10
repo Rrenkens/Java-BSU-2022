@@ -18,26 +18,31 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
+    private static final String helpMessage = "list : view available quizes\n" +
+            "<test name> : run particular quiz\n" +
+            "help : view this message\n" +
+            "exit | quit | stop : terminate session";
+    private static Map<String, Quiz> quizes;
     /**
      * @return тесты в {@link Map}, где
      * ключ     - название теста {@link String}
      * значение - сам тест       {@link by.toharrius.quizer.Quiz}
      */
     private static @NotNull Map<String, Quiz> getQuizMap() {
-        var map = new HashMap<String, Quiz>();
+        var quizes = new HashMap<String, Quiz>();
         {
             var gen = new PoolTaskGenerator(false,
                     new TextTask("Какая (по слухам) подработка у С*****ча?", "сборщик мусора"),
                     new TextTask("Как называется человек, убегающий от каннибала?", "фастфуд"),
                     new TextTask("Какой вид порно не могут снять бомжи?", "домашнее"),
                     new TextTask("Как называется оглушающий удар татара?", "татарстан"));
-            map.put("stupid-questions", new Quiz(gen, 4));
+            quizes.put("stupid-questions", new Quiz(gen, 4));
         }
         {
             var gen = new PoolTaskGenerator(true,
                     new GenerousTask("Каков правильный ответ?"),
                     new TrickyTask("Это утверждение ложно."));
-            map.put("know-your-luck", new Quiz(gen, 7));
+            quizes.put("know-your-luck", new Quiz(gen, 7));
         }
         {
             var gen_eq_add = new EquationTask.Generator(2, 55,
@@ -52,13 +57,28 @@ public class Main {
             var gen_ex = new GroupTaskGenerator(new ExpressionTask.Generator[]{gen_ex_div, gen_ex_all});
             var gen_group = new GroupTaskGenerator(gen_ex, gen_eq,
                     new EquationTask.Generator(gen_eq_42_all, CopyParameter.FLAG));
-            map.put("tricky-math", new Quiz(gen_group, 5));
+            quizes.put("tricky-math", new Quiz(gen_group, 5));
         }
-        return map;
+        return quizes;
     }
 
     private static String inputLineNormalized() throws IOException {
         return consoleReader.readLine().toLowerCase().trim();
+    }
+
+    private static void tryLaunchQuiz(String query) throws IOException {
+            if (quizes.containsKey(query)) {
+                System.out.println("Starting quiz \"" + query + "\"!");
+                Quiz clone;
+                try {
+                    clone = new Quiz(quizes.get(query));
+                } catch (Exception e) {
+                    throw new RuntimeException("Unable to clone", e);
+                }
+                runProblemSet(clone);
+            } else {
+                System.out.println("Sorry, not found. Type \"list\" to see available");
+            }
     }
 
     private static void runProblemSet(Quiz quiz) throws IOException {
@@ -82,46 +102,28 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        var map = getQuizMap();
+        System.out.println(helpMessage);
+        quizes = getQuizMap();
         consoleReader = new BufferedReader(new InputStreamReader(System.in));
         boolean interactionFinished = false;
         while (!interactionFinished) {
             var query = inputLineNormalized();
             switch (query) {
                 case "list" -> {
-                    if (map.isEmpty()) {
+                    if (quizes.isEmpty()) {
                         System.out.println("There are no quizes now, coming soon ):");
                     } else {
-                        System.out.println("The total of " + map.size() + " quizes are present");
-                        map.forEach((name, q) -> System.out.println(name));
+                        System.out.println("The total of " + quizes.size() + " quizes are present");
+                        quizes.forEach((name, q) -> System.out.println(name));
                     }
-                    continue;
                 }
                 case "help" -> {
-                    System.out.println("list : view available quizes\n" +
-                            "<test name> : run particular quiz\n" +
-                            "help : view this message\n" +
-                            "exit | quit | stop : terminate session");
-                    continue;
+                    System.out.println(helpMessage);
                 }
                 case "exit", "quit", "stop", ":q" -> {
                     interactionFinished = true;
-                    continue;
                 }
-                default -> {
-                    if (map.containsKey(query)) {
-                        System.out.println("Starting quiz \"" + query + "\"!");
-                        Quiz clone;
-                        try {
-                            clone = new Quiz(map.get(query));
-                        } catch (Exception e) {
-                            throw new RuntimeException("Unable to clone", e);
-                        }
-                        runProblemSet(clone);
-                    } else {
-                        System.out.println("Sorry, not found. Type \"list\" to see available");
-                    }
-                }
+                default -> tryLaunchQuiz(query);
             }
         }
     }
