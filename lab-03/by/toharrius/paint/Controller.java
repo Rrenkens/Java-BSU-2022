@@ -1,5 +1,7 @@
 package by.toharrius.paint;
 
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
@@ -7,26 +9,37 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.Spinner;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.stage.FileChooser;
+
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 
 public class Controller {
     private static Controller instance = null;
     public Spinner<Integer> strokeWidthSpinner;
     public ComboBox<String> lineCapChoice;
     public Canvas secondaryCanvas;
+    public StackPane stackWrapCanvas;
+    public MenuBar menuBar;
+    public VBox sidePane;
     private ColorChooser colorChooser;
     private PaintingTool paintingTool = PaintingTool.PENCIL;
     private Point2D mousePressPos;
+    private File currentFile = null;
 
     public FlowPane colorBoxFlow;
-    public HBox root;
+    public VBox root;
     public Canvas mainCanvas;
     public Controller() {
         instance = this;
@@ -34,8 +47,6 @@ public class Controller {
 
     public void initElements() {
         var ctx = mainCanvas.getGraphicsContext2D();
-        ctx.setFill(Color.WHITE);
-        ctx.fillRect(0, 0, mainCanvas.getWidth(), mainCanvas.getHeight());
         colorChooser = new ColorChooser(colorBoxFlow);
         strokeWidthSpinner.setOnScroll(event -> {
             if (event.getDeltaY() < 0) {
@@ -60,6 +71,9 @@ public class Controller {
             });
         });
         lineCapChoice.getSelectionModel().select(0);
+        Main.getScene().widthProperty().addListener((obs, old_v, new_v) -> { resizeCanvasWindowSize(); });
+        Main.getScene().heightProperty().addListener((obs, old_v, new_v) -> { resizeCanvasWindowSize(); });
+        sidePane.widthProperty().addListener((obs, old_v, new_v) -> { resizeCanvasWindowSize(); });
     }
     private void recordMousePress(MouseEvent e) {
         mousePressPos = new Point2D(e.getX(), e.getY());
@@ -158,5 +172,64 @@ public class Controller {
             case "Ellipse" -> PaintingTool.ELLIPSE;
             default -> null;
         };
+    }
+
+    public void exit(ActionEvent actionEvent) {
+        System.exit(0);
+    }
+
+    private String extensionOf(String filename) {
+        var index = filename.lastIndexOf('.');
+        return index < 0 ? "" : filename.substring(index + 1);
+    }
+
+    private void resizeCanvas(double w, double h) {
+        mainCanvas.setHeight(h);
+        mainCanvas.setWidth(w);
+        secondaryCanvas.setHeight(h);
+        secondaryCanvas.setWidth(w);
+    }
+
+    public static void resizeCanvasWindowSize() {
+        var c = getInstance();
+        var w = Math.max(c.root.getWidth() - c.sidePane.getWidth() - 2, c.mainCanvas.getWidth());
+        var h = c.root.getHeight() - c.menuBar.getHeight() - 2;
+        c.resizeCanvas(w, h);
+    }
+
+    public void saveToFile(File file) throws IOException {
+        currentFile = file;
+        var img = mainCanvas.snapshot(null, null);
+        ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", file);
+    }
+    public void openFile(File file) throws IOException {
+        currentFile = file;
+        var img = ImageIO.read(file);
+        resizeCanvas(img.getWidth(), img.getHeight());
+        getMainDC().drawImage(SwingFXUtils.toFXImage(img, null), 0, 0);
+    }
+
+    public void save(ActionEvent actionEvent) throws IOException {
+        if (currentFile == null) {
+            saveAs(actionEvent);
+        } else {
+            saveToFile(currentFile);
+        }
+    }
+
+    public void saveAs(ActionEvent actionEvent) throws IOException {
+        var saveDialog = new FileChooser();
+        saveDialog.setTitle("Save Picture");
+        saveDialog.setInitialFileName("Untitled.png");
+        saveToFile(saveDialog.showSaveDialog(Main.getScene().getWindow()));
+    }
+
+    public void open(ActionEvent actionEvent) throws IOException {
+        var openDialog = new FileChooser();
+        openDialog.setTitle("Open image");
+        openDialog.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Images",
+                        "*.png", "*.GIF", "*.JPG", "*.JPEG"));
+        openFile(openDialog.showOpenDialog(Main.getScene().getWindow()));
     }
 }
