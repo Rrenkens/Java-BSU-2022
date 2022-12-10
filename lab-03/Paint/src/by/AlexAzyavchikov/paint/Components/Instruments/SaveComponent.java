@@ -37,26 +37,12 @@ public class SaveComponent extends Button implements Component {
         if (saveFile == null) {
             return;
         }
-//        saveFile = new File(saveFile.getName());
-        /*
         try {
             WritableImage image = node.snapshot(new SnapshotParameters(), null);
             BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
             ImageIO.write(bImage, "png", saveFile);
-        } catch (Throwable e) {
-            e.printStackTrace();
+        } catch (IOException e) {
             System.out.println("Save error");
-        }
-         */
-
-        SnapshotParameters params = new SnapshotParameters();
-        params.setFill(Color.TRANSPARENT);
-        WritableImage writableImage = node.getGraphicsContext2D().getCanvas().snapshot(params, null);
-        BufferedImage image = SwingFXUtils.fromFXImage(writableImage, null);
-        try {
-            ImageIO.write(image, "png", saveFile);
-        } catch (IOException e){
-
         }
     }
 }
