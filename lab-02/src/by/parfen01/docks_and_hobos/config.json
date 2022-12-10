@@ -1,0 +1,71 @@
+{
+  "ShipGenerator" : {
+    "shipCapacityMin" : 1,
+    "shipCapacityMax" : 100,
+    "generatingTime" : 10,
+    "cargoTypes" : [
+      "milk",
+      "meat",
+      "bread",
+      "carrot",
+      "cucumber"
+    ]
+  },
+  "Tunnel" : 7,
+  "Docks" : [
+    {
+      "id" : 1,
+      "unloadingSpeed" : 4,
+      "maxProductCapacity" : [
+        50,
+        50,
+        20,
+        25,
+        100
+      ]
+    },
+    {
+      "id" : 2,
+      "unloadingSpeed" : 7,
+      "maxProductCapacity" : [
+        80,
+        100,
+        35,
+        40,
+        55
+      ]
+    }
+  ],
+  "Hobos" : [
+    {
+      "stealingTime" : 7,
+      "name" : "Ivan"
+    },
+    {
+      "stealingTime" : 2,
+      "name" : "Vlad"
+    },
+    {
+      "stealingTime" : 1,
+      "name" : "Danil"
+    },
+    {
+      "stealingTime" : 5,
+      "name" : "Nicolay"
+    },
+    {
+      "stealingTime" : 3,
+      "name" : "Jon"
+    }
+  ],
+  "hobosVillage" : {
+    "eatingTime" : 10,
+    "ingredientsCount" : [
+      11,
+      4,
+      8,
+      9,
+      2
+    ]
+  }
+}
