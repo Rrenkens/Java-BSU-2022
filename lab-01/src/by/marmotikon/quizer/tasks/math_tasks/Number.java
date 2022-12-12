@@ -20,17 +20,19 @@ public class Number {
     }
 
     public String toString() {
+        if (isZero()) {
+            return "0";
+        }
         String string = Double.toString(value);
-        while (string.endsWith("0")) {
-            string = string.substring(0, string.length() - 1);
+        int pos = string.length() - 1;
+        while (string.charAt(pos) == '0') {
+            pos--;
         }
-        if (string.endsWith(".")) {
-            string = string.substring(0, string.length() - 1);
-        }
+        string = string.substring(0, pos);
         return string;
     }
 
-    public Result equals(String answer) {
+    public Result provideAnswer(String answer) {
         try {
             if (Math.abs(value - Double.parseDouble(answer)) < epsilon) {
                 return Result.OK;
@@ -70,7 +72,19 @@ public class Number {
         return value;
     }
 
+    public double getEpsilon() {
+        return  epsilon;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public void setEpsilon(double epsilon) {
+        this.epsilon = epsilon;
+    }
+
     public boolean isZero() {
-        return value == 0;
+        return Math.abs(value) < epsilon;
     }
 }

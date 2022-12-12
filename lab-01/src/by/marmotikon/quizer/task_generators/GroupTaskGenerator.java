@@ -6,7 +6,7 @@ import by.marmotikon.quizer.tasks.Task;
 import java.util.*;
 
 public class GroupTaskGenerator implements Task.TaskGenerator {
-    private final Vector<Task.TaskGenerator> generators;
+    private final ArrayList<Task.TaskGenerator> generators;
     /**
      * Конструктор с переменным числом аргументов
      *
@@ -16,7 +16,7 @@ public class GroupTaskGenerator implements Task.TaskGenerator {
         if (generators.length == 0) {
             throw new IllegalArgumentException("no generators are given to GroupTaskGenerator");
         }
-        this.generators = new Vector<>(List.of(generators));
+        this.generators = new ArrayList<>(List.of(generators));
     }
 
     /**
@@ -28,11 +28,11 @@ public class GroupTaskGenerator implements Task.TaskGenerator {
         if (generators.size() == 0) {
             throw new IllegalArgumentException("no generators are given to GroupTaskGenerator");
         }
-        this.generators = new Vector<>(generators);
+        this.generators = new ArrayList<>(generators);
     }
 
     /**
-     * @return результат метода generate() случайного генератора из списка.
+     * @return Результат метода generate() случайного генератора из списка.
      *         Если этот генератор выбросил исключение в методе generate(), выбирается другой.
      *         Если все генераторы выбрасывают исключение, то и тут выбрасывается исключение.
      */
@@ -42,7 +42,7 @@ public class GroupTaskGenerator implements Task.TaskGenerator {
         int index_copy = index;
         while (true) {
             try {
-                return generators.elementAt(index).generate();
+                return generators.get(index).generate();
             } catch (Exception e) {
                 index %= generators.size();
                 index++;

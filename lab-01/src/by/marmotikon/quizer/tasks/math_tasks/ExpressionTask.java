@@ -1,5 +1,7 @@
 package by.marmotikon.quizer.tasks.math_tasks;
 
+import by.marmotikon.quizer.tasks.Task;
+
 import java.util.EnumSet;
 
 public class ExpressionTask extends AbstractMathTask {
@@ -13,8 +15,11 @@ public class ExpressionTask extends AbstractMathTask {
                 double minNumber,
                 double maxNumber,
                 EnumSet<Operation> generateOperations
-        ) {
+        ) throws IllegalArgumentException {
             super(minNumber, maxNumber, 0, generateOperations);
+            if (generateOperations == null || generateOperations.isEmpty()) {
+                throw new IllegalArgumentException("can not generate any expression task without math operations");
+            }
         }
 
         /**
@@ -73,5 +78,10 @@ public class ExpressionTask extends AbstractMathTask {
 
     public ExpressionTask(String statement, Number answer) {
         super(statement, answer);
+    }
+
+    @Override
+    public Task copy() {
+        return new ExpressionTask(super.statement, super.answer);
     }
 }

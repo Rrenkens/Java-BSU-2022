@@ -27,7 +27,7 @@ public interface Task {
     /**
      *@return ответ на задание
      */
-    String getAnswer();
+    String getAnswerString();
 
     /**
      * Проверяет ответ на задание и возвращает результат
@@ -37,4 +37,8 @@ public interface Task {
      * @see           Result
      */
     Result validate(String answer);
+
+    boolean equals(Task other);
+
+    Task copy();
 }

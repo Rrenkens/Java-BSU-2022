@@ -4,9 +4,9 @@ import by.marmotikon.quizer.exceptions.QuizAlreadyFinishedException;
 import by.marmotikon.quizer.exceptions.QuizNotFinishedException;
 import by.marmotikon.quizer.tasks.Task;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import static by.marmotikon.quizer.Result.*;
 
@@ -14,11 +14,15 @@ import static by.marmotikon.quizer.Result.*;
  * Class, который описывает один тест
  */
 class Quiz {
-    private final ArrayList<Task> tasks;
-    Map<Result, Integer> Answers;
-    int index = -1;
-    private boolean isFinished = false;
+//    private final ArrayList<Task> tasks;
+    private Task currentTask;
+    private final Map<Result, Integer> Answers;
+//    private int index = -1;
     private boolean wasIncorrectInput = false;
+
+    private final Task.TaskGenerator generator;
+    private final int taskCount;
+
 
     /**
      * @param generator генератор заданий
@@ -28,36 +32,32 @@ class Quiz {
         if (taskCount <= 0) {
             throw new IllegalArgumentException("can't create quiz with less then one task");
         }
-        tasks = new ArrayList<>();
-        try {
-            for (int i = 0; i < taskCount; i++) {
-                tasks.add(generator.generate());
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        Answers = new HashMap<>();
+        Answers = new HashMap<>(3);
         Answers.put(OK, 0);
         Answers.put(WRONG, 0);
         Answers.put(INCORRECT_INPUT, 0);
+        this.generator = generator;
+        this.taskCount = taskCount;
     }
 
     /**
      * @return задание, повторный вызов вернет следующее
      * @see Task
      */
-    Task nextTask() throws QuizAlreadyFinishedException{
+    void nextTask() throws QuizAlreadyFinishedException{
         if (wasIncorrectInput) {
-            return tasks.get(index);
+            return;
+//            return currentTask;
         }
-        if (isFinished) {
+        if (isFinished()) {
             throw new QuizAlreadyFinishedException("trying to get new task when quiz is finished");
         }
-        index++;
-        if (index + 1 >= tasks.size()) {
-            isFinished = true;
+        try {
+            currentTask = generator.generate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return tasks.get(index);
+//        return currentTask;
     }
 
     /**
@@ -65,7 +65,7 @@ class Quiz {
      * ответов не увеличивается, а {@link #nextTask()} в следующий раз вернет тот же самый объект {@link Task}.
      */
     Result provideAnswer(String answer) throws IllegalCallerException {
-        Result result = tasks.get(index).validate(answer);
+        Result result = currentTask.validate(answer);
         Answers.put(result, Answers.get(result) + 1);
         wasIncorrectInput = result == INCORRECT_INPUT;
         return result;
@@ -75,7 +75,7 @@ class Quiz {
      * @return завершен ли тест
      */
     boolean isFinished() {
-        return isFinished;
+        return Answers.get(OK) + Answers.get(WRONG) == taskCount;
     }
 
     /**
@@ -99,8 +99,11 @@ class Quiz {
         return Answers.get(INCORRECT_INPUT);
     }
 
-    String getAnswer() {
-        return tasks.get(index).getAnswer();
+    final String getAnswer() {
+        return currentTask.getAnswerString();
+    }
+    final String getText() {
+        return currentTask.getText();
     }
 
     /**
@@ -108,9 +111,9 @@ class Quiz {
      * Оценка выставляется только в конце!
      */
     double getMark() throws QuizNotFinishedException{
-        if (!isFinished) {
+        if (!isFinished()) {
             throw new QuizNotFinishedException("trying to get mark before finishing quiz");
         }
-        return (float) (Answers.get(OK) * 10) / tasks.size();
+        return (float) (Answers.get(OK) * 10) / taskCount;
     }
 }

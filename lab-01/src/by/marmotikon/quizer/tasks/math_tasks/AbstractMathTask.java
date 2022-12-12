@@ -1,6 +1,7 @@
 package by.marmotikon.quizer.tasks.math_tasks;
 
 import by.marmotikon.quizer.Result;
+import by.marmotikon.quizer.tasks.Task;
 
 import java.util.EnumSet;
 import java.util.Random;
@@ -31,9 +32,6 @@ public abstract class AbstractMathTask implements MathTask {
             if (precision < 0) {
                 throw new IllegalArgumentException("can not generate any math task with invalid precision < 0");
             }
-            if (generateOperations.isEmpty()) {
-                throw new IllegalArgumentException("can not generate any math task without math operations");
-            }
             this.minNumber = minNumber;
             this.maxNumber = maxNumber;
             this.precision = precision;
@@ -56,8 +54,8 @@ public abstract class AbstractMathTask implements MathTask {
 
     }
 
-    private final String statement;
-    private final Number answer;
+    protected final String statement;
+    protected final Number answer;
 
 
     /**
@@ -84,12 +82,23 @@ public abstract class AbstractMathTask implements MathTask {
     }
 
     @Override
-    public String getAnswer() {
+    public String getAnswerString() {
         return String.valueOf(answer);
+    }
+
+    public Number getAnswer() {
+        return answer;
     }
 
     @Override
     public Result validate(String answer) {
-       return this.answer.equals(answer);
+       return this.answer.provideAnswer(answer);
+    }
+
+    @Override
+    public boolean equals(Task other) {
+        if (this == other) return true;
+        if (!(other instanceof AbstractMathTask otherMathTask)) return false;
+        return statement.equals(other.getText()) && answer.compareTo(otherMathTask.getAnswer()) == 0;
     }
 }

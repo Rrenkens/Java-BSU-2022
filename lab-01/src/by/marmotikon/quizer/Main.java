@@ -3,7 +3,6 @@ package by.marmotikon.quizer;
 import by.marmotikon.quizer.exceptions.QuizAlreadyFinishedException;
 import by.marmotikon.quizer.tasks.Task;
 import by.marmotikon.quizer.tasks.TextTask;
-import by.marmotikon.quizer.tasks.math_tasks.AnimalsTask;
 import by.marmotikon.quizer.tasks.math_tasks.ApplesTask.ApplesTaskGenerator;
 import by.marmotikon.quizer.tasks.math_tasks.EquationTask.EquationTaskGenerator;
 import by.marmotikon.quizer.tasks.math_tasks.ExpressionTask.ExpressionTaskGenerator;
@@ -18,18 +17,19 @@ public class Main {
         Map<String, Quiz> quizMap = getQuizMap();
         Scanner sc = new Scanner(System.in);
         System.out.println("Введите название теста...");
-        String enteredName = sc.next();
+        String enteredName = sc.nextLine();
         while (!quizMap.containsKey(enteredName)) {
             System.out.println("Неверное название теста. Попробуйте еще раз...");
-            enteredName = sc.next();
+            enteredName = sc.nextLine();
         }
         Quiz currentQuiz = quizMap.get(enteredName);
         while (!currentQuiz.isFinished()) {
             try {
-                System.out.println(currentQuiz.nextTask().getText());
+                currentQuiz.nextTask();
             } catch (QuizAlreadyFinishedException e) {
                 throw new RuntimeException(e);
             }
+            System.out.println(currentQuiz.getText());
             Result result = currentQuiz.provideAnswer(sc.next());
             switch (result) {
                 case OK -> {
@@ -62,33 +62,29 @@ public class Main {
         EquationTaskGenerator equationTaskGenerator = new EquationTaskGenerator(
                 0, 10, 0, EnumSet.allOf(MathTask.Operation.class));
 
-        ApplesTaskGenerator applesTaskGenerator = new ApplesTaskGenerator(
-                0, 10);
+        ApplesTaskGenerator applesTaskGenerator = new ApplesTaskGenerator(0, 10);
 
-        List<Task> AnimalTasksPool = List.of(
-                new AnimalsTask("Сколько ног у осминога?", 2),
-                new AnimalsTask("Сколько щупалец у осминога?", 8),
-                new AnimalsTask("Сколько сердец у осминога?", 3),
-                new AnimalsTask("Сколько мозгов у осминога?", 1),
-                new AnimalsTask("Сколько глаз у осминога?", 2),
-                new AnimalsTask("Сколько кг весил самый большой пойманный осминог?", 180),
-                new AnimalsTask("Сколько существует видов пингвинов?", 18),
-                new AnimalsTask("На сколько сотен метров в глубину максимально может нырнуть императорский пингвин?", 5),
-                new AnimalsTask("Сколько метров размах крыльев у альбатроса?", 3),
-                new AnimalsTask("Сколько глаз у пчелы?", 5));
+        List<Task> animalsTaskPool = List.of(
+                new TextTask("Сколько ног у осминога?", "2"),
+                new TextTask("Сколько щупалец у осминога?", "8"),
+                new TextTask("Сколько сердец у осминога?", "3"),
+                new TextTask("Сколько мозгов у осминога?", "1"),
+                new TextTask("Сколько глаз у осминога?", "2"),
+                new TextTask("Сколько кг весил самый большой пойманный осминог?", "180"),
+                new TextTask("Сколько существует видов пингвинов?", "18"),
+                new TextTask("На сколько сотен метров в глубину максимально может нырнуть императорский пингвин?", "5"),
+                new TextTask("Сколько метров размах крыльев у альбатроса?", "3"),
+                new TextTask("Сколько глаз у пчелы?", "5"));
 
-        PoolTaskGenerator poolTaskGenerator = new PoolTaskGenerator(false, AnimalTasksPool);
+        PoolTaskGenerator poolTaskGenerator = new PoolTaskGenerator(false, animalsTaskPool);
 
         GroupTaskGenerator groupTaskGenerator = new GroupTaskGenerator(
-                expressionTaskGenerator,
-                equationTaskGenerator,
-                poolTaskGenerator,
-                applesTaskGenerator);
+                expressionTaskGenerator, equationTaskGenerator, poolTaskGenerator, applesTaskGenerator);
 
         quizMap.put("Expressions", new Quiz(expressionTaskGenerator, 10));
         quizMap.put("Equations", new Quiz(equationTaskGenerator, 10));
         quizMap.put("DifferentTasks", new Quiz(groupTaskGenerator, 10));
-        quizMap.put("Animal fakts", new Quiz(new PoolTaskGenerator(false, AnimalTasksPool), 10));
+        quizMap.put("Animal facts", new Quiz(new PoolTaskGenerator(false, animalsTaskPool), 10));
         quizMap.put("ApplesTasks", new Quiz(applesTaskGenerator, 10));
 
         return quizMap;

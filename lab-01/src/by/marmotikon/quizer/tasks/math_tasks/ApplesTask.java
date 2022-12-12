@@ -1,9 +1,10 @@
 package by.marmotikon.quizer.tasks.math_tasks;
 
-import java.util.EnumSet;
+import by.marmotikon.quizer.tasks.Task;
 
 public class ApplesTask extends AbstractMathTask{
     public static class ApplesTaskGenerator extends AbstractMathTaskGenerator {
+
         /**
          * @param minNumber          минимальное число
          * @param maxNumber          максимальное число
@@ -12,9 +13,8 @@ public class ApplesTask extends AbstractMathTask{
                 double minNumber,
                 double maxNumber
         ) {
-            super(minNumber, maxNumber, 0, EnumSet.allOf(MathTask.Operation.class));
+            super(minNumber, maxNumber, 0, null);
         }
-
         /**
          * return задание типа {@link ApplesTask}
          */
@@ -28,9 +28,14 @@ public class ApplesTask extends AbstractMathTask{
                     + b + " яблок. Сколько яблок осталось у A?",
                     new Number(a.getValue() - b.getValue(), precision));
         }
-    }
 
+    }
     public ApplesTask(String statement, Number answer) {
         super(statement, answer);
+    }
+
+    @Override
+    public Task copy() {
+        return new ApplesTask(super.statement, super.answer);
     }
 }

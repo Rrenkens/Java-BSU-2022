@@ -5,15 +5,11 @@ import by.marmotikon.quizer.tasks.Task;
 import by.marmotikon.quizer.tasks.Task.TaskGenerator;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class PoolTaskGenerator implements TaskGenerator {
     private final boolean allowDuplicate;
-    private final List<Task> tasks;
+    private List<Task> tasks;
     private final Random random = new Random();
-    private final List<Integer> freeTaskIndexes;
-
 
     /**
      * Конструктор с переменным числом аргументов
@@ -22,11 +18,7 @@ public class PoolTaskGenerator implements TaskGenerator {
      * @param tasks          задания, которые в конструктор передаются через запятую
      */
     PoolTaskGenerator(boolean allowDuplicate, Task... tasks) {
-        this.allowDuplicate = allowDuplicate;
-        this.tasks = List.of(tasks);
-        freeTaskIndexes = Stream.iterate(0, n -> n + 1)
-                .limit(this.tasks.size())
-                .collect(Collectors.toList());
+        this(allowDuplicate, List.of(tasks));
     }
 
     /**
@@ -37,26 +29,37 @@ public class PoolTaskGenerator implements TaskGenerator {
      */
     public PoolTaskGenerator(boolean allowDuplicate, Collection<Task> tasks) {
         this.allowDuplicate = allowDuplicate;
-        this.tasks = tasks.stream().toList();
-        System.out.println(this.tasks.size() + " size");
-        freeTaskIndexes = Stream.iterate(0, n -> n + 1)
-                .limit(this.tasks.size())
-                .collect(Collectors.toList());
+        this.tasks = new ArrayList<>(tasks.stream().toList());
+        if (!allowDuplicate) {
+            this.tasks = new ArrayList<>();
+            for(var task1 : tasks) {
+                boolean isDuplicate = false;
+                for(var task2 : this.tasks) {
+                    if (task1.equals(task2)) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+                if (!isDuplicate) {
+                    this.tasks.add(task1);
+                }
+            }
+        }
+        Collections.shuffle(this.tasks);
     }
 
     /**
      * @return случайная задача из списка
      */
     public Task generate() {
-        System.out.println("freeTaks size " + freeTaskIndexes.size());
-        if (freeTaskIndexes.isEmpty()) {
+        if (tasks.isEmpty()) {
             throw new EmptyTaskPoolException("trying to generate more tasks than given to PoolTaskGenerator with banned duplicates");
         }
-        int indexOfTaskIndex = random.nextInt(freeTaskIndexes.size());
-        int taskIndex = freeTaskIndexes.get(indexOfTaskIndex);
+        int indexOfTask = random.nextInt(tasks.size());
+        Task task = tasks.get(indexOfTask).copy();
         if (!allowDuplicate) {
-            freeTaskIndexes.remove(indexOfTaskIndex);
+            tasks.remove(indexOfTask);
         }
-        return tasks.get(taskIndex);
+        return task;
     }
 }

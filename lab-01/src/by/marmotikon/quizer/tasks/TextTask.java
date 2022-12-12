@@ -2,6 +2,7 @@ package by.marmotikon.quizer.tasks;
 
 import by.marmotikon.quizer.Result;
 import by.marmotikon.quizer.task_generators.PoolTaskGenerator;
+import by.marmotikon.quizer.tasks.math_tasks.AbstractMathTask;
 
 /**
  * Задание с заранее заготовленным текстом.
@@ -12,7 +13,7 @@ public class TextTask implements Task {
     String answer;
 
     @Override
-    public String getAnswer() {
+    public String getAnswerString() {
         return answer;
     }
 
@@ -41,5 +42,17 @@ public class TextTask implements Task {
     @Override
     public Result validate(String answer) {
         return (answer.equalsIgnoreCase(this.answer) ? Result.OK : Result.WRONG);
+    }
+
+    @Override
+    public boolean equals(Task other) {
+        if (this == other) return true;
+        if (!(other instanceof TextTask otherTextTask)) return false;
+        return text.equals(otherTextTask.getText()) && answer.equals(otherTextTask.getAnswerString());
+    }
+
+    @Override
+    public Task copy() {
+        return new TextTask(text, answer);
     }
 }
