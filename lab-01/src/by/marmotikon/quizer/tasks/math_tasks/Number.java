@@ -28,7 +28,10 @@ public class Number {
         while (string.charAt(pos) == '0') {
             pos--;
         }
-        string = string.substring(0, pos);
+        if (string.charAt(pos) == '.') {
+            pos--;
+        }
+        string = string.substring(0, pos + 1);
         return string;
     }
 
