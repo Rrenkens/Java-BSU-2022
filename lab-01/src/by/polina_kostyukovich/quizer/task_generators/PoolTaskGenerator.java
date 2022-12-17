@@ -56,9 +56,30 @@ public class PoolTaskGenerator implements Task.Generator {
     }
 
     private static List<Task> getTasksWithoutDuplicate(Task[] tasks) {
-        return Arrays.stream(tasks)
-                .distinct()
-                .collect(Collectors.toList());
+        if (tasks.length == 0) {
+            return new ArrayList<>();
+        }
+
+        Arrays.sort(tasks, Comparator.comparing(Task::getText));
+        Task current_task = tasks[0];
+        int numberOfDifferentTasks = 1;
+        for (Task task : tasks) {
+            if (!current_task.getText().equals(task.getText())) {
+                ++numberOfDifferentTasks;
+                current_task = task;
+            }
+        }
+
+        ArrayList<Task> differentTasks = new ArrayList<>(numberOfDifferentTasks);
+        current_task = tasks[0];
+        differentTasks.add(tasks[0]);
+        for (Task task : tasks) {
+            if (!current_task.getText().equals(task.getText())) {
+                current_task = task;
+                differentTasks.add(task);
+            }
+        }
+        return differentTasks;
     }
 
     /**
